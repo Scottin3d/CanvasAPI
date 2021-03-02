@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>public_html/src/MyGame/MyGame.js</url>
+            <bookmark id="1">
+                <name/>
+                <line>94</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name="Chapter4"/>
+        <group name="BookChapters"/>
+        <group name="AllBookProjects"/>
+        <group name="Apress-2d-game-engine"/>
+        <group>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/Engine/Cameras/Camera_Manipulation.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/Engine/Cameras/Camera.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/MyGame/Objects/Hero.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/Engine/Renderables/SpriteRenderable.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/index.html</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/Engine/GameObjects/GameObject.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/Engine/Renderables/FontRenderable.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/Engine/Cameras/Camera_Input.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/MyGame/Objects/UIcanvas.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/Engine/Renderables/Renderable.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/Engine/Utils/Transform.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/MyGame/Objects/UIelement.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CSS452MP5/public_html/src/MyGame/MyGame.js</file>
+        </group>
+    </open-files>
+</project-private>
