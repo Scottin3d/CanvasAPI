@@ -23,6 +23,7 @@ function Brain(spriteTexture) {
 
     this.setSpeed(0.3);
 }
+
 gEngine.Core.inheritPrototype(Brain, GameObject);
 
 Brain.prototype.update = function () {

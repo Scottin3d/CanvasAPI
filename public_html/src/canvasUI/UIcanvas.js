@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 
+"use strict";
 function UIcanvas(){
+    this.clickHold = false;
+    this.lastElement = null;
     
     this.UIwidth = document.getElementById("GLCanvas").width;
     this.UIHeight = document.getElementById("GLCanvas").height;
@@ -15,7 +18,7 @@ function UIcanvas(){
         [0, 0, this.UIwidth, this.UIHeight]                                                        // viewport (orgX, orgY, width, height)
     );
     
-    this.UIElements= null;
+    this.UIElements = [];
     
     this.mMsg = new FontRenderable("Status Message");
     this.mMsg.setColor([0, 0, 0, 1]);
@@ -24,21 +27,19 @@ function UIcanvas(){
     
 };
 
-UIcanvas.prototype.update = function () {
-    this.mMsg.setText("Status");
-};
+
 
 UIcanvas.prototype.draw = function () {
-    if(this.UIElements === null){
+    if(this.UIElements.length === 0){
         return;
     }
     this.UIcamera.setupCanvas();
     
     for(var i = 0; i < this.UIElements.length; i++){
-        this.UIElements[i].draw(this.UIcamera);
+        this.UIElements[i].drawElement(this.UIcamera);
         
     }
-    this.mMsg.draw(this.UIcamera);
+    //this.mMsg.draw(this.UIcamera);
 };
 
 UIcanvas.prototype.AddElement = function (element){
@@ -47,16 +48,16 @@ UIcanvas.prototype.AddElement = function (element){
     }
     this.UIElements.push(element);
 };
+
+
 UIcanvas.prototype.AddButton = function (){
     if(this.UIElements === null){
         this.UIElements = [];
     }
-    var button = new Renderable(gEngine.DefaultResources.getConstColorShader());
-    button.setColor([1,1,1,1]);
-    button.getXform().setPosition(20, 60);
-    button.getXform().setSize(50, 20);
-    
-    
+    var button = new UIelement([1,1,1,1], [20, 60], [50, 20]);
+    //button.setColor([1,1,1,1]);
+    //button.getXform().setPosition(20, 60);
+    //button.getXform().setSize(50, 20);
     this.UIElements.push(button);
 };
 

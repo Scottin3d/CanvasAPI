@@ -93,10 +93,11 @@ MyGame.prototype.initialize = function () {
     c = hexToRgb("14213d");
     this.vCanvas.setBackgroundColor([c.r, c.g, c.b, 0]);
    
-    this.cButton = new Renderable(gEngine.DefaultResources.getConstColorShader());
-    this.cButton.setColor([1,1,1,1]);
-    this.cButton.getXform().setPosition(20, 60);
-    this.cButton.getXform().setSize(50, 20);
+   
+    this.cButton = new UIelement([1,1,1,1], [20,60], [50,20]);
+    //this.cButton.setColor([1,1,1,1]);
+    //this.cButton.getXform().setPosition(20, 60);
+    //this.cButton.getXform().setSize(50, 20);
     
     this.UI.AddElement(this.cButton);
     //this.UI.AddButton();
@@ -108,21 +109,6 @@ MyGame.prototype.initialize = function () {
     bgR.getXform().setPosition(0, 0);
     this.mBg = new GameObject(bgR);
     
-    this.mMsg = new Array(3);
-    this.mMsg[0] = new FontRenderable("Status Message");
-    this.mMsg[0].setColor([0, 0, 0, 1]);
-    this.mMsg[0].getXform().setPosition(0, 60);
-    this.mMsg[0].setTextHeight(5);
-    
-    this.mMsg[1] = new FontRenderable("Status Message");
-    this.mMsg[1].setColor([1, 1, 1, 1]);
-    this.mMsg[1].getXform().setPosition(0, 40);
-    this.mMsg[1].setTextHeight(5);
-    
-    this.mMsg[2] = new FontRenderable("Status Message");
-    this.mMsg[2].setColor([1, 1, 1, 1]);
-    this.mMsg[2].getXform().setPosition(0, 20);
-    this.mMsg[2].setTextHeight(5);
 };
 
 
@@ -149,9 +135,9 @@ MyGame.prototype.draw = function () {
     //this.vCanvas.setupViewProjection();
     this.cButton.draw(this.vCanvas);
     */
-    this.mMsg[0].draw(this.vCanvas);
-    this.mMsg[1].draw(this.vCanvas);
-    this.mMsg[2].draw(this.vCanvas);
+    //this.mMsg[0].draw(this.vCanvas);
+    //this.mMsg[1].draw(this.vCanvas);
+    //this.mMsg[2].draw(this.vCanvas);
     // dont clear viewport
 };
 
@@ -159,9 +145,6 @@ MyGame.prototype.draw = function () {
 // anything from this function!
 MyGame.prototype.update = function () {
     this.UI.update();
-    
-    
-    
     
     var zoomDelta = 0.05;
     //this.mCamera.update();
@@ -179,14 +162,7 @@ MyGame.prototype.update = function () {
     var heroPos = this.mHero.getXform().getPosition();
     var a = heroPos[0] - this.mCamera.mouseWCX();
     var b = heroPos[1] - this.mCamera.mouseWCY();
-    //msg += "hero: x" + heroPos[0].toFixed(2) + ", y" + heroPos.toFixed(2) + "  ";
     var heroMag = Math.sqrt(a*a + b*b);
-    
-    
-    
-    this.mMsg[0].setText("Hero mag: " + heroMag.toFixed(2));
-    this.mMsg[1].setText("Button X:" + this.cButton.getXform().getPosition()[0] + " Y:" + this.cButton.getXform().getPosition()[1]);
-    this.mMsg[2].setText("Mouse Pos X:" + this.mCamera.mouseWCX().toFixed(2) + " Y: " + this.mCamera.mouseWCY().toFixed(2));
     if (heroMag > 6) {
         this.mHero.rotateObjPointTo(vec2.fromValues(this.mCamera.mouseWCX(), 
                                                     this.mCamera.mouseWCY()), 0.1);
@@ -194,100 +170,4 @@ MyGame.prototype.update = function () {
         GameObject.prototype.update.call(this.mHero);
         
     }
-    
-    if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
-        
-        /* this will be a function in the ui like
-         * var element = this.vCanvas.isMouseOver(mousePos);
-         * if(elememt[0]){
-         *      element[1].Invoke();
-         * }
-         **/
-        /*
-        var buttonPos = this.cButton.getXform().getPosition(); 
-        var buttonH = this.cButton.getXform().getHeight();
-        var buttonW = this.cButton.getXform().getWidth();
-        
-        if(this.mCamera.mouseWCX() >= buttonPos[0] - (buttonW / 2) &&
-           this.mCamera.mouseWCX() <= buttonPos[0] + (buttonW / 2) &&    
-           this.mCamera.mouseWCY() <= buttonPos[1] + (buttonH / 2) &&
-           this.mCamera.mouseWCY() >= buttonPos[1] - (buttonH / 2)){
-            
-           this.mMsg[0].setText("Click!");
-        }
-        */
-       var mouse = [this.mCamera.mouseWCX(), this.mCamera.mouseWCY()];
-       var element = this.UI.IsMouseOverElement(mouse);
-       if(element[0]){
-          this.UI.TestClick();
-       }
-        
-        
-    }
-
-    /* Legacy code
-     * TODO
-     * - go throguh and see if we can salvage anything
-     */
-    // Pan camera to object
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.L)) {
-        this.mFocusObj = this.mLMinion;
-        this.mChoice = 'L';
-        this.mCamera.panTo(this.mLMinion.getXform().getXPos(), this.mLMinion.getXform().getYPos());
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.R)) {
-        this.mFocusObj = this.mRMinion;
-        this.mChoice = 'R';
-        this.mCamera.panTo(this.mRMinion.getXform().getXPos(), this.mRMinion.getXform().getYPos());
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.P)) {
-        this.mFocusObj = this.mPortal;
-        this.mChoice = 'P';
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.H)) {
-        this.mFocusObj = this.mHero;
-        this.mChoice = 'H';
-    }
-
-    // zoom
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.N)) {
-        this.mCamera.zoomBy(1 - zoomDelta);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.M)) {
-        this.mCamera.zoomBy(1 + zoomDelta);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.J)) {
-        this.mCamera.zoomTowards(this.mFocusObj.getXform().getPosition(), 1 - zoomDelta);
-    }
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.K)) {
-        this.mCamera.zoomTowards(this.mFocusObj.getXform().getPosition(), 1 + zoomDelta);
-    }
-
-    // interaction with the WC bound
-    this.mCamera.clampAtBoundary(this.mBrain.getXform(), 0.9);
-    this.mCamera.clampAtBoundary(this.mPortal.getXform(), 0.8);
-    this.mCamera.panWith(this.mHero.getXform(), 0.9);
-
-    if (gEngine.Input.isKeyClicked(gEngine.Input.keys.Q)) {
-        this.mCamera.shake(-2, -2, 20, 30);
-    }
-    
-
-    // testing the mouse input
-    if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
-        
-    }
-
-    if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Middle)) {
-       
-    }
-    if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Right)) {
-    }
-
-    if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Middle)) {
-    }
-    
-    
-    
-    
 };
