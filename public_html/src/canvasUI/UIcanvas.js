@@ -6,24 +6,21 @@
 
 "use strict";
 function UIcanvas(){
+    this.UIxmlpath  = null;
+    this.UIxml = null;
+    this.editMode = false;
+    this.editModeOverlay = null;
+    
     this.clickHold = false;
     this.lastElement = null;
     
-    this.UIwidth = document.getElementById("GLCanvas").width;
-    this.UIHeight = document.getElementById("GLCanvas").height;
-    
-    this.UIcamera = new Camera(
-        vec2.fromValues(0, 0),                                                  // position of the camera
-        250,                                                                    // width of camera
-        [0, 0, this.UIwidth, this.UIHeight]                                                        // viewport (orgX, orgY, width, height)
-    );
+    this.UIwidth = null;
+    this.UIHeight = null;
+    this.UIcamera = null;
     
     this.UIElements = [];
     
-    this.mMsg = new FontRenderable("Status Message");
-    this.mMsg.setColor([0, 0, 0, 1]);
-    this.mMsg.getXform().setPosition(0, 60);
-    this.mMsg.setTextHeight(5);
+    this._initCanvas();
     
 };
 
@@ -39,7 +36,11 @@ UIcanvas.prototype.draw = function () {
         this.UIElements[i].drawElement(this.UIcamera);
         
     }
-    //this.mMsg.draw(this.UIcamera);
+    
+    if( this.editMode){
+        this.editModeOverlay.draw(this.UIcamera);
+    }
+    
 };
 
 UIcanvas.prototype.AddElement = function (element){
@@ -55,15 +56,10 @@ UIcanvas.prototype.AddButton = function (){
         this.UIElements = [];
     }
     var button = new UIelement([1,1,1,1], [20, 60], [50, 20]);
-    //button.setColor([1,1,1,1]);
-    //button.getXform().setPosition(20, 60);
-    //button.getXform().setSize(50, 20);
     this.UIElements.push(button);
-};
-
-UIcanvas.prototype.TestClick = function (){
-    this.mMsg.setText("Clicked!");
     
+    // add to xml
+    this.UIxml
 };
 
 UIcanvas.prototype.IsMouseOverElement = function (mousePosition){
@@ -84,3 +80,38 @@ UIcanvas.prototype.IsMouseOverElement = function (mousePosition){
     return [false, null];
 };
 
+UIcanvas.prototype._initCanvas = function (){
+    // xml
+    this.UIxmlpath  = "src/canvasUI/assets/UIcanvas.xml";
+    this.UIxml = document.implementation.createDocument("", "", null);
+    
+    
+    
+    // UI camera
+    this.UIwidth = document.getElementById("GLCanvas").width;
+    this.UIHeight = document.getElementById("GLCanvas").height;
+    
+    this.UIcamera = new Camera(
+        vec2.fromValues(0, 0),                                                  // position of the camera
+        250,                                                                    // width of camera
+        [0, 0, this.UIwidth, this.UIHeight]                                     // viewport (orgX, orgY, width, height)
+    );
+    
+    //<Camera CenterX="20" CenterY="60" Width="20" 
+    //    Viewport="20 40 600 300"   
+    //   BgColor="0 0 1 1.0"
+    var camElem = this.UIxml.createElement("Camera");
+    camElem.setAttribute("CenterX", "0");
+    camElem.setAttribute("CenterY", "0");
+    camElem.setAttribute("Width", "250");
+    camElem.setAttribute("Viewport", "0 0 " + this.UIwidth + " " + this.UIHeight);
+    camElem.setAttribute("BgColor", "0 0 0 0");
+    
+    // edit mode overlay
+    var camVP = this.UIcamera.getViewport();
+    this.editModeOverlay = new Renderable(gEngine.DefaultResources.getConstColorShader());
+    this.editModeOverlay.setColor([0,1,0,.2]);
+    this.editModeOverlay.getXform().setPosition(camVP[0], camVP[1]);
+    this.editModeOverlay.getXform().setSize(camVP[2], camVP[3]);
+    
+};
