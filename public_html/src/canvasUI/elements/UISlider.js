@@ -38,6 +38,8 @@ gEngine.Core.inheritPrototype(UISlider, UIelement);
 
 UISlider.prototype._update = function (camera) {
     if(this.isHighlighted && gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)){
+        
+        // TODO let mouse move off nob and still slide as long as mouse down
         var mouseX = camera.mouseWCX();
         var pos = this.eSliderNob.getXform().getPosition();
         var size = this.eSliderNob.getXform().getSize();
@@ -47,19 +49,19 @@ UISlider.prototype._update = function (camera) {
         // clamp value
         if(mouseX <= this.maxPos && mouseX >= this.minPos){
             this.eSliderNob.getXform().setPosition(mouseX, pos[1]);
-            
+            this.invoke(this.eSliderValue);
             // fire event
         }
         
     }
 };
 
-UISlider.prototype.drawE = function (camera) {
+UISlider.prototype._draw = function (camera) {
      this.eSlidierBar.draw(camera);
      this.eSliderNob.draw(camera);
 };
 
-UISlider.prototype.highlight = function(isOn){
+UISlider.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
     if(this.isHighlighted){
          this.eSliderNob.setColor([1,1,0,1]);
@@ -71,4 +73,11 @@ UISlider.prototype.highlight = function(isOn){
 
 UISlider.prototype.click = function(){
     this.eSliderNob.setColor([1,0,1,1]);
+};
+
+UISlider.prototype.invoke = function(value){
+    for (var i = 0; i < this.eListeners.length; i++) {
+        this.eListeners[i](value);
+    }
+    
 };

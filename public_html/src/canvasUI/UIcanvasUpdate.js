@@ -31,10 +31,10 @@ UIcanvas.prototype.update = function () {
 
         if(element[0]){
             this.lastElement = element[1];
-            element[1].eHighlight(true);
+            element[1].highlight(true);
         }else{
             if(this.lastElement){
-                this.lastElement.eHighlight(false);
+                this.lastElement.highlight(false);
             }
             this.lastElement = null;
         }

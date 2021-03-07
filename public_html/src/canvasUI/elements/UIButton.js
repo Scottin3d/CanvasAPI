@@ -27,12 +27,12 @@ gEngine.Core.inheritPrototype(UIButton, UIelement);
 
 UIButton.prototype._update = function (camera) {
     if(!this.isClicked && !this.isHighlighted){
-        this.highlight(false);
+        this._highlight(false);
     }
     
 };
 
-UIButton.prototype.drawE = function (camera) {
+UIButton.prototype._draw = function (camera) {
     this.eButton.draw(camera);
     this.eText.draw(camera);
 };
@@ -44,7 +44,7 @@ UIButton.prototype._mouseDCY = function () {
     return gEngine.Input.getMousePosY() - this.eButton.getXform().getYPos();
 };
 
-UIButton.prototype.highlight = function(isOn){
+UIButton.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
     if(this.isHighlighted){
          this.eButton.setColor([1,1,0,1]);
@@ -59,4 +59,8 @@ UIButton.prototype.highlight = function(isOn){
 UIButton.prototype.click = function(){
     this.eButton.setColor([1,0,1,1]);
     this.eText.setText("Clicked!");
+};
+
+UIButton.prototype.setText = function(text){
+    this.eText.setText(text);
 };
