@@ -94,12 +94,12 @@ MyGame.prototype.initialize = function () {
     this.vCanvas.setBackgroundColor([c.r, c.g, c.b, 0]);
    
    
-    this.cButton = new UIelement([1,1,1,1], [20,60], [50,20]);
-    //this.cButton.setColor([1,1,1,1]);
-    //this.cButton.getXform().setPosition(20, 60);
-    //this.cButton.getXform().setSize(50, 20);
+    this.cButton = new UIButton([1,1,1,1], [20,60], [50,20]);
+    // UISlider (pos, size, range, dValue, vStep){
+    this.cSlider = new UISlider([10,10], [60, 5], [0, 10], 2, 1);
     
     this.UI.AddElement(this.cButton);
+    this.UI.AddElement(this.cSlider);
     //this.UI.AddButton();
     
     // Large background image
@@ -144,6 +144,7 @@ MyGame.prototype.draw = function () {
 // The Update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 MyGame.prototype.update = function () {
+    // update UI
     this.UI.update();
     
     var zoomDelta = 0.05;

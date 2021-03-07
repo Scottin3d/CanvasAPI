@@ -24,17 +24,17 @@ UIcanvas.prototype.update = function () {
 
         for(var i = 0; i < this.UIElements.length; i++){
 
-            this.UIElements[i].update(); 
+            this.UIElements[i].update(this.UIcamera); 
         }
 
         //highlights
 
         if(element[0]){
             this.lastElement = element[1];
-            element[1].highlight(true);
+            element[1].eHighlight(true);
         }else{
             if(this.lastElement){
-                this.lastElement.highlight(false);
+                this.lastElement.eHighlight(false);
             }
             this.lastElement = null;
         }
@@ -49,9 +49,5 @@ UIcanvas.prototype.update = function () {
            this.clickHold = false; 
         }
 
-
-        if(gEngine.Input.isButtonClicked(gEngine.Input.keys.B)){
-            this.NewButton();
-        } 
     }
 };

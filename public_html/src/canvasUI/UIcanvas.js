@@ -50,18 +50,6 @@ UIcanvas.prototype.AddElement = function (element){
     this.UIElements.push(element);
 };
 
-
-UIcanvas.prototype.AddButton = function (){
-    if(this.UIElements === null){
-        this.UIElements = [];
-    }
-    var button = new UIelement([1,1,1,1], [20, 60], [50, 20]);
-    this.UIElements.push(button);
-    
-    // add to xml
-    this.UIxml
-};
-
 UIcanvas.prototype.IsMouseOverElement = function (mousePosition){
     for(var i = 0; i < this.UIElements.length; i++){
         var buttonPos = this.UIElements[i].getXform().getPosition(); 
