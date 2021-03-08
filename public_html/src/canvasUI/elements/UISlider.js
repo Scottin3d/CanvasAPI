@@ -12,6 +12,9 @@ function UISlider (pos, size, range, dValue, vStep){
     this.maxValue = range[1];
     this.maxPos = null;
     this.eSliderValue = dValue;
+    this.steps = vStep;
+    var stringSteps = this.steps.toString();
+    this.decimalPlaces = (stringSteps.indexOf('.') !== -1 ? stringSteps.split('.')[1].length : 0);
     
     // two renderables -- bar and nob
     this.eSlidierBar = new Renderable(gEngine.DefaultResources.getConstColorShader());
@@ -50,15 +53,16 @@ UISlider.prototype._update = function (camera) {
         
         //var nobXPos = (pos[0]- (size[0] / 2)) + size[0] * (this.eSliderValue / this.maxValue);
         //var nobXPos = pos[0] + size[0] * (this.eSliderValue / this.maxValue);
-        //console.log(pos[0], this.maxPos, this.minPos, Math.floor(((pos[0] - this.minPos) / 60) * this.maxValue));//, this.maxPos + (size[0] / 2), Math.floor(nobXPos / (this.maxPos + (size[0] / 2)) * this.maxValue));
-        
-        this.eSliderValue = Math.floor(((pos[0] - this.minPos) / (this.maxPos - this.minPos)) * this.maxValue);
+        var tempValue = (pos[0] - this.minPos);// / (this.maxPos - this.minPos))) * this.maxValue;
+        var changeValue = (this.maxPos - this.minPos) / (this.maxValue / this.steps);
+        tempValue = ((tempValue / changeValue) / (this.maxValue / this.steps)) * this.maxValue;
+        this.eSliderValue = tempValue - (tempValue % this.steps);
         // calc mouse directon
         // apply to nob
         // clamp value
         if(mouseX <= this.maxPos && mouseX >= this.minPos){
             this.eSliderNob.getXform().setPosition(mouseX, pos[1]);
-            this._invoke(this.eSliderValue);
+            this._invoke(this.eSliderValue.toFixed(this.decimalPlaces));
             // fire event
         }
         
