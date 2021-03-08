@@ -56,10 +56,10 @@ UIcanvas.prototype.IsMouseOverElement = function (mousePosition){
         var buttonH = this.UIElements[i].getXform().getHeight();
         var buttonW = this.UIElements[i].getXform().getWidth();
 
-        if(mousePosition[0] >= buttonPos[0] - (buttonW / 2) &&
+        if((mousePosition[0] >= buttonPos[0] - (buttonW / 2) &&
            mousePosition[0] <= buttonPos[0] + (buttonW / 2) &&    
            mousePosition[1] <= buttonPos[1] + (buttonH / 2) &&
-           mousePosition[1] >= buttonPos[1] - (buttonH / 2)){
+           mousePosition[1] >= buttonPos[1] - (buttonH / 2)) || this.UIElements[i].isHeld()){
            
            return [true, this.UIElements[i]];
         }
