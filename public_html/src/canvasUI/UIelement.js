@@ -14,7 +14,7 @@ function UIelement() {
     
     this.dispatcher = new OurDispatcher();
     
-    this.clickFunc = null;
+    this.onClick = null;
     //const event = document.createEvent('Event');
     //event.initEvent('click', true, true);
     GameObject.call(this, this.element);
@@ -44,10 +44,10 @@ UIelement.prototype.eClick = function(bool){
 UIelement.prototype.addListener = function(func, target){
     //this.dispatcher.on(name, handler);
     
-    this.clickFunc = func.bind(target);
+    this.onClick = func.bind(target);
 };
 
 UIelement.prototype.isHeld = function() {
     return this.isPressed;
-}
+};
 

@@ -20,6 +20,7 @@ function UIButton(color, pos, size) {
     this.eText.getXform().setPosition(0,  pos[1]);
     this.eText.setTextHeight(5);
     
+    this.bText = "status!";
     
     GameObject.call(this, this.eButton);
 };
@@ -30,6 +31,12 @@ gEngine.Core.inheritPrototype(UIButton, UIelement);
 UIButton.prototype._update = function (camera) {
     if(!this.isClicked && !this.isHighlighted){
         this._highlight(false);
+    }
+    
+    if(this.isHighlighted){
+        this.eText.setText("Highlighted!");
+    }else{
+       this.eText.setText(this.bText); 
     }
     
 };
@@ -50,19 +57,23 @@ UIButton.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
     if(this.isHighlighted){
          this.eButton.setColor([1,1,0,1]);
-         this.eText.setText("HighLighted!");
     }else{
         this.eButton.setColor([1,1,1,1]);
-        //this.eText.setText("Status!");
     }
 };
 
 
 UIButton.prototype.click = function(){
     this.eButton.setColor([1,0,1,1]);
-    this.eText.setText("Clicked!");
+    this.bText = "Clicked!";
+    this._invoke(5);
+    this.setText(5);
+};
+
+UIButton.prototype._invoke = function(value){
+    this.onClick(value);
 };
 
 UIButton.prototype.setText = function(text){
-    this.eText.setText(text);
+    this.bText = text;
 };

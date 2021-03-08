@@ -101,6 +101,8 @@ MyGame.prototype.initialize = function () {
     // TODO this is not passing the function
     this.cSlider.addListener(this.cButton.setText, this.cButton);
     
+    this.cButton.addListener(this.cSlider.setValue, this.cSlider);
+    
     this.UI.AddElement(this.cButton);
     this.UI.AddElement(this.cSlider);
     //this.UI.AddButton();

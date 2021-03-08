@@ -12,7 +12,6 @@ function UISlider (pos, size, range, dValue, vStep){
     this.maxValue = range[1];
     this.maxPos = null;
     this.eSliderValue = dValue;
-    this.dispatcher = new OurDispatcher();
     
     // two renderables -- bar and nob
     this.eSlidierBar = new Renderable(gEngine.DefaultResources.getConstColorShader());
@@ -55,7 +54,7 @@ UISlider.prototype._update = function (camera) {
         // clamp value
         if(mouseX <= this.maxPos && mouseX >= this.minPos){
             this.eSliderNob.getXform().setPosition(mouseX, pos[1]);
-            this.invoke(this.eSliderValue);
+            this._invoke(this.eSliderValue);
             // fire event
         }
         
@@ -83,7 +82,19 @@ UISlider.prototype.click = function(){
     this.eSliderNob.setColor([1,0,1,1]);
 };
 
-UISlider.prototype.invoke = function(value){
-    //this.dispatcher.dispatch();
-    this.clickFunc(value.toString());
+UISlider.prototype._invoke = function(value){
+    this.onClick(value.toString());
+};
+
+UISlider.prototype.setValue = function (value){
+    this.eSliderValue = value;
+    this._setPosition(this.eSliderValue);
+};
+
+UISlider.prototype._setPosition = function (value) {
+    var width = this.eSliderNob.getXform().getSize()[0];
+    var pos = this.eSliderNob.getXform().getPosition();
+    var nobXPos = (this.minPos - (width / 2)) + width * (value / this.maxValue);
+    this.eSliderNob.getXform().setPosition(nobXPos, pos[1]);
+    
 };
