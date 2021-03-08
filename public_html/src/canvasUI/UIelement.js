@@ -3,11 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+//https://stackoverflow.com/questions/20835768/addeventlistener-on-custom-object
+
 function UIelement() {
     this.isHighlighted = false;
     this.element = null;
     
-    this.eListeners = [];
+    
+    this.dispatcher = new OurDispatcher();
+    
+    this.click = null;
+    //const event = document.createEvent('Event');
+    //event.initEvent('click', true, true);
     GameObject.call(this, this.element);
 };
 gEngine.Core.inheritPrototype(UIelement, GameObject);
@@ -32,20 +40,9 @@ UIelement.prototype.eClick = function(bool){
     this.element.highlight(bool);
 };
 
-UIelement.prototype.addListener = function(listener){
-    if(!this.eListeners){
-        this.eListeners = [];
-    }
-    if (listener && (typeof listener === "function")) {
-      this.eListeners.push(listener); 
-   }
+UIelement.prototype.addListener = function(func, target){
+    //this.dispatcher.on(name, handler);
     
+    this.click = func.bind(target);
 };
 
-
-UIelement.prototype.invoke = function(){
-    for (var i = 0; i < this.eListeners.length; i++) {
-        this.eListeners[i]();
-    }
-    
-};

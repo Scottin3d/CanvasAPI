@@ -61,7 +61,7 @@ FontRenderable.prototype.getXform = function () { return this.mXform; };
 FontRenderable.prototype.getText = function () { return this.mText; };
 FontRenderable.prototype.setText = function (t) {
     this.mText = t;
-    this.setTextHeight(this.getXform().getHeight());
+    //this.setTextHeight(this.getXform().getHeight());
 };
 FontRenderable.prototype.setTextHeight = function (h) {
     var charInfo = gEngine.Fonts.getCharInfo(this.mFont, "A".charCodeAt(0)); // this is for "A"

@@ -12,7 +12,7 @@ function UISlider (pos, size, range, dValue, vStep){
     this.maxValue = range[1];
     this.maxPos = null;
     this.eSliderValue = dValue;
-    
+    this.dispatcher = new OurDispatcher();
     
     // two renderables -- bar and nob
     this.eSlidierBar = new Renderable(gEngine.DefaultResources.getConstColorShader());
@@ -76,8 +76,6 @@ UISlider.prototype.click = function(){
 };
 
 UISlider.prototype.invoke = function(value){
-    for (var i = 0; i < this.eListeners.length; i++) {
-        this.eListeners[i](value);
-    }
-    
+    //this.dispatcher.dispatch();
+    this.click(value.toString());
 };

@@ -13,11 +13,13 @@ function UIButton(color, pos, size) {
     
     // set super "UIElement this.element"... there must be an easier way to set this
     this.element = this;
+    this.dispatcher = new OurDispatcher();
     
     this.eText = new FontRenderable("Status");
     this.eText.setColor([0, 0, 0, 1]);
     this.eText.getXform().setPosition(0,  pos[1]);
     this.eText.setTextHeight(5);
+    
     
     GameObject.call(this, this.eButton);
 };
@@ -51,7 +53,7 @@ UIButton.prototype._highlight = function(isOn){
          this.eText.setText("HighLighted!");
     }else{
         this.eButton.setColor([1,1,1,1]);
-        this.eText.setText("Status!");
+        //this.eText.setText("Status!");
     }
 };
 
