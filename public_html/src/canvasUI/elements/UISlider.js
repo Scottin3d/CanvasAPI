@@ -43,12 +43,16 @@ UISlider.prototype._update = function (camera) {
         var mouseX = camera.mouseWCX();
         var pos = this.eSliderNob.getXform().getPosition();
         var size = this.eSliderNob.getXform().getSize();
+        if (this.isPressed) {
+            if (mouseX >= this.maxPos) mouseX = this.maxPos;
+            else if (mouseX <= this.minPos) mouseX = this.minPos;
+        }
         
         //var nobXPos = (pos[0]- (size[0] / 2)) + size[0] * (this.eSliderValue / this.maxValue);
         //var nobXPos = pos[0] + size[0] * (this.eSliderValue / this.maxValue);
         //console.log(pos[0], this.maxPos, this.minPos, Math.floor(((pos[0] - this.minPos) / 60) * this.maxValue));//, this.maxPos + (size[0] / 2), Math.floor(nobXPos / (this.maxPos + (size[0] / 2)) * this.maxValue));
         
-        this.eSliderValue = Math.floor(((pos[0] - this.minPos) / 60) * this.maxValue);
+        this.eSliderValue = Math.floor(((pos[0] - this.minPos) / (this.maxPos - this.minPos)) * this.maxValue);
         // calc mouse directon
         // apply to nob
         // clamp value
