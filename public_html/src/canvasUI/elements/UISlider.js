@@ -64,6 +64,7 @@ UISlider.prototype._update = function (camera) {
         
     }else{
         this.isPressed = false;
+        this._setPosition(this.eSliderValue);
     }
 };
 
@@ -96,9 +97,13 @@ UISlider.prototype.setValue = function (value){
 };
 
 UISlider.prototype._setPosition = function (value) {
+    var newPos = (value / this.maxValue) * (this.maxPos - this.minPos) + this.minPos;
+    var posY = this.eSliderNob.getXform().getPosition()[1];
+    /*
     var width = this.eSliderNob.getXform().getSize()[0];
-    var pos = this.eSliderNob.getXform().getPosition();
     var nobXPos = (this.minPos - (width / 2)) + width * (value / this.maxValue);
-    this.eSliderNob.getXform().setPosition(nobXPos, pos[1]);
+     * 
+     */
+    this.eSliderNob.getXform().setPosition(newPos, posY);
     
 };
