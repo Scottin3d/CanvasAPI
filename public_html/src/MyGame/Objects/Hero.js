@@ -40,3 +40,7 @@ Hero.prototype.update = function () {
         xform.incXPosBy(this.kDelta);
     }
 };
+
+Hero.prototype.increaseSize = function(increment) {
+    this.mDye.getXform().setSize(this.mDye.getXform().getSize()[0] + increment, this.mDye.getXform().getSize()[1] + increment);
+};

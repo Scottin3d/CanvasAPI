@@ -22,6 +22,10 @@ function UISlider (pos, size, range, dValue, vStep){
     this.eSlidierBar.getXform().setPosition(pos[0], pos[1]);
     this.eSlidierBar.getXform().setSize(size[0], size[1]);
     
+    this.eText = new FontRenderable(dValue.toString());
+    this.eText.setColor([1, 1, 1, 1]);
+    this.eText.getXform().setPosition(pos[0], pos[1] + 10);
+    this.eText.setTextHeight(5);
     
     // pos = (x - (size / 2)) + size * (dvalue / range[1])
     this.minPos = (pos[0]- (size[0] / 2)) + size[0] * ( range[0] / range[1]);
@@ -71,11 +75,13 @@ UISlider.prototype._update = function (camera) {
         this.isPressed = false;
         this._setPosition(this.eSliderValue);
     }
+    this.eText.setText(this.eSliderValue.toString());
 };
 
 UISlider.prototype._draw = function (camera) {
      this.eSlidierBar.draw(camera);
      this.eSliderNob.draw(camera);
+     this.eText.draw(camera);
 };
 
 UISlider.prototype._highlight = function(isOn){
