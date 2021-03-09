@@ -5,18 +5,24 @@
  */
 
 //https://stackoverflow.com/questions/20835768/addeventlistener-on-custom-object
+/*
+class event{
+    constructor(target, listener){
+        this.target = target;
+        this.listeners = [];
+        this.listeners.push(listener);
+    }
+    
+    
+};
+*/
 
 function UIelement() {
     this.isHighlighted = false;
     this.element = null;
     this.isPressed = false;
-    
-    
-    this.dispatcher = new OurDispatcher();
-    
+    this.events = null;
     this.onClick = null;
-    //const event = document.createEvent('Event');
-    //event.initEvent('click', true, true);
     GameObject.call(this, this.element);
 };
 gEngine.Core.inheritPrototype(UIelement, GameObject);
@@ -42,12 +48,13 @@ UIelement.prototype.eClick = function(bool){
 };
 
 UIelement.prototype.addListener = function(func, target){
-    //this.dispatcher.on(name, handler);
-    
+    //var listener = func.bind(target);
     this.onClick = func.bind(target);
 };
 
 UIelement.prototype.isHeld = function() {
     return this.isPressed;
 };
+
+
 

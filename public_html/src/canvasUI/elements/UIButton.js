@@ -13,7 +13,8 @@ function UIButton(color, pos, size) {
     
     // set super "UIElement this.element"... there must be an easier way to set this
     this.element = this;
-    this.dispatcher = new OurDispatcher();
+    this.events = [];
+    //this.dispatcher = new OurDispatcher();
     
     this.eText = new FontRenderable("Status");
     this.eText.setColor([0, 0, 0, 1]);
