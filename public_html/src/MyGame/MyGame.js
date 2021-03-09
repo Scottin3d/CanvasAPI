@@ -115,9 +115,7 @@ MyGame.prototype.initialize = function () {
     this.mBg = new GameObject(bgR);
     
 };
-MyGame.prototype.callback = function() {
-    this.mHero.getXform().setPosition(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos() + 1);
-}
+
 
 MyGame.prototype.drawCamera = function (camera) {
     camera.setupViewProjection();
