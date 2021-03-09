@@ -25,7 +25,6 @@ function UIButton(color, pos, size) {
     GameObject.call(this, this.eButton);
 };
 
-
 gEngine.Core.inheritPrototype(UIButton, UIelement);
 
 UIButton.prototype._update = function (camera) {
@@ -61,13 +60,15 @@ UIButton.prototype._highlight = function(isOn){
         this.eButton.setColor([1,1,1,1]);
     }
 };
-
+UIButton.prototype.setHeight = function(height) {
+    this.eButton.getXform().setHeight(height);
+}
 
 UIButton.prototype.click = function(){
     this.eButton.setColor([1,0,1,1]);
     this.bText = "Clicked!";
-    this._invoke(5);
-    this.setText(5);
+    this._invoke(0.5);
+    //this.setText(5);
 };
 
 UIButton.prototype._invoke = function(value){

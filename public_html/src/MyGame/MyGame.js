@@ -96,12 +96,12 @@ MyGame.prototype.initialize = function () {
    
     this.cButton = new UIButton([1,1,1,1], [20,60], [50,20]);
     // UISlider (pos, size, range, dValue, vStep){
-    this.cSlider = new UISlider([10,10], [60, 5], [0, 10], 2, 1);
+    this.cSlider = new UISlider([10,10], [60, 5], [0, 40], 20, 1);
     
     // TODO this is not passing the function
-    this.cSlider.addListener(this.cButton.setText, this.cButton);
+    this.cSlider.addListener(this.cButton.setHeight, this.cButton);
     
-    this.cButton.addListener(this.cSlider.setValue, this.cSlider);
+    this.cButton.addListener(this.mHero.increaseSize, this.mHero);
     
     this.UI.AddElement(this.cButton);
     this.UI.AddElement(this.cSlider);
@@ -115,7 +115,9 @@ MyGame.prototype.initialize = function () {
     this.mBg = new GameObject(bgR);
     
 };
-
+MyGame.prototype.callback = function() {
+    this.mHero.getXform().setPosition(this.mHero.getXform().getXPos(), this.mHero.getXform().getYPos() + 1);
+}
 
 MyGame.prototype.drawCamera = function (camera) {
     camera.setupViewProjection();
@@ -172,8 +174,9 @@ MyGame.prototype.update = function () {
     if (heroMag > 6) {
         this.mHero.rotateObjPointTo(vec2.fromValues(this.mCamera.mouseWCX(), 
                                                     this.mCamera.mouseWCY()), 0.1);
-        this.mHero.setSpeed(0.1);                                            
+        this.mHero.setSpeed(0.3);                     
         GameObject.prototype.update.call(this.mHero);
         
     }
+    this.mHero.update();
 };
