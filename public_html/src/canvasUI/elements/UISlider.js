@@ -28,9 +28,9 @@ function UISlider (pos, size, range, dValue, vStep){
     this.eText.setTextHeight(5);
     
     // pos = (x - (size / 2)) + size * (dvalue / range[1])
-    this.minPos = (pos[0]- (size[0] / 2)) + size[0] * ( range[0] / range[1]);
-    this.maxPos = (pos[0]- (size[0] / 2)) + size[0] * ( range[1] / range[1]);
-    var nobXPos = (pos[0]- (size[0] / 2)) + size[0] * (dValue / range[1]);
+    this.minPos = (pos[0]- (size[0] / 2));
+    this.maxPos = (pos[0]+ (size[0] / 2));
+    var nobXPos = (pos[0]- (size[0] / 2)) + size[0] * (dValue / range[0] - range[1]);
     this.eSliderNob = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eSliderNob.setColor([0,0,1,1]);
     this.eSliderNob.getXform().setPosition(nobXPos, pos[1]);
@@ -57,9 +57,12 @@ UISlider.prototype._update = function (camera) {
         
         //var nobXPos = (pos[0]- (size[0] / 2)) + size[0] * (this.eSliderValue / this.maxValue);
         //var nobXPos = pos[0] + size[0] * (this.eSliderValue / this.maxValue);
+        //console.log(this.minPos);
         var tempValue = (pos[0] - this.minPos);// / (this.maxPos - this.minPos))) * this.maxValue;
-        var changeValue = (this.maxPos - this.minPos) / (this.maxValue / this.steps);
-        tempValue = ((tempValue / changeValue) / (this.maxValue / this.steps)) * this.maxValue;
+        var changeValue = (this.maxPos - this.minPos) / ((this.maxValue - this.minValue) / this.steps);
+        //console.log(changeValue, ((tempValue / changeValue) / ((this.maxValue - this.minValue) / this.steps)) * (this.maxValue - this.minValue) + this.minValue);
+        tempValue = ((tempValue / changeValue) / ((this.maxValue - this.minValue) / this.steps)) * (this.maxValue - this.minValue) + this.minValue;
+        //tempValue = ((tempValue / changeValue) / (this.maxValue / this.steps)) * this.maxValue;
         this.eSliderValue = tempValue - (tempValue % this.steps);
         // calc mouse directon
         // apply to nob
@@ -107,7 +110,8 @@ UISlider.prototype.setValue = function (value){
 };
 
 UISlider.prototype._setPosition = function (value) {
-    var newPos = (value / this.maxValue) * (this.maxPos - this.minPos) + this.minPos;
+    var newPos = ((value - this.minValue) / (this.maxValue - this.minValue)) * (this.maxPos - this.minPos) + this.minPos;
+    //console.log(((value - this.minValue) / (this.maxValue - this.minValue)), newPos);
     var posY = this.eSliderNob.getXform().getPosition()[1];
     /*
     var width = this.eSliderNob.getXform().getSize()[0];

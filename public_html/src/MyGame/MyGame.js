@@ -96,7 +96,7 @@ MyGame.prototype.initialize = function () {
    
     this.cButton = new UIButton([1,1,1,1], [20,60], [50,20]);
     // UISlider (pos, size, range, dValue, vStep){
-    this.cSlider = new UISlider([10,10], [60, 5], [0, 40], 20, 1);
+    this.cSlider = new UISlider([10,10], [60, 5], [-100, 100], 0, 1);
     
     // TODO this is not passing the function
     this.cSlider.addListener(this.cButton.setHeight, this.cButton);
