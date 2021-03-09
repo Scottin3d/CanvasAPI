@@ -37,6 +37,7 @@ function UISlider (pos, size, range, dValue, vStep){
     this.eSliderNob.getXform().setSize(size[1] * 2, size[1] * 2);
  
     this.element = this;
+    this.events = [];
     this.isPressed = false;
     
 GameObject.call(this, this.eSliderNob);
