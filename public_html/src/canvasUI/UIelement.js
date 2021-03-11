@@ -6,6 +6,7 @@
 
 //https://stackoverflow.com/questions/20835768/addeventlistener-on-custom-object
 
+
 function UIelement() {
     this.isHighlighted = false;
     this.element = null;
@@ -46,12 +47,12 @@ UIelement.prototype.isEnabled = function() {
     return this.enabled;
 };
 
-UIelement.prototype.drawElement = function (camera) {
+UIelement.prototype.DrawElement = function (camera) {
     // forwards to subclass
     this.element._draw(camera);
 };
 
-UIelement.prototype.update = function (camera) {
+UIelement.prototype.Update = function (camera) {
     // forwards to subclass
     this.element._update(camera);
 };

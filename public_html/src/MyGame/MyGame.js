@@ -93,10 +93,11 @@ MyGame.prototype.initialize = function () {
     c = hexToRgb("14213d");
     this.vCanvas.setBackgroundColor([c.r, c.g, c.b, 0]);
    
-    this.UI.CreateButton([50,20], [20,60], [1,1,1,1], "Button");
     var opts = ["option 1", "option 2", "option 3", "option 4"];
     this.UI.CreateDropdown([50,20], [0,0], [1,1,1,1], "Button", opts);
-    this.UI.CreateSlider([10,10], [60, 5], [-100, 100], 0, 1);
+   
+    this.UI.CreateElement(this.UI.UIELEM_TYPES.Button,[50,20], [20,60], [1,1,1,1], "Button");
+    this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider,[50,5], [60, 5], [-100, 100], 0, 1);
     
     this.UI.UIElements[0].addListener(this.mHero.increaseSize, this.mHero);
     this.UI.UIElements[1].addListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0]);
@@ -129,7 +130,7 @@ MyGame.prototype.draw = function () {
     this.drawCamera(this.mCamera);
     //this.drawCamera(this.vCanvas);
     
-    this.UI.draw();
+    this.UI.Draw();
     /*
     this.vCanvas.setupCanvas();
     //this.vCanvas.setupViewProjection();

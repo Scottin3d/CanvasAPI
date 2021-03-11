@@ -31,6 +31,7 @@ function UISlider (size, pos, range, dValue, vStep){
     this.minPos = (pos[0]- (size[0] / 2));
     this.maxPos = (pos[0]+ (size[0] / 2));
     var nobXPos = (pos[0]- (size[0] / 2)) + size[0] * (dValue / range[0] - range[1]);
+    
     this.eSliderNob = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eSliderNob.setColor([0,0,1,1]);
     this.eSliderNob.getXform().setPosition(nobXPos, pos[1]);

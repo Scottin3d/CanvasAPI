@@ -1,11 +1,9 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* global UIcanvas */
+
+"use strict";
+/*<summary>Adds a UI element to the UIelements array.</summary>   
+ *<param = element> An object, a UI element to be added to the canvas.</param>   
  */
-
-// this.UIElements = [];
-
 UIcanvas.prototype._AddElement = function (element){
     if(this.UIElements === null){
         this.UIElements = [];
@@ -13,8 +11,41 @@ UIcanvas.prototype._AddElement = function (element){
     this.UIElements.push(element);
 };
 
-// function UIButton(size, pos, color, text)
-UIcanvas.prototype.CreateButton = function(size, pos, color, text){
+/*<summary>Creates a UI element.</summary>   
+ *<param = arguments> Any number of arguments can be passed into this function.  
+ *Arg[0] is the element type, Arg[1+] are the arguments for the element constructor.</param>   
+ */
+UIcanvas.prototype.CreateElement = function(){
+    var type = arguments[0];                                                    // gets the type from UIELEM_TYPES.  No need to validate.  Invalid types doto default which is error.
+    switch(type){
+        case this.UIELEM_TYPES.Button:
+            if(arguments.length !== 5){ alert("Invalid arguments"); }           // a button has five (5) arguments
+            this._createButton(arguments);
+            return;
+        case this.UIELEM_TYPES.Slider:
+            if(arguments.length !== 6){ alert("Invalid arguments"); }           // a slider has six (6) arguments
+            this._createSlider(arguments);
+            return;
+        default:
+            alert("Invalid UI element type");
+    }
+    
+};
+
+/*<summary>Creates a button UI elements.  A user defined event controller.</summary>   
+ *<param = arguments> An array[5], [type, size[2], pos[2], color[4], text""].</param>   
+ */
+UIcanvas.prototype._createButton = function(args){
+    // function UIButton(size, pos, color, text)
+    // check args
+    var size = args[1];                                                         
+    if(size.length !== 2){ return; }
+    var pos = args[2];
+    if(pos.length !== 2){ return; }
+    var color = args[3];
+    if(color.length !== 4){ return; }
+    var text = args[4];
+    
     var newButton = new UIButton(size, pos, color, text);
     this._AddElement(newButton);
 };
@@ -35,6 +66,23 @@ UIcanvas.prototype.CreateDropdown = function(size, pos, color, text, options){
 
 //function UISlider (pos, size, range, dValue, vStep)
 UIcanvas.prototype.CreateSlider = function(size, pos, range, dValue, vStep){
+/*<summary>Creates a slider UI elements.  A control nob on a bar that acts as a 
+ * visual indication on the value it represents.</summary>   
+ *<param = arguments> An array[6], [type, size[2], pos[2], range[2], dValue, vStep].</param>   
+ */
+UIcanvas.prototype._createSlider = function(args){
+    //function UISlider (size, pos, range, dValue, vStep)
+    // check args
+    var size = args[1];
+    if(size.length !== 2){ return; }
+    var pos = args[2];
+    if(pos.length !== 2){ return; }
+    var range = args[3];
+    if(range.length !== 2){ return; }
+    var dValue = args[4];
+    if(typeof dValue !== 'number'){ return; }
+    var vStep = args[5];
+    if(typeof vStep !== 'number'){ return; }
     var newSlider = new UISlider(size, pos, range, dValue, vStep);
     this._AddElement(newSlider);
 };
