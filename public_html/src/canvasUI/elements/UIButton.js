@@ -5,23 +5,26 @@
  */
 "use strict";
 
-function UIButton(color, pos, size) {
+function UIButton(size, pos, color, text) {
     this.eButton = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eButton.setColor([color[0],color[1],color[2],color[3]]);
     this.eButton.getXform().setPosition(pos[0], pos[1]);
     this.eButton.getXform().setSize(size[0], size[1]);
     
     // set super "UIElement this.element"... there must be an easier way to set this
-    this.element = this;
-    this.events = [];
+    this.InitElement(this);
+    //this.element = this;
+    //this.events = [];
     //this.dispatcher = new OurDispatcher();
     
-    this.eText = new FontRenderable("Status");
-    this.eText.setColor([0, 0, 0, 1]);
-    this.eText.getXform().setPosition(0,  pos[1]);
-    this.eText.setTextHeight(5);
     
-    this.bText = "status!";
+    this.eTextRenderable = new FontRenderable(text.toString());
+    this.eTextRenderable.setColor([0, 0, 0, 1]);
+    this.eTextRenderable.getXform().setPosition(0,  pos[1]);
+    this.eTextRenderable.setTextHeight(5);
+    
+    this.eTextDefault = text;
+    this.eText = this.eTextDefault;
     
     GameObject.call(this, this.eButton);
 };
@@ -29,29 +32,33 @@ function UIButton(color, pos, size) {
 gEngine.Core.inheritPrototype(UIButton, UIelement);
 
 UIButton.prototype._update = function (camera) {
+    // not highlighted not clicked
     if(!this.isClicked && !this.isHighlighted){
         this._highlight(false);
+        this.eText = this.eTextDefault;
     }
     
-    if(this.isHighlighted){
-        this.eText.setText("Highlighted!");
-    }else{
-       this.eText.setText(this.bText); 
+    // highlighted not clicked
+    if(this.isHighlighted && !this.isClicked){
+        this.eText = this.eTextHighlighted;
     }
     
+    // clicked
+    if(this.isClicked){
+        this.eText = this.eTextClicked;
+    }
+    
+    this.eTextRenderable.setText(this.eText); 
+    this.isClicked = false;
+    this.isHighlighted = false;
 };
 
 UIButton.prototype._draw = function (camera) {
     this.eButton.draw(camera);
-    this.eText.draw(camera);
+    this.eTextRenderable.draw(camera);
 };
 
-UIButton.prototype._mouseDCX = function () {
-    return gEngine.Input.getMousePosX() - this.eButton.getXform().getXPos();
-};
-UIButton.prototype._mouseDCY = function () {
-    return gEngine.Input.getMousePosY() - this.eButton.getXform().getYPos();
-};
+
 
 UIButton.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
@@ -61,15 +68,16 @@ UIButton.prototype._highlight = function(isOn){
         this.eButton.setColor([1,1,1,1]);
     }
 };
+
 UIButton.prototype.setHeight = function(height) {
     this.eButton.getXform().setHeight(height);
-}
+};
 
-UIButton.prototype.click = function(){
+UIButton.prototype._click = function(){
+    this.isClicked = true;
     this.eButton.setColor([1,0,1,1]);
-    this.bText = "Clicked!";
+    this.eText = "Clicked!";
     this._invoke(0.5);
-    //this.setText(5);
 };
 
 UIButton.prototype._invoke = function(value){
@@ -77,5 +85,5 @@ UIButton.prototype._invoke = function(value){
 };
 
 UIButton.prototype.setText = function(text){
-    this.bText = text;
+    this.eText = text;
 };

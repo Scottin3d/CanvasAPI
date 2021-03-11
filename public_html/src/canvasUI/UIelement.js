@@ -5,17 +5,6 @@
  */
 
 //https://stackoverflow.com/questions/20835768/addeventlistener-on-custom-object
-/*
-class event{
-    constructor(target, listener){
-        this.target = target;
-        this.listeners = [];
-        this.listeners.push(listener);
-    }
-    
-    
-};
-*/
 
 function UIelement() {
     this.isHighlighted = false;
@@ -23,9 +12,30 @@ function UIelement() {
     this.isPressed = false;
     this.events = null;
     this.onClick = null;
+    this.onHighlight = null;
+    
+    this.eTextDefault = null;
+    this.eTextClickedDefault = null;
+    this.eTextHighlightedDefault = null;
+    this.eText = null;
+    this.eTextClicked = null;
+    this.eTextHighlighted = null;
+    
     GameObject.call(this, this.element);
 };
 gEngine.Core.inheritPrototype(UIelement, GameObject);
+
+UIelement.prototype.InitElement = function(obj){
+    this.element = obj;
+    this.events = [];
+    
+    this.eTextDefault = this.element.name;
+    this.eTextClickedDefault = "Clicked!";
+    this.eTextHighlightedDefault = "Highlighted!";
+    this.eText = this.eTextDefault;
+    this.eTextClicked = this.eTextClickedDefault;
+    this.eTextHighlighted = this.eTextHighlightedDefault;
+};
 
 
 UIelement.prototype.drawElement = function (camera) {
@@ -43,8 +53,8 @@ UIelement.prototype.highlight = function(bool){
 };
 
 
-UIelement.prototype.eClick = function(bool){
-    this.element.highlight(bool);
+UIelement.prototype.Click = function(){
+    this.element._click();
 };
 
 UIelement.prototype.addListener = function(func, target){
@@ -54,6 +64,13 @@ UIelement.prototype.addListener = function(func, target){
 
 UIelement.prototype.isHeld = function() {
     return this.isPressed;
+};
+
+UIelement.prototype._mouseDCX = function () {
+    return gEngine.Input.getMousePosX() - this.eButton.getXform().getXPos();
+};
+UIelement.prototype._mouseDCY = function () {
+    return gEngine.Input.getMousePosY() - this.eButton.getXform().getYPos();
 };
 
 

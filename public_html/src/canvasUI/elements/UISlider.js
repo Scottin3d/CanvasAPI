@@ -5,7 +5,7 @@
  */
 "use strict";
 
-function UISlider (pos, size, range, dValue, vStep){
+function UISlider (size, pos, range, dValue, vStep){
     // values
     this.minValue = range[0];
     this.minPos = null;
@@ -97,7 +97,7 @@ UISlider.prototype._highlight = function(isOn){
 };
 
 
-UISlider.prototype.click = function(){
+UISlider.prototype._click = function(){
     this.eSliderNob.setColor([1,0,1,1]);
 };
 

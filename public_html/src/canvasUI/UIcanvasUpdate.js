@@ -23,12 +23,10 @@ UIcanvas.prototype.update = function () {
 
 
         for(var i = 0; i < this.UIElements.length; i++){
-
             this.UIElements[i].update(this.UIcamera); 
         }
 
         //highlights
-
         if(element[0]){
             this.lastElement = element[1];
             element[1].highlight(true);
@@ -43,7 +41,7 @@ UIcanvas.prototype.update = function () {
            // check if releases
            this.clickHold = true;
            if(element[0]){
-               element[1].click();
+               element[1].Click();
            }
         }else{
            this.clickHold = false; 

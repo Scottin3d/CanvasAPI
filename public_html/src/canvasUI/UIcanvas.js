@@ -19,9 +19,7 @@ function UIcanvas(){
     this.UIcamera = null;
     
     this.UIElements = [];
-    
     this._initCanvas();
-    
 };
 
 
@@ -43,12 +41,7 @@ UIcanvas.prototype.draw = function () {
     
 };
 
-UIcanvas.prototype.AddElement = function (element){
-    if(this.UIElements === null){
-        this.UIElements = [];
-    }
-    this.UIElements.push(element);
-};
+
 
 UIcanvas.prototype.IsMouseOverElement = function (mousePosition){
     for(var i = 0; i < this.UIElements.length; i++){

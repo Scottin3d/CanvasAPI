@@ -93,19 +93,12 @@ MyGame.prototype.initialize = function () {
     c = hexToRgb("14213d");
     this.vCanvas.setBackgroundColor([c.r, c.g, c.b, 0]);
    
-   
-    this.cButton = new UIButton([1,1,1,1], [20,60], [50,20]);
-    // UISlider (pos, size, range, dValue, vStep){
-    this.cSlider = new UISlider([10,10], [60, 5], [-100, 100], 0, 1);
+    this.UI.CreateButton([50,20], [20,60], [1,1,1,1], "Button");
+    this.UI.CreateSlider([10,10], [60, 5], [-100, 100], 0, 1);
     
-    // TODO this is not passing the function
-    this.cSlider.addListener(this.cButton.setHeight, this.cButton);
+    this.UI.UIElements[0].addListener(this.mHero.increaseSize, this.mHero);
+    this.UI.UIElements[1].addListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0]);
     
-    this.cButton.addListener(this.mHero.increaseSize, this.mHero);
-    
-    this.UI.AddElement(this.cButton);
-    this.UI.AddElement(this.cSlider);
-    //this.UI.AddButton();
     
     // Large background image
     var bgR = new SpriteRenderable(this.space);
