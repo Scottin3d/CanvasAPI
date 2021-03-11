@@ -94,6 +94,8 @@ MyGame.prototype.initialize = function () {
     this.vCanvas.setBackgroundColor([c.r, c.g, c.b, 0]);
    
     this.UI.CreateButton([50,20], [20,60], [1,1,1,1], "Button");
+    var opts = ["option 1", "option 2", "option 3", "option 4"];
+    this.UI.CreateDropdown([50,20], [0,0], [1,1,1,1], "Button", opts);
     this.UI.CreateSlider([10,10], [60, 5], [-100, 100], 0, 1);
     
     this.UI.UIElements[0].addListener(this.mHero.increaseSize, this.mHero);

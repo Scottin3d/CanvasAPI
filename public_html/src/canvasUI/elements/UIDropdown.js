@@ -5,23 +5,26 @@
  */
 "use strict";
 
-function UIButton(size, pos, color, text) {
+function UIDropdown(size, pos, color, text, options) {
     this.eButton = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eButton.setColor([color[0],color[1],color[2],color[3]]);
-    this.eButton.getXform().setPosition(pos[0], pos[1]);
     this.eButton.getXform().setSize(size[0], size[1]);
+    this.eButton.getXform().setPosition(pos[0], pos[1]);
     
     // set super "UIElement this.element"... there must be an easier way to set this
     this.InitElement(this);
     //this.element = this;
     //this.events = [];
     //this.dispatcher = new OurDispatcher();
-
+    this.eOptions = options;
+    for(var i = 0; i < this.eOptions.length; i++) {
+        this.eOptions[i].setEnabled(false);
+    }
     
     this.eTextRenderable = new FontRenderable(text.toString());
     this.eTextRenderable.setColor([0, 0, 0, 1]);
-    this.eTextRenderable.getXform().setPosition(0,  pos[1]);
-    this.eTextRenderable.setTextHeight(5);
+    this.eTextRenderable.getXform().setPosition(pos[0] - (size[0] / 3),  pos[1]);
+    this.eTextRenderable.setTextHeight(size[1] / 4);
     
     this.eTextDefault = text;
     this.eText = this.eTextDefault;
@@ -29,9 +32,12 @@ function UIButton(size, pos, color, text) {
     GameObject.call(this, this.eButton);
 };
 
-gEngine.Core.inheritPrototype(UIButton, UIelement);
+gEngine.Core.inheritPrototype(UIDropdown, UIelement);
 
-UIButton.prototype._update = function (camera) {
+UIDropdown.prototype._update = function (camera) {
+    for(var i = 0; i < this.eOptions.length; i++) {
+        this.eOptions[i].setEnabled(false);
+    }
     // not highlighted not clicked
     if(!this.isClicked && !this.isHighlighted){
         this._highlight(false);
@@ -41,6 +47,9 @@ UIButton.prototype._update = function (camera) {
     // highlighted not clicked
     if(this.isHighlighted && !this.isClicked){
         this.eText = this.eTextHighlighted;
+        for(var i = 0; i < this.eOptions.length; i++) {
+            this.eOptions[i].setEnabled(true);
+        }
     }
     
     // clicked
@@ -51,16 +60,19 @@ UIButton.prototype._update = function (camera) {
     this.eTextRenderable.setText(this.eText); 
     this.isClicked = false;
     this.isHighlighted = false;
+//    for(var i = 0; i < this.eOptions.length; i++) {
+//        this.eOptions[i].update(camera);
+//    }
 };
 
-UIButton.prototype._draw = function (camera) {
+UIDropdown.prototype._draw = function (camera) {
     this.eButton.draw(camera);
     this.eTextRenderable.draw(camera);
 };
 
 
 
-UIButton.prototype._highlight = function(isOn){
+UIDropdown.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
     if(this.isHighlighted){
          this.eButton.setColor([1,1,0,1]);
@@ -69,21 +81,21 @@ UIButton.prototype._highlight = function(isOn){
     }
 };
 
-UIButton.prototype.setHeight = function(height) {
+UIDropdown.prototype.setHeight = function(height) {
     this.eButton.getXform().setHeight(height);
 };
 
-UIButton.prototype._click = function(){
+UIDropdown.prototype._click = function(){
     this.isClicked = true;
     this.eButton.setColor([1,0,1,1]);
     this.eText = "Clicked!";
     this._invoke(0.5);
 };
 
-UIButton.prototype._invoke = function(value){
+UIDropdown.prototype._invoke = function(value){
     this.onClick(value);
 };
 
-UIButton.prototype.setText = function(text){
+UIDropdown.prototype.setText = function(text){
     this.eText = text;
 };
