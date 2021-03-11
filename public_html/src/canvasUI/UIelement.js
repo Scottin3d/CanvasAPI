@@ -75,6 +75,10 @@ UIelement.prototype.isHeld = function() {
     return this.isPressed;
 };
 
+UIelement.prototype.getType = function() {
+    return "element";
+};
+
 UIelement.prototype._mouseDCX = function () {
     return gEngine.Input.getMousePosX() - this.eButton.getXform().getXPos();
 };

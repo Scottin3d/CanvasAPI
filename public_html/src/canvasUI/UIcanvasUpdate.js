@@ -33,7 +33,7 @@ UIcanvas.prototype.update = function () {
             this.lastElement = null;
         }
 
-        if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
+        if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left) && element[1].getType() === "slider") {
            // check if releases
            this.clickHold = true;
            if(element[0]){
@@ -41,6 +41,12 @@ UIcanvas.prototype.update = function () {
            }
         }else{
            this.clickHold = false; 
+        }
+        
+        if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left) && element[1].getType() !== "slider") {
+            if(element[0]) {
+                element[1].Click();
+            }
         }
         
         // update UI elements

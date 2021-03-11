@@ -26,6 +26,8 @@ function UIButton(size, pos, color, text) {
     this.eTextDefault = text;
     this.eText = this.eTextDefault;
     
+    this.eVal = null;
+    
     GameObject.call(this, this.eButton);
 };
 
@@ -73,17 +75,27 @@ UIButton.prototype.setHeight = function(height) {
     this.eButton.getXform().setHeight(Math.abs(height));
 };
 
+UIButton.prototype.addListener = function(func, target, value){
+    //var listener = func.bind(target);
+    this.onClick = func.bind(target);
+    this.eVal = value;
+};
 UIButton.prototype._click = function(){
     this.isClicked = true;
     this.eButton.setColor([1,0,1,1]);
     this.eText = "Clicked!";
-    this._invoke(0.5);
+    this._invoke(this.eVal);
 };
 
 UIButton.prototype._invoke = function(value){
+    console.log(value);
     this.onClick(value);
 };
 
 UIButton.prototype.setText = function(text){
     this.eText = text;
+};
+
+UIButton.prototype.getType = function() {
+    return "button";
 };
