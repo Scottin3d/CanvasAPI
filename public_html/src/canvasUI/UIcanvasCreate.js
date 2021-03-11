@@ -64,12 +64,6 @@ UIcanvas.prototype.CreateDropdown = function(size, pos, color, text, options){
     this._AddElement(newDropdown);
 };
 
-//function UISlider (pos, size, range, dValue, vStep)
-UIcanvas.prototype.CreateSlider = function(size, pos, range, dValue, vStep){
-/*<summary>Creates a slider UI elements.  A control nob on a bar that acts as a 
- * visual indication on the value it represents.</summary>   
- *<param = arguments> An array[6], [type, size[2], pos[2], range[2], dValue, vStep].</param>   
- */
 UIcanvas.prototype._createSlider = function(args){
     //function UISlider (size, pos, range, dValue, vStep)
     // check args

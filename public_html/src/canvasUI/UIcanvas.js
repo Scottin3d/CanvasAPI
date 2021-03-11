@@ -47,7 +47,7 @@ UIcanvas.prototype.Draw = function () {
     this.UIcamera.setupCanvas();
     for(var i = 0; i < this.UIElements.length; i++){
         if(this.UIElements[i].isEnabled() === true) {
-            this.UIElements[i].drawElement(this.UIcamera);
+            this.UIElements[i].DrawElement(this.UIcamera);
         }
 
     }
