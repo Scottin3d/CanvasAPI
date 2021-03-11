@@ -3,7 +3,7 @@
 ## Style Guide  
 
 ### Variables  
-* const - Uppercase
+* const - Uppercase  
 ` this.UIELEM_TYPES = {Button : 1, Slider : 2};`  
 * public - Camal Case  
 `this.editMode;`  
