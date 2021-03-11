@@ -70,7 +70,7 @@ UIButton.prototype._highlight = function(isOn){
 };
 
 UIButton.prototype.setHeight = function(height) {
-    this.eButton.getXform().setHeight(height);
+    this.eButton.getXform().setHeight(Math.abs(height));
 };
 
 UIButton.prototype._click = function(){

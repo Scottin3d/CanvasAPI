@@ -1,9 +1,9 @@
 
 "use strict";
-/* <Summary> A UICanvas is an overlay of the main document that has objects that
+/* <summary> A UICanvas is an overlay of the main document that has objects that
  * display information and allow the user to interact with objects in the scene 
  * with out explicited referencing the object themselves.
- * </Summary>
+ * </summary>
  * <param UIELEM_TYPES> An object, a public enum of UI elements that the UI canvas can create.</param>
  * <param = editMode> A bool, if canvas is in edit mode.</param>
  * <param = editModeOverlay> A renderable, acts as a visual cue that the canvas is in editmode.</param>
@@ -34,31 +34,29 @@ function UIcanvas(){
     // TODO add accessor
     this.UIElements = [];  
     
-    
-    this._initCanvas();
+    this._initCanvas();                                                         // initialize canvas
 };
 
 
-
-UIcanvas.prototype.draw = function () {
+/*<summary>Calls the camera setup and draws object to a specified camera</summary>   
+ */
+UIcanvas.prototype.Draw = function () {
     if(this.UIElements.length === 0){
         return;
     }
     this.UIcamera.setupCanvas();
-    
     for(var i = 0; i < this.UIElements.length; i++){
-        this.UIElements[i].drawElement(this.UIcamera);
-        
+        this.UIElements[i].DrawElement(this.UIcamera);
     }
-    
     if( this.editMode){
         this.editModeOverlay.draw(this.UIcamera);
     }
-    
 };
 
-
-
+/*<summary>Loops through the UI elements attached to the UI canvas and check if the 
+ * mouse is over the element.</summary>   
+ *<return [2]> A arg[2], arg[0] a bool if mouse is over; arg[1] a reference to the UI element object.</return> 
+ */
 UIcanvas.prototype.IsMouseOverElement = function (mousePosition){
     for(var i = 0; i < this.UIElements.length; i++){
         var buttonPos = this.UIElements[i].getXform().getPosition(); 
@@ -68,21 +66,23 @@ UIcanvas.prototype.IsMouseOverElement = function (mousePosition){
         if((mousePosition[0] >= buttonPos[0] - (buttonW / 2) &&
            mousePosition[0] <= buttonPos[0] + (buttonW / 2) &&    
            mousePosition[1] <= buttonPos[1] + (buttonH / 2) &&
-           mousePosition[1] >= buttonPos[1] - (buttonH / 2)) || this.UIElements[i].isHeld()){
+           mousePosition[1] >= buttonPos[1] - (buttonH / 2)) || 
+           this.UIElements[i].isHeld()){
            
            return [true, this.UIElements[i]];
         }
     }
-    
     return [false, null];
 };
 
+/*<summary>Initalizes the Ui canvas with the default values.</summary>   
+ */
 UIcanvas.prototype._initCanvas = function (){
+    // TODO -- stretch goal
     // xml
     this.UIxmlpath  = "src/canvasUI/assets/UIcanvas.xml";
     this.UIxml = document.implementation.createDocument("", "", null);
-    
-    
+
     
     // UI camera
     this.UIwidth = document.getElementById("GLCanvas").width;
@@ -94,6 +94,15 @@ UIcanvas.prototype._initCanvas = function (){
         [0, 0, this.UIwidth, this.UIHeight]                                     // viewport (orgX, orgY, width, height)
     );
     
+    
+    // edit mode overlay
+    var camVP = this.UIcamera.getViewport();
+    this.editModeOverlay = new Renderable(gEngine.DefaultResources.getConstColorShader());
+    this.editModeOverlay.setColor([0,1,0,.2]);
+    this.editModeOverlay.getXform().setPosition(camVP[0], camVP[1]);
+    this.editModeOverlay.getXform().setSize(camVP[2], camVP[3]);
+    
+    // TODO -- stretch goal
     //<Camera CenterX="20" CenterY="60" Width="20" 
     //    Viewport="20 40 600 300"   
     //   BgColor="0 0 1 1.0"
@@ -103,12 +112,5 @@ UIcanvas.prototype._initCanvas = function (){
     camElem.setAttribute("Width", "250");
     camElem.setAttribute("Viewport", "0 0 " + this.UIwidth + " " + this.UIHeight);
     camElem.setAttribute("BgColor", "0 0 0 0");
-    
-    // edit mode overlay
-    var camVP = this.UIcamera.getViewport();
-    this.editModeOverlay = new Renderable(gEngine.DefaultResources.getConstColorShader());
-    this.editModeOverlay.setColor([0,1,0,.2]);
-    this.editModeOverlay.getXform().setPosition(camVP[0], camVP[1]);
-    this.editModeOverlay.getXform().setSize(camVP[2], camVP[3]);
     
 };

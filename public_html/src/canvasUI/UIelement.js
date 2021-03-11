@@ -39,12 +39,12 @@ UIelement.prototype.InitElement = function(obj){
 };
 
 
-UIelement.prototype.drawElement = function (camera) {
+UIelement.prototype.DrawElement = function (camera) {
     // forwards to subclass
     this.element._draw(camera);
 };
 
-UIelement.prototype.update = function (camera) {
+UIelement.prototype.Update = function (camera) {
     // forwards to subclass
     this.element._update(camera);
 };

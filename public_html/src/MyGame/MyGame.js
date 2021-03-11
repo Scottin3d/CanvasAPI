@@ -128,7 +128,7 @@ MyGame.prototype.draw = function () {
     this.drawCamera(this.mCamera);
     //this.drawCamera(this.vCanvas);
     
-    this.UI.draw();
+    this.UI.Draw();
     /*
     this.vCanvas.setupCanvas();
     //this.vCanvas.setupViewProjection();
