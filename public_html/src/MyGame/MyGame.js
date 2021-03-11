@@ -97,8 +97,8 @@ MyGame.prototype.initialize = function () {
     this.UI.CreateElement(this.UI.UIELEM_TYPES.Button,[50,20], [20,60], [1,1,1,1], "Button");
     this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider,[50,5], [60, 5], [-100, 100], 0, 1);
     
-    this.UI.UIElements[0].addListener(this.mHero.increaseSize, this.mHero);
-    this.UI.UIElements[1].addListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0]);
+    this.UI.UIElements[0].AddListener(this.mHero.increaseSize, this.mHero);
+    this.UI.UIElements[1].AddListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0]);
     
     
     // Large background image
@@ -126,18 +126,8 @@ MyGame.prototype.draw = function () {
     gEngine.Core.clearCanvas([c.r, c.g, c.b, c.a]);
     
     this.drawCamera(this.mCamera);
-    //this.drawCamera(this.vCanvas);
-    
+    // CanvasAPI -- Implementation
     this.UI.Draw();
-    /*
-    this.vCanvas.setupCanvas();
-    //this.vCanvas.setupViewProjection();
-    this.cButton.draw(this.vCanvas);
-    */
-    //this.mMsg[0].draw(this.vCanvas);
-    //this.mMsg[1].draw(this.vCanvas);
-    //this.mMsg[2].draw(this.vCanvas);
-    // dont clear viewport
 };
 
 // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -146,19 +136,7 @@ MyGame.prototype.update = function () {
     // update UI
     this.UI.update();
     
-    var zoomDelta = 0.05;
-    //this.mCamera.update();
-    
-    // Brain chasing the hero
-    
-    var h = [];
-    /*
-    if (!this.mHero.pixelTouches(this.mBrain, h)) {
-        this.mBrain.rotateObjPointTo(this.mHero.getXform().getPosition(), 0.01);
-        GameObject.prototype.update.call(this.mBrain);
-    }
-    */
-    
+   
     var heroPos = this.mHero.getXform().getPosition();
     var a = heroPos[0] - this.mCamera.mouseWCX();
     var b = heroPos[1] - this.mCamera.mouseWCY();

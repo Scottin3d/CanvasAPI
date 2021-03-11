@@ -29,7 +29,6 @@ UIcanvas.prototype.CreateElement = function(){
         default:
             alert("Invalid UI element type");
     }
-    
 };
 
 /*<summary>Creates a button UI elements.  A user defined event controller.</summary>   

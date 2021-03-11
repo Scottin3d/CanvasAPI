@@ -67,7 +67,7 @@ UIcanvas.prototype.IsMouseOverElement = function (mousePosition){
            mousePosition[0] <= buttonPos[0] + (buttonW / 2) &&    
            mousePosition[1] <= buttonPos[1] + (buttonH / 2) &&
            mousePosition[1] >= buttonPos[1] - (buttonH / 2)) || 
-           this.UIElements[i].isHeld()){
+           this.UIElements[i].IsHeld()){
            
            return [true, this.UIElements[i]];
         }
