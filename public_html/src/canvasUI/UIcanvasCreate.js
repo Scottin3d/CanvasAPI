@@ -49,10 +49,20 @@ UIcanvas.prototype._createButton = function(args){
     this._AddElement(newButton);
 };
 
-/*<summary>Creates a slider UI elements.  A control nob on a bar that acts as a 
- * visual indication on the value it represents.</summary>   
- *<param = arguments> An array[6], [type, size[2], pos[2], range[2], dValue, vStep].</param>   
- */
+UIcanvas.prototype.CreateDropdown = function(size, pos, color, text, options){
+    var optionButtons = [];
+    for(var i = 0; i < options.length; i++) {
+        var newOpt = new UIButton([size[0], size[1] / 2], [pos[0], pos[1] - ((size[1] / 2) * (i + 1) + (size[1] / 4))], [color[0],color[1],color[2] - 0.1 * i,color[3]], options[i]);
+//        newOpt.setColor([color[0],color[1],color[2],color[3] - 0.01 * i]);
+//        newOpt.getXform().setSize(size[0], size[1] / 2);
+//        newOpt.getXform().setPosition(pos[0], pos[1] - ((size[1] / 2) * (i + 1) + (size[1] / 4)));
+        optionButtons.push(newOpt);
+        this._AddElement(newOpt);
+    }
+    var newDropdown = new UIDropdown(size, pos, color, text, optionButtons);
+    this._AddElement(newDropdown);
+};
+
 UIcanvas.prototype._createSlider = function(args){
     //function UISlider (size, pos, range, dValue, vStep)
     // check args
@@ -66,7 +76,6 @@ UIcanvas.prototype._createSlider = function(args){
     if(typeof dValue !== 'number'){ return; }
     var vStep = args[5];
     if(typeof vStep !== 'number'){ return; }
-    
     var newSlider = new UISlider(size, pos, range, dValue, vStep);
     this._AddElement(newSlider);
 };

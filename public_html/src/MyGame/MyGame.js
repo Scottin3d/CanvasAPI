@@ -93,6 +93,8 @@ MyGame.prototype.initialize = function () {
     c = hexToRgb("14213d");
     this.vCanvas.setBackgroundColor([c.r, c.g, c.b, 0]);
    
+    var opts = ["option 1", "option 2", "option 3", "option 4"];
+    this.UI.CreateDropdown([50,20], [0,0], [1,1,1,1], "Button", opts);
    
     this.UI.CreateElement(this.UI.UIELEM_TYPES.Button,[50,20], [20,60], [1,1,1,1], "Button");
     this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider,[50,5], [60, 5], [-100, 100], 0, 1);

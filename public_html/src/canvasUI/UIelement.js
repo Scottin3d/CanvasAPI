@@ -22,6 +22,7 @@ function UIelement() {
     this.eText = null;
     this.eTextClicked = null;
     this.eTextHighlighted = null;
+    this.enabled = true;
     
     GameObject.call(this, this.element);
 };
@@ -42,8 +43,15 @@ UIelement.prototype._initElement = function(obj){
     this.eText = this.eTextDefault;
     this.eTextClicked = this.eTextClickedDefault;
     this.eTextHighlighted = this.eTextHighlightedDefault;
+    this.enabled = true;
+};
+UIelement.prototype.setEnabled = function(isEnabled) {
+    this.enabled = isEnabled;
 };
 
+UIelement.prototype.isEnabled = function() {
+    return this.enabled;
+};
 
 UIelement.prototype.DrawElement = function (camera) {
     // forwards to subclass

@@ -46,7 +46,10 @@ UIcanvas.prototype.Draw = function () {
     }
     this.UIcamera.setupCanvas();
     for(var i = 0; i < this.UIElements.length; i++){
-        this.UIElements[i].DrawElement(this.UIcamera);
+        if(this.UIElements[i].isEnabled() === true) {
+            this.UIElements[i].DrawElement(this.UIcamera);
+        }
+
     }
     if( this.editMode){
         this.editModeOverlay.draw(this.UIcamera);
@@ -59,10 +62,18 @@ UIcanvas.prototype.Draw = function () {
  */
 UIcanvas.prototype.IsMouseOverElement = function (mousePosition){
     for(var i = 0; i < this.UIElements.length; i++){
-        var buttonPos = this.UIElements[i].getXform().getPosition(); 
-        var buttonH = this.UIElements[i].getXform().getHeight();
-        var buttonW = this.UIElements[i].getXform().getWidth();
+        if(this.UIElements[i].isEnabled() === true) {
+            var buttonPos = this.UIElements[i].getXform().getPosition(); 
+            var buttonH = this.UIElements[i].getXform().getHeight();
+            var buttonW = this.UIElements[i].getXform().getWidth();
 
+            if((mousePosition[0] >= buttonPos[0] - (buttonW / 2) &&
+               mousePosition[0] <= buttonPos[0] + (buttonW / 2) &&    
+               mousePosition[1] <= buttonPos[1] + (buttonH / 2) &&
+               mousePosition[1] >= buttonPos[1] - (buttonH / 2)) || this.UIElements[i].isHeld()){
+               return [true, this.UIElements[i]];
+            }
+        }
         if((mousePosition[0] >= buttonPos[0] - (buttonW / 2) &&
            mousePosition[0] <= buttonPos[0] + (buttonW / 2) &&    
            mousePosition[1] <= buttonPos[1] + (buttonH / 2) &&
