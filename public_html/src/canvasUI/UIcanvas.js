@@ -1,24 +1,40 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 "use strict";
+/* <Summary> A UICanvas is an overlay of the main document that has objects that
+ * display information and allow the user to interact with objects in the scene 
+ * with out explicited referencing the object themselves.
+ * </Summary>
+ * <param UIELEM_TYPES> An object, a public enum of UI elements that the UI canvas can create.</param>
+ * <param = editMode> A bool, if canvas is in edit mode.</param>
+ * <param = editModeOverlay> A renderable, acts as a visual cue that the canvas is in editmode.</param>
+ * <param = clickHold> A bool, if the user is holding down a mouse button. </param>
+ * <param = lastElement> An object, the last element that the user had an interaction with.</param>
+ * <param = UIwidth> A number, the width of the UI canvas.  This is pulled from the html document.</param>
+ * <param = UIHeight> A number, the height of the UI canvas.  This is pulled from the html document.</param>
+ * <param = UIcamera> An object, a camera to render the UI to the scene.</param>
+ * <param = UIElements> An [object], a list of UI elements attached to the UI canvas.</param>
+ * <param = > </param>
+ */
 function UIcanvas(){
-    this.UIxmlpath  = null;
-    this.UIxml = null;
-    this.editMode = false;
-    this.editModeOverlay = null;
+    // new elements need to added here
+    // TODO set variables to private
+    this.UIELEM_TYPES = {Button : 1, Slider : 2};  // public
+    this.UIxmlpath  = null;  // stretch goal
+    this.UIxml = null;  // stretch goal
+    this.editMode = false; // private
+    this.editModeOverlay = null; // private
     
-    this.clickHold = false;
-    this.lastElement = null;
+    this.clickHold = false;  // private
+    this.lastElement = null;  // private
     
-    this.UIwidth = null;
-    this.UIHeight = null;
-    this.UIcamera = null;
+    this.UIwidth = null;  // private
+    this.UIHeight = null;  // private
+    this.UIcamera = null;  // private
     
-    this.UIElements = [];
+    // TODO add accessor
+    this.UIElements = [];  
+    
+    
     this._initCanvas();
 };
 

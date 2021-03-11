@@ -93,8 +93,9 @@ MyGame.prototype.initialize = function () {
     c = hexToRgb("14213d");
     this.vCanvas.setBackgroundColor([c.r, c.g, c.b, 0]);
    
-    this.UI.CreateButton([50,20], [20,60], [1,1,1,1], "Button");
-    this.UI.CreateSlider([10,10], [60, 5], [-100, 100], 0, 1);
+   
+    this.UI.CreateElement(this.UI.UIELEM_TYPES.Button,[50,20], [20,60], [1,1,1,1], "Button");
+    this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider,[50,5], [60, 5], [-100, 100], 0, 1);
     
     this.UI.UIElements[0].addListener(this.mHero.increaseSize, this.mHero);
     this.UI.UIElements[1].addListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0]);
