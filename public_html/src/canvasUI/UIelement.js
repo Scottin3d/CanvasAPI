@@ -9,6 +9,7 @@
  * </summary>
  */
 function UIelement() {
+    this.eType = null;
     this.isHighlighted = false;
     this.element = null;
     this.isPressed = false;
