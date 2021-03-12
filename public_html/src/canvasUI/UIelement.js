@@ -98,6 +98,11 @@ UIelement.prototype.IsHeld = function() {
     return this.isPressed;
 };
 
+UIelement.prototype.getType = function() {
+    return "element";
+};
+
+
 /*<summary>Returns the distance between the mouse X position and the UI element
  *X postion.</summary> 
  *<return = > A number.</return>  

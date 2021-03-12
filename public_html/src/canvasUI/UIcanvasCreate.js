@@ -50,17 +50,16 @@ UIcanvas.prototype._createButton = function(args){
 };
 
 UIcanvas.prototype.CreateDropdown = function(size, pos, color, text, options){
-    var optionButtons = [];
+    var newDropdown = new UIDropdown(size, pos, color, text);
+    this._AddElement(newDropdown);
     for(var i = 0; i < options.length; i++) {
         var newOpt = new UIButton([size[0], size[1] / 2], [pos[0], pos[1] - ((size[1] / 2) * (i + 1) + (size[1] / 4))], [color[0],color[1],color[2] - 0.1 * i,color[3]], options[i]);
 //        newOpt.setColor([color[0],color[1],color[2],color[3] - 0.01 * i]);
 //        newOpt.getXform().setSize(size[0], size[1] / 2);
 //        newOpt.getXform().setPosition(pos[0], pos[1] - ((size[1] / 2) * (i + 1) + (size[1] / 4)));
-        optionButtons.push(newOpt);
+        newDropdown.addOption(newOpt);
         this._AddElement(newOpt);
     }
-    var newDropdown = new UIDropdown(size, pos, color, text, optionButtons);
-    this._AddElement(newDropdown);
 };
 
 UIcanvas.prototype._createSlider = function(args){

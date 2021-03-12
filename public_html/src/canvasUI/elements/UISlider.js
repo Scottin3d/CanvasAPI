@@ -121,3 +121,7 @@ UISlider.prototype._setPosition = function (value) {
     this.eSliderNob.getXform().setPosition(newPos, posY);
     
 };
+
+UISlider.prototype.getType = function() {
+    return "slider";
+};
