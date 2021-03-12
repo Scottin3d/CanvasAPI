@@ -33,6 +33,7 @@ UIcanvas.prototype.update = function () {
             }
             this.lastElement = null;
         }
+
         if(element[0]) {
             switch(element[1].getType()) {
                 case "slider":
@@ -46,6 +47,7 @@ UIcanvas.prototype.update = function () {
                     if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
                         element[1].Click();
                     }
+
             }
         }
 //        if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
