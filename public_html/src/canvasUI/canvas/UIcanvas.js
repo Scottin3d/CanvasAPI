@@ -26,7 +26,7 @@
 function UIcanvas(){
     // new elements need to added here
     // TODO set variables to private
-    this.UIELEM_TYPES = {Button : 1, Slider : 2, Checkbox: 3, Toggle: 4, Dropdown : 5};  // public
+    this.UIELEM_TYPES = {Button : 1, Slider : 2, Toggle: 3, Dropdown : 4};  // public
     this.UIxmlpath  = null;  // stretch goal
     this.UIxml = null;  // stretch goal
     this.editMode = false; // private
@@ -54,7 +54,7 @@ UIcanvas.prototype.Draw = function () {
     }
     this.UIcamera.setupCanvas();
     for(var i = 0; i < this.UIElements.length; i++){
-        if(this.UIElements[i].isEnabled() === true) {
+        if(this.UIElements[i].IsEnabled() === true) {
             this.UIElements[i].DrawElement(this.UIcamera);
         }
 
@@ -70,7 +70,7 @@ UIcanvas.prototype.Draw = function () {
  */
 UIcanvas.prototype.IsMouseOverElement = function (mousePosition){
     for(var i = 0; i < this.UIElements.length; i++){
-        if(this.UIElements[i].isEnabled() === true) {
+        if(this.UIElements[i].IsEnabled() === true) {
             var buttonPos = this.UIElements[i].getXform().getPosition(); 
             var buttonH = this.UIElements[i].getXform().getHeight();
             var buttonW = this.UIElements[i].getXform().getWidth();

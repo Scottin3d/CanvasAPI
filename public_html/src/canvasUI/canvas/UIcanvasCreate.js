@@ -8,6 +8,9 @@
 /* global UIcanvas */
 
 "use strict";
+
+//==PUBLIC++====================================================================
+
 /*<summary>Adds a UI element to the UIelements array.</summary>   
  *<param = element> An object, a UI element to be added to the canvas.</param>   
  */
@@ -19,8 +22,8 @@ UIcanvas.prototype._AddElement = function (element){
 };
 
 /*<summary>Creates a UI element.</summary>   
- *<param = arguments> Any number of arguments can be passed into this function.  
- *Arg[0] is the element type, Arg[1+] are the arguments for the element constructor.</param>   
+ *<param = arguments> Any number of arguments can be passed into this function.</param>   
+ *<remarks>Arg[0] is the element type, Arg[1+] are the arguments for the element constructor.</remarks>
  */
 UIcanvas.prototype.CreateElement = function(){
     var type = arguments[0];                                                    // gets the type from UIELEM_TYPES.  No need to validate.  Invalid types doto default which is error.
@@ -33,6 +36,10 @@ UIcanvas.prototype.CreateElement = function(){
             if(arguments.length !== 6){ alert("Invalid arguments"); }           // a slider has six (6) arguments
             this._createSlider(arguments);
             return;
+        case this.UIELEM_TYPES.Toggle:
+            //if(arguments.length !== ###){ alert("Invalid arguments"); }       // a toggle has ### arguments
+            this._createToggle(arguments);
+            return;
         case this.UIELEM_TYPES.Dropdown:
             if(arguments.length !== 5){ alert("Invalid arguments"); }           // a slider has six (6) arguments
             this._createDropdown(arguments);
@@ -42,8 +49,12 @@ UIcanvas.prototype.CreateElement = function(){
     }
 };
 
+//==============================================================================
+
+//==PRIVATE=====================================================================
+
 /*<summary>Creates a button UI elements.  A user defined event controller.</summary>   
- *<param = arguments> An array[5], [type, size[2], pos[2], color[4], text""].</param>   
+ *<param = args> An array[5], [type, size[2], pos[2], color[4], text""].</param>   
  */
 UIcanvas.prototype._createButton = function(args){
     // function UIButton(size, pos, color, text)
@@ -62,8 +73,40 @@ UIcanvas.prototype._createButton = function(args){
     this._AddElement(newButton);
 };
 
+/*<summary>Creates a slider UI elements.  A user defined event controller.</summary>   
+ *<param = args> An array[6], [type, size[2], pos[2], range[2], default value, step value].</param>   
+ */
+UIcanvas.prototype._createSlider = function(args){
+    //function UISlider (size, pos, range, dValue, vStep)
+    // check args
+    var type = args[0];
+    var size = args[1];
+    if(size.length !== 2){ return; }
+    var pos = args[2];
+    if(pos.length !== 2){ return; }
+    var range = args[3];
+    if(range.length !== 2){ return; }
+    var dValue = args[4];
+    if(typeof dValue !== 'number'){ return; }
+    var vStep = args[5];
+    if(typeof vStep !== 'number'){ return; }
+    var newSlider = new UISlider(type, size, pos, range, dValue, vStep);
+    this._AddElement(newSlider);
+};
+
+/*<summary>Creates a toggle UI elements.  A user defined event controller.</summary>   
+ *<param = args>TODO</param>   
+ */
+UIcanvas.prototype._createToggle = function(args){
+    // TODO -- Impelement
+};
+
+/*<summary>Creates a dropdown UI elements.  A user defined event controller.</summary>   
+ *<param = args> An array[5], [type, size[2], pos[2], color[4], text""].</param>   
+ */
 UIcanvas.prototype._createDropdown = function(args){
     //[50,20], [0,0], [1,1,1,1], "Button", opts)
+    // check args
     var type = args[0];
     var size = args[1];                                                         
     if(size.length !== 2){ return; }
@@ -88,20 +131,4 @@ UIcanvas.prototype._createDropdown = function(args){
     this._AddElement(newDropdown);
 };
 
-UIcanvas.prototype._createSlider = function(args){
-    //function UISlider (size, pos, range, dValue, vStep)
-    // check args
-    var type = args[0];
-    var size = args[1];
-    if(size.length !== 2){ return; }
-    var pos = args[2];
-    if(pos.length !== 2){ return; }
-    var range = args[3];
-    if(range.length !== 2){ return; }
-    var dValue = args[4];
-    if(typeof dValue !== 'number'){ return; }
-    var vStep = args[5];
-    if(typeof vStep !== 'number'){ return; }
-    var newSlider = new UISlider(type, size, pos, range, dValue, vStep);
-    this._AddElement(newSlider);
-};
+//==============================================================================

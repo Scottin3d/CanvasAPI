@@ -6,9 +6,11 @@
  */
 
 /* global UIcanvas, gEngine */
+
 "use strict";
 /*<summary>Update is the most commonly used function to implement any kind of game script.  
  * Update is called every frame.</summary>   
+ * <remarks></remarks> 
  */
 UIcanvas.prototype.update = function () {
     //check edit key
@@ -33,10 +35,10 @@ UIcanvas.prototype.update = function () {
         if(element[0]){
             // set lastElemnt and highlight
             this.lastElement = element[1];
-            element[1].highlight(true);
+            element[1].Highlight(true);
         }else{
             if(this.lastElement){
-                this.lastElement.highlight(false);
+                this.lastElement.Highlight(false);
             }
             this.lastElement = null;
         }

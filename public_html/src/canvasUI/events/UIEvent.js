@@ -19,7 +19,9 @@ function UIEvent (name){
     this.values = [];
 };
 
-/*<summary></summary>   
+//==PUBLIC======================================================================
+
+/*<summary>Subscribes a listener to the event.</summary>   
  *<param = listener>A object, a bound function to an object acting as a delegate.</param>
  *<param = value>A object, a value that can be associated with the listener when invoked.</param>
  */
@@ -38,6 +40,8 @@ UIEvent.prototype.Invoke = function(){
     }
 };
 
+//==============================================================================
 
-
+//==PRIVATE=====================================================================
+//==============================================================================
 
