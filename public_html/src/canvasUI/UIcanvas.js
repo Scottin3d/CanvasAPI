@@ -18,7 +18,7 @@
 function UIcanvas(){
     // new elements need to added here
     // TODO set variables to private
-    this.UIELEM_TYPES = {Button : 1, Slider : 2};  // public
+    this.UIELEM_TYPES = {Button : 1, Slider : 2, Checkbox: 3, Toggle: 4, Dropdown : 5};  // public
     this.UIxmlpath  = null;  // stretch goal
     this.UIxml = null;  // stretch goal
     this.editMode = false; // private

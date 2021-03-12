@@ -1,7 +1,7 @@
 /* global gEngine, GameObject */
 "use strict";
 
-function UIButton(size, pos, color, text) {
+function UIButton(type, size, pos, color, text) {
     this.eButton = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eButton.setColor([color[0],color[1],color[2],color[3]]);
     this.eButton.getXform().setPosition(pos[0], pos[1]);
@@ -10,7 +10,7 @@ function UIButton(size, pos, color, text) {
     // set super "UIElement this.element"... there must be an easier way to set this
 
     this._initElement(this);
-    
+    this.eType = type;
     this.eTextRenderable = new FontRenderable(text.toString());
     this.eTextRenderable.setColor([0, 0, 0, 1]);
     this.eTextRenderable.getXform().setPosition(0,  pos[1]);

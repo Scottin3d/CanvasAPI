@@ -100,7 +100,7 @@ UIelement.prototype.IsHeld = function() {
 };
 
 UIelement.prototype.getType = function() {
-    return "element";
+    return this.eType;
 };
 
 

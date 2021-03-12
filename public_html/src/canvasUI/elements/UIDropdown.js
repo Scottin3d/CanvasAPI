@@ -5,7 +5,7 @@
  */
 "use strict";
 
-function UIDropdown(size, pos, color, text) {
+function UIDropdown(type, size, pos, color, text) {
     this.eButton = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eButton.setColor([color[0],color[1],color[2],color[3]]);
     this.eButton.getXform().setSize(size[0], size[1]);
@@ -13,9 +13,8 @@ function UIDropdown(size, pos, color, text) {
     
     // set super "UIElement this.element"... there must be an easier way to set this
     this._initElement(this);
-    //this.element = this;
-    //this.events = [];
-    //this.dispatcher = new OurDispatcher();
+    this.eType = type;
+    
     this.eOptions = [];
     
     this.eTextRenderable = new FontRenderable(text.toString());

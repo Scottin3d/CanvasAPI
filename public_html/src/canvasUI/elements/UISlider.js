@@ -2,7 +2,7 @@
 "use strict";
 
 
-function UISlider (size, pos, range, dValue, vStep){
+function UISlider (type, size, pos, range, dValue, vStep){
     // values
     this.minValue = range[0];
     this.minPos = null;
@@ -35,8 +35,7 @@ function UISlider (size, pos, range, dValue, vStep){
     this.eSliderNob.getXform().setSize(size[1] * 2, size[1] * 2);
  
     this._initElement(this);
-    //this.element = this;
-    //this.events = [];
+    this.eType = type;
     this.isPressed = false;
     
 GameObject.call(this, this.eSliderNob);

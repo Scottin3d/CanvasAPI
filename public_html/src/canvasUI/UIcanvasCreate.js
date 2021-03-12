@@ -26,6 +26,10 @@ UIcanvas.prototype.CreateElement = function(){
             if(arguments.length !== 6){ alert("Invalid arguments"); }           // a slider has six (6) arguments
             this._createSlider(arguments);
             return;
+        case this.UIELEM_TYPES.Dropdown:
+            if(arguments.length !== 5){ alert("Invalid arguments"); }           // a slider has six (6) arguments
+            this._createDropdown(arguments);
+            return;
         default:
             alert("Invalid UI element type");
     }
@@ -37,6 +41,7 @@ UIcanvas.prototype.CreateElement = function(){
 UIcanvas.prototype._createButton = function(args){
     // function UIButton(size, pos, color, text)
     // check args
+    var type = args[0];
     var size = args[1];                                                         
     if(size.length !== 2){ return; }
     var pos = args[2];
@@ -45,26 +50,41 @@ UIcanvas.prototype._createButton = function(args){
     if(color.length !== 4){ return; }
     var text = args[4];
     
-    var newButton = new UIButton(size, pos, color, text);
+    var newButton = new UIButton(type, size, pos, color, text);
+    
     this._AddElement(newButton);
 };
 
-UIcanvas.prototype.CreateDropdown = function(size, pos, color, text, options){
-    var newDropdown = new UIDropdown(size, pos, color, text);
-    this._AddElement(newDropdown);
+UIcanvas.prototype._createDropdown = function(args){
+    //[50,20], [0,0], [1,1,1,1], "Button", opts)
+    var type = args[0];
+    var size = args[1];                                                         
+    if(size.length !== 2){ return; }
+    var pos = args[2];
+    if(pos.length !== 2){ return; }
+    var color = args[3];
+    if(color.length !== 4){ return; }
+    var text = args[4];
+    var options = args[5];
+    
+    var newDropdown = new UIDropdown(type, size, pos, color, text);
+    
+    /*
     for(var i = 0; i < options.length; i++) {
         var newOpt = new UIButton([size[0], size[1] / 2], [pos[0], pos[1] - ((size[1] / 2) * (i + 1) + (size[1] / 4))], [color[0],color[1],color[2] - 0.1 * i,color[3]], options[i]);
-//        newOpt.setColor([color[0],color[1],color[2],color[3] - 0.01 * i]);
-//        newOpt.getXform().setSize(size[0], size[1] / 2);
-//        newOpt.getXform().setPosition(pos[0], pos[1] - ((size[1] / 2) * (i + 1) + (size[1] / 4)));
         newDropdown.addOption(newOpt);
+        // the dropdown object should track the options not the canvas
+        // this adds it the the list of canvas elements
         this._AddElement(newOpt);
     }
+    */
+    this._AddElement(newDropdown);
 };
 
 UIcanvas.prototype._createSlider = function(args){
     //function UISlider (size, pos, range, dValue, vStep)
     // check args
+    var type = args[0];
     var size = args[1];
     if(size.length !== 2){ return; }
     var pos = args[2];
@@ -75,6 +95,6 @@ UIcanvas.prototype._createSlider = function(args){
     if(typeof dValue !== 'number'){ return; }
     var vStep = args[5];
     if(typeof vStep !== 'number'){ return; }
-    var newSlider = new UISlider(size, pos, range, dValue, vStep);
+    var newSlider = new UISlider(type, size, pos, range, dValue, vStep);
     this._AddElement(newSlider);
 };
