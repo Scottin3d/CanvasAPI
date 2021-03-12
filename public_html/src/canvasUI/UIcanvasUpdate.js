@@ -50,8 +50,17 @@ UIcanvas.prototype.update = function () {
 
             }
         }
-        
-                
+        else {
+            for(var i = 0; i < this.UIElements.length; i++) {
+                if(this.UIElements[i].getType() === "slider" && this.UIElements[i].isPressed) {
+                    if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
+                        this.UIElements[i].isPressed = true;
+                    } else {
+                        this.UIElements[i].isPressed = false;
+                    }
+                }
+            }
+        }   
         
         // update UI elements
         for(var i = 0; i < this.UIElements.length; i++){

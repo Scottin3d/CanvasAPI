@@ -43,8 +43,8 @@ GameObject.call(this, this.eSliderNob);
 gEngine.Core.inheritPrototype(UISlider, UIelement);
 
 UISlider.prototype._update = function (camera) {
-    if(this.isHighlighted && gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)){
-        this.isPressed = true;
+    if(this.isPressed){
+        //this.isPressed = true;
         // TODO let mouse move off nob and still slide as long as mouse down
         var mouseX = camera.mouseWCX();
         var pos = this.eSliderNob.getXform().getPosition();
@@ -73,7 +73,7 @@ UISlider.prototype._update = function (camera) {
         }
         
     }else{
-        this.isPressed = false;
+        //this.isPressed = false;
         this._setPosition(this.eSliderValue);
     }
     this.eTextRenderable.setText(this.eSliderValue.toString());
