@@ -12,7 +12,7 @@ function UIDropdown(size, pos, color, text) {
     this.eButton.getXform().setPosition(pos[0], pos[1]);
     
     // set super "UIElement this.element"... there must be an easier way to set this
-    this.InitElement(this);
+    this._initElement(this);
     //this.element = this;
     //this.events = [];
     //this.dispatcher = new OurDispatcher();
