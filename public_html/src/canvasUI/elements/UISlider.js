@@ -13,6 +13,9 @@ function UISlider (type, size, pos, range, dValue, vStep){
     var stringSteps = this.steps.toString();
     this.decimalPlaces = (stringSteps.indexOf('.') !== -1 ? stringSteps.split('.')[1].length : 0);
     
+    // slider has a single event
+    this.onValueChange = new UIEvent('onValueChange');
+    
     // two renderables -- bar and nob
     this.eSlidierBar = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eSlidierBar.setColor([1,1,1,1]);
@@ -68,8 +71,9 @@ UISlider.prototype._update = function (camera) {
         // clamp value
         if(mouseX <= this.maxPos && mouseX >= this.minPos){
             this.eSliderNob.getXform().setPosition(mouseX, pos[1]);
-            this._invoke(this.eSliderValue.toFixed(this.decimalPlaces));
-            // fire event
+            
+            // invoke event
+            this.onValueChange.Invoke(this.eSliderValue.toFixed(this.decimalPlaces));
         }
         
     }else{
@@ -99,13 +103,15 @@ UISlider.prototype._click = function(){
     this.eSliderNob.setColor([1,0,1,1]);
 };
 
-UISlider.prototype._invoke = function(value){
-    this.onClick(value.toString());
+UISlider.prototype._addListener = function(func, target, value){
+    this.onValueChange.AddListener(func.bind(target), value);
 };
 
 UISlider.prototype.setValue = function (value){
     this.eSliderValue = value;
     this._setPosition(this.eSliderValue);
+    // invoke change
+    this.onValueChange.Invoke(this.eSliderValue.toFixed(this.decimalPlaces));
 };
 
 UISlider.prototype._setPosition = function (value) {

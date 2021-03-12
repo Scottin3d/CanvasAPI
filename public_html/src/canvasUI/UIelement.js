@@ -13,7 +13,6 @@ function UIelement() {
     this.isHighlighted = false;
     this.element = null;
     this.isPressed = false;
-    this.events = null;
     this.onClick = null;
     this.onHighlight = null;
     
@@ -36,7 +35,6 @@ gEngine.Core.inheritPrototype(UIelement, GameObject);
  */
 UIelement.prototype._initElement = function(obj){
     this.element = obj;
-    this.events = [];
     
     this.eTextDefault = this.element.name;
     this.eTextClickedDefault = "Clicked!";
@@ -87,10 +85,10 @@ UIelement.prototype.Click = function(){
  *<param = func>A function, the hnadle function to be added as a listener.</param>
  *<param = target>An object, the target that the function will bind to.</param>
  */
-UIelement.prototype.AddListener = function(func, target){
-    //var listener = func.bind(target);
-    this.onClick = func.bind(target);
+UIelement.prototype.AddListener = function(func, target, value){
+    this.element._addListener(func, target, value);
 };
+
 
 /*<summary>Check to see if the UI element is currently being pressed by the user.</summary> 
  *<return = this.isPressed>A bool, if pressed or not.</return> 

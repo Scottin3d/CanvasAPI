@@ -19,6 +19,8 @@ function UIButton(type, size, pos, color, text) {
     this.eTextDefault = text;
     this.eText = this.eTextDefault;
     
+    // button has a single event
+    this.onClick = new UIEvent('onClick');
     this.eVal = null;
     
     
@@ -69,10 +71,10 @@ UIButton.prototype.setHeight = function(height) {
     this.eButton.getXform().setHeight(Math.abs(height));
 };
 
-UIButton.prototype.addListener = function(func, target, value){
+UIButton.prototype._addListener = function(func, target, value){
     //var listener = func.bind(target);
-    this.onClick = func.bind(target);
-    this.eVal = value;
+    this.onClick.AddListener(func.bind(target), value);
+    //this.eVal = value;
 };
 
 
@@ -80,11 +82,9 @@ UIButton.prototype._click = function(){
     this.isClicked = true;
     this.eButton.setColor([1,0,1,1]);
     this.eText = "Clicked!";
-    this._invoke();
-};
-
-UIButton.prototype._invoke = function(){
-    this.onClick();
+    
+    // invoke event
+    this.onClick.Invoke();
 };
 
 UIButton.prototype.setText = function(text){

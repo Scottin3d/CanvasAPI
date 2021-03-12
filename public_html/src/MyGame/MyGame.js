@@ -95,8 +95,8 @@ MyGame.prototype.initialize = function () {
     //this.UI.CreateDropdown([50,20], [0,0], [1,1,1,1], "Button", opts);
     //var vals = [0.5, 1, -1, -0.5];
     this.UI.UIElements[0].AddListener(this.mHero.increaseSize, this.mHero, 0.5);
-    this.UI.UIElements[1].AddListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0]);
-    
+    this.UI.UIElements[0].AddListener(this.UI.UIElements[1].setValue, this.UI.UIElements[1], 50);
+    this.UI.UIElements[1].AddListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0], null);
     
 
     //this.UI.UIElements[2].AddListener(this.mHero.increaseSize, this.mHero, vals);
