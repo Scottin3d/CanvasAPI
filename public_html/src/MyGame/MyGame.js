@@ -1,14 +1,4 @@
-/*
- * File: MyGame.js 
- * This is the logic of our game. 
- */
-
-/*jslint node: true, vars: true */
-/*global gEngine, Scene, GameObjectset, TextureObject, Camera, vec2,
-  FontRenderable, SpriteRenderable, DyePack, Hero, Minion, Brain,
-  GameObject */
-/* find out more about jslint: http://www.jslint.com/help.html */
-
+/* global gEngine, GameObject */
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function MyGame() {
@@ -106,13 +96,11 @@ MyGame.prototype.initialize = function () {
     //var vals = [0.5, 1, -1, -0.5];
     this.UI.UIElements[0].AddListener(this.mHero.increaseSize, this.mHero, 0.5);
     this.UI.UIElements[1].AddListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0]);
+    
+    
 
     //this.UI.UIElements[2].AddListener(this.mHero.increaseSize, this.mHero, vals);
 
-
-
-    
-    
     // Large background image
     var bgR = new SpriteRenderable(this.space);
     bgR.setElementPixelPositions(0, 1024, 0, 1024);

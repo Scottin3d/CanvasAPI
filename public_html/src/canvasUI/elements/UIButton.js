@@ -21,6 +21,7 @@ function UIButton(type, size, pos, color, text) {
     
     this.eVal = null;
     
+    
     GameObject.call(this, this.eButton);
 };
 
@@ -73,16 +74,17 @@ UIButton.prototype.addListener = function(func, target, value){
     this.onClick = func.bind(target);
     this.eVal = value;
 };
+
+
 UIButton.prototype._click = function(){
     this.isClicked = true;
     this.eButton.setColor([1,0,1,1]);
     this.eText = "Clicked!";
-    this._invoke(this.eVal);
+    this._invoke();
 };
 
-UIButton.prototype._invoke = function(value){
-    console.log(value);
-    this.onClick(value);
+UIButton.prototype._invoke = function(){
+    this.onClick();
 };
 
 UIButton.prototype.setText = function(text){
