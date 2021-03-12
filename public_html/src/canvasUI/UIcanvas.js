@@ -1,4 +1,12 @@
+/* Developed by 3 Lines of Code
+ * Scott Shirley - @scottin3d
+ * Kevin Blair - 
+ * Nicholas Chambers - 
+ * license - MIT
+ */
+
 /* global gEngine, GameObject */
+
 "use strict";
 /* <summary> A UICanvas is an overlay of the main document that has objects that
  * display information and allow the user to interact with objects in the scene 

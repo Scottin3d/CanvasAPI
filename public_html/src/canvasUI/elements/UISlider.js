@@ -1,7 +1,26 @@
-/* global gEngine, GameObject */
+/* Developed by 3 Lines of Code
+ * Scott Shirley - @scottin3d
+ * Kevin Blair - 
+ * Nicholas Chambers - 
+ * license - MIT
+ */
+
+/* global gEngine, GameObject, UIelement */
 "use strict";
 
-
+/*<summary>A UI element slider can be moved between a minimum and maximum value. 
+ * When a change to the slider value occurs, a callback is sent to any registered 
+ * listeners of Slider.onValueChanged.</summary>   
+ *<param = type>An object, the type of UI element.</param>
+ *<param = size[2]>A number[2], the size of the UI element xform.</param>
+ *<param = pos[2]>A number[2], the position of the UI element xform within the UI space.</param>
+ *<param = range[2]>A number[2], the minimum and maximum values of the slider.</param>
+ *<param = dValue>A number, the default value of the slider.  When reset, the slider
+ *will reset to this number.</param>
+ *<param = vStep>A number, the increment that the slider changes.</param>  
+ *<remarks>Size specifically refers to the slider **BAR**.  The slider nob by default
+ *is a square, based on the size[1] value.</remarks> 
+ **/
 function UISlider (type, size, pos, range, dValue, vStep){
     // values
     this.minValue = range[0];
@@ -45,6 +64,40 @@ GameObject.call(this, this.eSliderNob);
 };
 gEngine.Core.inheritPrototype(UISlider, UIelement);
 
+
+//==PUBLIC======================================================================
+
+/*<summary></summary>   
+ *<param = ></param>  
+ */
+UISlider.prototype.SetValue = function (value){
+    this.eSliderValue = value;
+    this._setPosition(this.eSliderValue);
+    // invoke change
+    this.onValueChange.Invoke(this.eSliderValue.toFixed(this.decimalPlaces));
+};
+
+/*<summary>Sets the size of the UI slider nob</summary>   
+ *<param = size[2]>A number[2], the size to set the UI slider nob.</param>  
+ */
+UISlider.prototype.SetSliderNobSize = function(size){
+    // check the size to make sure that the nob is not bigger than the size of the
+    // slider bar
+    var nobSize = this.eSliderNob.getXform().getSize();
+    if(nobSize[0] < size[0]){
+        return;
+    }
+    this.eSliderNob.getXform().setSize(size[0], size[1]);
+};
+
+//==============================================================================
+
+//==PRIVATE=====================================================================
+
+/*<summary>Update is the most commonly used function to implement any kind of game script. 
+ *Update is called every frame.</summary>
+ *<remarks>TODO -- something specific about this class</remarks>
+ */
 UISlider.prototype._update = function (camera) {
     if(this.isHighlighted && gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)){
         this.isPressed = true;
@@ -83,12 +136,17 @@ UISlider.prototype._update = function (camera) {
     this.eTextRenderable.setText(this.eSliderValue.toString());
 };
 
+
+/*<summary>Calls the camera setup and draws object to a specified camera</summary>   
+ */
 UISlider.prototype._draw = function (camera) {
      this.eSlidierBar.draw(camera);
      this.eSliderNob.draw(camera);
      this.eTextRenderable.draw(camera);
 };
-
+/*<summary></summary>   
+ *<param = ></param>  
+ */
 UISlider.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
     if(this.isHighlighted){
@@ -98,22 +156,22 @@ UISlider.prototype._highlight = function(isOn){
     }
 };
 
-
+/*<summary></summary> 
+ */
 UISlider.prototype._click = function(){
     this.eSliderNob.setColor([1,0,1,1]);
 };
 
+/*<summary></summary>   
+ *<param = ></param> 
+ */
 UISlider.prototype._addListener = function(func, target, value){
     this.onValueChange.AddListener(func.bind(target), value);
 };
 
-UISlider.prototype.setValue = function (value){
-    this.eSliderValue = value;
-    this._setPosition(this.eSliderValue);
-    // invoke change
-    this.onValueChange.Invoke(this.eSliderValue.toFixed(this.decimalPlaces));
-};
-
+/*<summary></summary>   
+ *<param = ></param> 
+ */
 UISlider.prototype._setPosition = function (value) {
     var newPos = ((value - this.minValue) / (this.maxValue - this.minValue)) * (this.maxPos - this.minPos) + this.minPos;
     //console.log(((value - this.minValue) / (this.maxValue - this.minValue)), newPos);
@@ -124,9 +182,5 @@ UISlider.prototype._setPosition = function (value) {
      * 
      */
     this.eSliderNob.getXform().setPosition(newPos, posY);
-    
 };
-
-UISlider.prototype.getType = function() {
-    return "slider";
-};
+//==============================================================================

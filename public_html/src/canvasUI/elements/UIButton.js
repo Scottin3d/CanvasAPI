@@ -1,4 +1,12 @@
+/* Developed by 3 Lines of Code
+ * Scott Shirley - @scottin3d
+ * Kevin Blair - 
+ * Nicholas Chambers - 
+ * license - MIT
+ */
+
 /* global gEngine, GameObject */
+
 "use strict";
 
 function UIButton(type, size, pos, color, text) {

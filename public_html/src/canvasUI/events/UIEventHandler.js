@@ -1,3 +1,10 @@
+/* Developed by 3 Lines of Code
+ * Scott Shirley - @scottin3d
+ * Kevin Blair - 
+ * Nicholas Chambers - 
+ * license - MIT
+ */
+
 "use strict";
 
 // NOT USED CURRENTLY

@@ -1,3 +1,10 @@
+/* Developed by 3 Lines of Code
+ * Scott Shirley - @scottin3d
+ * Kevin Blair - 
+ * Nicholas Chambers - 
+ * license - MIT
+ */
+
 /* global gEngine, GameObject */
 
 "use strict";
@@ -28,10 +35,25 @@ function UIelement() {
 };
 gEngine.Core.inheritPrototype(UIelement, GameObject);
 
-/*<summary></summary>   
- *<param = ></param>  
- *<return = ></return>  
- *<remarks></remarks>  
+//==PUBLIC======================================================================
+UIelement.prototype.SetEnabled = function(isEnabled) {
+    this.enabled = isEnabled;
+};
+
+UIelement.prototype.isEnabled = function() {
+    return this.enabled;
+};
+
+UIelement.prototype.GetType = function() {
+    return this.eType;
+};
+//==============================================================================
+
+//==PRIVATE=====================================================================
+
+
+/*<summary>Initializes the UI element.</summary>   
+ *<param = obj>an object, the element that the class is attached to.</param>
  */
 UIelement.prototype._initElement = function(obj){
     this.element = obj;
@@ -44,13 +66,10 @@ UIelement.prototype._initElement = function(obj){
     this.eTextHighlighted = this.eTextHighlightedDefault;
     this.enabled = true;
 };
-UIelement.prototype.setEnabled = function(isEnabled) {
-    this.enabled = isEnabled;
-};
 
-UIelement.prototype.isEnabled = function() {
-    return this.enabled;
-};
+
+
+
 
 UIelement.prototype.DrawElement = function (camera) {
     // forwards to subclass
@@ -97,9 +116,7 @@ UIelement.prototype.IsHeld = function() {
     return this.isPressed;
 };
 
-UIelement.prototype.getType = function() {
-    return this.eType;
-};
+
 
 
 /*<summary>Returns the distance between the mouse X position and the UI element
@@ -118,5 +135,5 @@ UIelement.prototype._mouseDCY = function () {
     return gEngine.Input.getMousePosY() - this.eButton.getXform().getYPos();
 };
 
-
+//==============================================================================
 

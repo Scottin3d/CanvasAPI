@@ -1,4 +1,11 @@
+/* Developed by 3 Lines of Code
+ * Scott Shirley - @scottin3d
+ * Kevin Blair - 
+ * Nicholas Chambers - 
+ * license - MIT
+ */
 
+/* global UIcanvas, gEngine */
 "use strict";
 /*<summary>Update is the most commonly used function to implement any kind of game script.  
  * Update is called every frame.</summary>   
@@ -35,23 +42,21 @@ UIcanvas.prototype.update = function () {
         }
 
         if(element[0]) {
-            switch(element[1].getType()) {
-                case "slider":
+            switch(element[1].GetType()) {
+                case this.UIELEM_TYPES.Slider:
                     if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
                         element[1].Click();
                         element[1].isPressed = true;
                     }
                     break;
-                case "dropdown":
-                case "button":
+                case this.UIELEM_TYPES.Dropdown:
+                case this.UIELEM_TYPES.Button:
                     if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
                         element[1].Click();
                     }
 
             }
         }
-        
-                
         
         // update UI elements
         for(var i = 0; i < this.UIElements.length; i++){

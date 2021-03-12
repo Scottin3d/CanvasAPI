@@ -106,6 +106,8 @@ The leading letter should be relavent to the class.
 `UIcanvas.prototype.IsMouseOverElement = function (mousePosition){}`  
 * private - underscore camalCase  
 `UIcanvas.prototype._initCanvas = function (){}`  
+***NOTE*** 
+* a function with a '_' should ***NOT*** be called from outside of the class it is declared in.  
 
 ### Documentation 
 ### Draw()
