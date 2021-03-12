@@ -19,6 +19,7 @@ function Hero(spriteTexture) {
     this.mDye.getXform().setPosition(35, 50);
     this.mDye.getXform().setSize(9, 12);
     this.mDye.setElementPixelPositions(0, 120, 0, 180);
+    this.increment  = 5;
     GameObject.call(this, this.mDye);
 }
 gEngine.Core.inheritPrototype(Hero, GameObject);
@@ -41,6 +42,6 @@ Hero.prototype.update = function () {
     }
 };
 
-Hero.prototype.increaseSize = function(increment) {
-    this.mDye.getXform().setSize(this.mDye.getXform().getSize()[0] + increment, this.mDye.getXform().getSize()[1] + increment);
+Hero.prototype.increaseSize = function() {
+    this.mDye.getXform().setSize(this.mDye.getXform().getSize()[0] + this.increment, this.mDye.getXform().getSize()[1] + this.increment);
 };
