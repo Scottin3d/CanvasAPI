@@ -69,8 +69,9 @@ UIDropdown.prototype._update = function (camera) {
 //        this.eOptions[i].update(camera);
 //    }
 };
-UIDropdown.prototype.addListener = function(func, target, options){
+UIDropdown.prototype.AddListener = function(func, target, options){
     //var listener = func.bind(target);
+    console.log("getting a listener");
     for(var i = 0; i < this.eOptions.length; i++) {
         console.log(options[i]);
         this.eOptions[i].addListener(this._invoke, this, options[i]);
