@@ -34,18 +34,18 @@ UIcanvas.prototype.update = function () {
             this.lastElement = null;
         }
 
-        if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left) && element[1].getType() === "slider") {
+        if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
            // check if releases
            this.clickHold = true;
-           if(element[0]){
+           if(element[0] && element[1].getType() === "slider"){
                element[1].Click();
            }
         }else{
            this.clickHold = false; 
         }
         
-        if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left) && element[1].getType() !== "slider") {
-            if(element[0]) {
+        if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
+            if(element[0] && element[1].getType() !== "slider") {
                 element[1].Click();
             }
         }
