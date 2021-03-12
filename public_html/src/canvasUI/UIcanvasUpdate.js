@@ -34,6 +34,7 @@ UIcanvas.prototype.update = function () {
             this.lastElement = null;
         }
 
+       
         if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
            // check if releases
            this.clickHold = true;
