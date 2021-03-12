@@ -99,9 +99,11 @@ MyGame.prototype.initialize = function () {
     var opts = ["option 1", "option 2", "option 3", "option 4"];
     this.UI.CreateDropdown([50,20], [0,0], [1,1,1,1], "Button", opts);
     var vals = [0.5, 1, -1, -0.5];
-    this.UI.UIElements[0].addListener(this.mHero.increaseSize, this.mHero, 0.5);
-    this.UI.UIElements[1].addListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0]);
-    this.UI.UIElements[2].addListener(this.mHero.increaseSize, this.mHero, vals);
+    this.UI.UIElements[0].AddListener(this.mHero.increaseSize, this.mHero, 0.5);
+    this.UI.UIElements[1].AddListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0]);
+    this.UI.UIElements[2].AddListener(this.mHero.increaseSize, this.mHero, vals);
+
+
     
     
     // Large background image
@@ -129,18 +131,8 @@ MyGame.prototype.draw = function () {
     gEngine.Core.clearCanvas([c.r, c.g, c.b, c.a]);
     
     this.drawCamera(this.mCamera);
-    //this.drawCamera(this.vCanvas);
-    
+    // CanvasAPI -- Implementation
     this.UI.Draw();
-    /*
-    this.vCanvas.setupCanvas();
-    //this.vCanvas.setupViewProjection();
-    this.cButton.draw(this.vCanvas);
-    */
-    //this.mMsg[0].draw(this.vCanvas);
-    //this.mMsg[1].draw(this.vCanvas);
-    //this.mMsg[2].draw(this.vCanvas);
-    // dont clear viewport
 };
 
 // The Update function, updates the application state. Make sure to _NOT_ draw
@@ -149,19 +141,7 @@ MyGame.prototype.update = function () {
     // update UI
     this.UI.update();
     
-    var zoomDelta = 0.05;
-    //this.mCamera.update();
-    
-    // Brain chasing the hero
-    
-    var h = [];
-    /*
-    if (!this.mHero.pixelTouches(this.mBrain, h)) {
-        this.mBrain.rotateObjPointTo(this.mHero.getXform().getPosition(), 0.01);
-        GameObject.prototype.update.call(this.mBrain);
-    }
-    */
-    
+   
     var heroPos = this.mHero.getXform().getPosition();
     var a = heroPos[0] - this.mCamera.mouseWCX();
     var b = heroPos[1] - this.mCamera.mouseWCY();

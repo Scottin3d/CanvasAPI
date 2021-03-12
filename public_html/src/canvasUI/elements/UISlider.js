@@ -1,9 +1,6 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/* global gEngine, GameObject */
 "use strict";
+
 
 function UISlider (size, pos, range, dValue, vStep){
     // values
@@ -22,10 +19,10 @@ function UISlider (size, pos, range, dValue, vStep){
     this.eSlidierBar.getXform().setPosition(pos[0], pos[1]);
     this.eSlidierBar.getXform().setSize(size[0], size[1]);
     
-    this.eText = new FontRenderable(dValue.toString());
-    this.eText.setColor([1, 1, 1, 1]);
-    this.eText.getXform().setPosition(pos[0], pos[1] + 10);
-    this.eText.setTextHeight(5);
+    this.eTextRenderable = new FontRenderable(dValue.toString());
+    this.eTextRenderable.setColor([1, 1, 1, 1]);
+    this.eTextRenderable.getXform().setPosition(pos[0], pos[1] + 10);
+    this.eTextRenderable.setTextHeight(5);
     
     // pos = (x - (size / 2)) + size * (dvalue / range[1])
     this.minPos = (pos[0]- (size[0] / 2));
@@ -37,8 +34,9 @@ function UISlider (size, pos, range, dValue, vStep){
     this.eSliderNob.getXform().setPosition(nobXPos, pos[1]);
     this.eSliderNob.getXform().setSize(size[1] * 2, size[1] * 2);
  
-    this.element = this;
-    this.events = [];
+    this._initElement(this);
+    //this.element = this;
+    //this.events = [];
     this.isPressed = false;
     
 GameObject.call(this, this.eSliderNob);
@@ -79,13 +77,13 @@ UISlider.prototype._update = function (camera) {
         this.isPressed = false;
         this._setPosition(this.eSliderValue);
     }
-    this.eText.setText(this.eSliderValue.toString());
+    this.eTextRenderable.setText(this.eSliderValue.toString());
 };
 
 UISlider.prototype._draw = function (camera) {
      this.eSlidierBar.draw(camera);
      this.eSliderNob.draw(camera);
-     this.eText.draw(camera);
+     this.eTextRenderable.draw(camera);
 };
 
 UISlider.prototype._highlight = function(isOn){

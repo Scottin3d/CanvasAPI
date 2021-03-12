@@ -1,6 +1,7 @@
 
 "use strict";
-/*<summary>Update is the most commonly used function to implement any kind of game script.  Update is called every frame.</summary>   
+/*<summary>Update is the most commonly used function to implement any kind of game script.  
+ * Update is called every frame.</summary>   
  */
 UIcanvas.prototype.update = function () {
     //check edit key

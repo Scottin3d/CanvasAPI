@@ -1,8 +1,4 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/* global gEngine, GameObject */
 "use strict";
 
 function UIButton(size, pos, color, text) {
@@ -12,11 +8,8 @@ function UIButton(size, pos, color, text) {
     this.eButton.getXform().setSize(size[0], size[1]);
     
     // set super "UIElement this.element"... there must be an easier way to set this
-    this.InitElement(this);
-    //this.element = this;
-    //this.events = [];
-    //this.dispatcher = new OurDispatcher();
 
+    this._initElement(this);
     
     this.eTextRenderable = new FontRenderable(text.toString());
     this.eTextRenderable.setColor([0, 0, 0, 1]);
