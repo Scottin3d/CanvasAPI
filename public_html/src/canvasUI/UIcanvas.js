@@ -1,4 +1,4 @@
-
+/* global gEngine, GameObject */
 "use strict";
 /* <summary> A UICanvas is an overlay of the main document that has objects that
  * display information and allow the user to interact with objects in the scene 

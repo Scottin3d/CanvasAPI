@@ -21,6 +21,7 @@ function UIButton(type, size, pos, color, text) {
     
     this.eVal = null;
     
+    
     GameObject.call(this, this.eButton);
 };
 
