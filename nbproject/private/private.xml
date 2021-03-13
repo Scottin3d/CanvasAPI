@@ -5,7 +5,7 @@
             <url>public_html/src/MyGame/MyGame.js</url>
             <bookmark id="1">
                 <name/>
-                <line>94</line>
+                <line>84</line>
                 <key/>
             </bookmark>
         </file>
@@ -17,15 +17,15 @@
         <group name="Apress-2d-game-engine"/>
         <group>
             <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/elements/UISlider.js</file>
-            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/UIelement.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/events/UIEventHandler.js</file>
             <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/index.html</file>
-            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/UIcanvasCreate.js</file>
             <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/elements/UIDropdown.js</file>
-            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/Engine/Core/Engine_Core.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/events/UIEvent.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/canvas/UIcanvas.js</file>
             <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/MyGame/MyGame.js</file>
-            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/UIcanvas.js</file>
-            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/UIEvent.js</file>
-            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/UIcanvasUpdate.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/canvas/UIcanvasUpdate.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/elements/UIelement.js</file>
+            <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/canvas/UIcanvasCreate.js</file>
             <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/canvasUI/elements/UIButton.js</file>
             <file>file:/C:/Users/scott/Google%20Drive/School/UW%20Bothell/Winter2021/CSS452/CanvasAPI/public_html/src/Engine/Renderables/SpriteRenderable.js</file>
         </group>

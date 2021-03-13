@@ -1,7 +1,11 @@
-/* global gEngine, GameObject */
+/* global gEngine, GameObject, Scene, vec2 */
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function MyGame() {
+    this.buttonTexture = "assets/sprites/button.png";
+    this.toggleOnTexture = "assets/sprites/togglePressed.png";
+    this.toggleOffTexture = "assets/sprites/toggle.png";
+   
     this.kMinionSprite = "assets/minion_sprite.png";
     this.kMinionPortal = "assets/minion_portal.png";
     this.kBg = "assets/bg.png";
@@ -10,13 +14,16 @@ function MyGame() {
     // The camera to view the scene
     this.mCamera = null;
     this.mBg = null;
-
-    this.mMsg = null;
-    this.vCanvas = null;
-    this.cButton = null;
-    this.vMsgBg = null;
     
+    // UI Canvas
     this.UI = null;
+    this.buttonOne = null;
+    this.toggleOne = null;
+    this.sliderOne = null;
+    this.dropdownOne = null;
+    
+    // example scene
+    this.buttons = [];
 
     // the hero and the support objects
     this.mHero = null;
@@ -35,6 +42,10 @@ MyGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kMinionPortal);
     gEngine.Textures.loadTexture(this.kBg);
     gEngine.Textures.loadTexture(this.space);
+    
+    gEngine.Textures.loadTexture(this.buttonTexture);
+    gEngine.Textures.loadTexture(this.toggleOnTexture);
+    gEngine.Textures.loadTexture(this.toggleOffTexture);
 };
 
 MyGame.prototype.unloadScene = function () {
@@ -42,6 +53,10 @@ MyGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kMinionPortal);
     gEngine.Textures.unloadTexture(this.kBg);
     gEngine.Textures.unloadTexture(this.space);
+    
+    gEngine.Textures.unloadTexture(this.buttonTexture);
+    gEngine.Textures.unloadTexture(this.toggleOnTexture);
+    gEngine.Textures.unloadTexture(this.toggleOffTexture);
 };
 
 MyGame.prototype.initialize = function () { 
@@ -52,6 +67,7 @@ MyGame.prototype.initialize = function () {
     // objects
     this.mBrain = new Brain(this.kMinionSprite);
     this.mHero = new Hero(this.kMinionSprite);
+    this.mHero.setSpeed(1);   
     this.mPortal = new TextureObject(this.kMinionPortal, 50, 30, 10, 10);
     
     this.mLMinion = new Minion(this.kMinionSprite, 30, 30);
@@ -75,30 +91,44 @@ MyGame.prototype.initialize = function () {
     c = hexToRgb("14213d");
     this.mCamera.setBackgroundColor([c.r, c.g, c.b, c.a]);
     
-    this.vCanvas = new Camera(
-        vec2.fromValues(0, 0),                                                  // position of the camera
-        250,                                                                    // width of camera
-        [0, 0, 940, 640]                                                        // viewport (orgX, orgY, width, height)
-    );
-    c = hexToRgb("14213d");
-    this.vCanvas.setBackgroundColor([c.r, c.g, c.b, 0]);
-   
-   
-    this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [20,60], [1,1,1,1], "Button");
-    this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [60, 5], [-100, 100], 0, 1);
-     
-    this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [0,0], [1,1,1,1], "Button");
     
-    //this.UI.UIElements[0].AddOption();
+    this.sliderOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [60, 5], [0, 5], 0, 1);
+    this.sliderOne.SetTexture(this.toggleOnTexture);
+    this.sliderOne.SetSliderBarTexture(this.buttonTexture);
+    
+    this.dropdownOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [0,0], [1,1,1,1], "Button");
+    
+    this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [-50, 10], "Toggle");
+
+    this.sliderOne.AddListener(this.mHero.SetSpeed, this.mHero, null);
+    
+    for (var i = 0; i < 4; i++) {
+        var b = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-100,(-50 + (25 * i))], [1,1,1,1], ("Button" + i));
+        b.SetTexture(this.buttonTexture);
+        b.SetHighlightColor([1,0,1,0.5]);
+        this.buttons.push(b);
+    }
+    
+    this.buttons[0].SetText("Reset");
+    this.buttons[0].AddListener(this.mHero.ResetSize, this.mHero);
+    
+    this.buttons[1].SetText("Set Size: 2x");
+    this.buttons[1].AddListener(this.mHero.SetSize, this.mHero, 2);
+    
+    this.buttons[2].SetText("Set Size: 3x");
+    this.buttons[2].AddListener(this.mHero.SetSize, this.mHero, 3);
+    
+
+    this.buttons[3].SetText("Increase Size");
+    this.buttons[3].AddListener(this.mHero.increaseSize, this.mHero, 2);
+
+    this.toggleOne.AddListener(this.buttons[0].Highlight, this.buttons[0], null);
+    
     
     //var opts = ["option 1", "option 2", "option 3", "option 4"];
     //this.UI.CreateDropdown([50,20], [0,0], [1,1,1,1], "Button", opts);
     //var vals = [0.5, 1, -1, -0.5];
-    this.UI.UIElements[0].AddListener(this.mHero.increaseSize, this.mHero, 0.5);
-    this.UI.UIElements[1].AddListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0]);
     
-    
-
     //this.UI.UIElements[2].AddListener(this.mHero.increaseSize, this.mHero, vals);
 
     // Large background image
@@ -144,7 +174,7 @@ MyGame.prototype.update = function () {
     if (heroMag > 6) {
         this.mHero.rotateObjPointTo(vec2.fromValues(this.mCamera.mouseWCX(), 
                                                     this.mCamera.mouseWCY()), 0.1);
-        this.mHero.setSpeed(0.3);                     
+                          
         GameObject.prototype.update.call(this.mHero);
         
     }

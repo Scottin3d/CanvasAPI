@@ -1,4 +1,12 @@
-/* global gEngine, GameObject */
+/* Developed by 3 Lines of Code
+ * Scott Shirley - @scottin3d
+ * Kevin Blair - 
+ * Nicholas Chambers - 
+ * license - MIT
+ */
+
+/* global gEngine, GameObject, UIelement */
+
 "use strict";
 
 function UIButton(type, size, pos, color, text) {
@@ -13,16 +21,29 @@ function UIButton(type, size, pos, color, text) {
     this.eType = type;
     this.eTextRenderable = new FontRenderable(text.toString());
     this.eTextRenderable.setColor([0, 0, 0, 1]);
-    this.eTextRenderable.getXform().setPosition(0,  pos[1]);
-    this.eTextRenderable.setTextHeight(5);
     
-    this.eTextDefault = text;
+     this.eTextDefault = text;
     this.eText = this.eTextDefault;
     
+    var textLength = this.eText.length;
+    this.eTextRenderable.getXform().setPosition(pos[0] - (textLength / 2),  pos[1]);
+    this.eTextRenderable.setTextHeight(5);
+    
+    // textures
+    this.eButtonTexture = null;
+    this.eButtonTextureRenderer = null;
+    
+    
+   
+    
+    // button has a single event
+    this.onClick = new UIEvent('onClick');
     this.eVal = null;
     
     
     GameObject.call(this, this.eButton);
+    
+    return this;
 };
 
 gEngine.Core.inheritPrototype(UIButton, UIelement);
@@ -34,6 +55,7 @@ UIButton.prototype._update = function (camera) {
         this.eText = this.eTextDefault;
     }
     
+    /*
     // highlighted not clicked
     if(this.isHighlighted && !this.isClicked){
         this.eText = this.eTextHighlighted;
@@ -43,54 +65,88 @@ UIButton.prototype._update = function (camera) {
     if(this.isClicked){
         this.eText = this.eTextClicked;
     }
-    
+    */
+   
     this.eTextRenderable.setText(this.eText); 
+    var textLength = this.eTextDefault.length;
+    var pos = this.element.getXform().getPosition();
+    this.eTextRenderable.getXform().setPosition(pos[0] - (textLength * 1.25),  pos[1]);
+    
     this.isClicked = false;
     this.isHighlighted = false;
 };
 
 UIButton.prototype._draw = function (camera) {
-    this.eButton.draw(camera);
+    // if texture, only draw texture
+    if(this.eButtonTextureRenderer){
+        this.eButtonTextureRenderer.draw(camera);
+    }else{
+        this.eButton.draw(camera);
+    }
+    
     this.eTextRenderable.draw(camera);
 };
 
-
-
 UIButton.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
+    var c = this.highlightColor;
     if(this.isHighlighted){
-         this.eButton.setColor([1,1,0,1]);
+        if(this.eButtonTextureRenderer){
+            this.eButtonTextureRenderer.setColor([c[0],c[1],c[2],c[3]]);
+        }else{
+            this.eButton.setColor([c[0],c[1],c[2],c[3]]);
+        }
     }else{
-        this.eButton.setColor([1,1,1,1]);
+        if(this.eButtonTextureRenderer){
+            this.eButtonTextureRenderer.setColor([1,1,1,0]);
+        }else{
+            this.eButton.setColor([1,1,1,1]);
+        }
+        
     }
 };
 
-UIButton.prototype.setHeight = function(height) {
-    this.eButton.getXform().setHeight(Math.abs(height));
+/*<summary>Set the UI button texture.</summary> 
+ * <param = texture>An object, the texture for UI element.</return>
+ */
+UIButton.prototype._setTexture = function (texture){
+    this.eButtonTexture = texture;
+    
+    // init if not made yet
+    if(!this.eButtonTextureRenderer){
+        this.eButtonTextureRenderer = new TextureRenderable(this.eButtonTexture);
+        var pos = this.eButton.getXform().getPosition();
+        var size = this.eButton.getXform().getSize();
+        this.eButtonTextureRenderer.getXform().setPosition(pos[0], pos[1]);
+        this.eButtonTextureRenderer.getXform().setSize(size[0], size[1]);
+        this.eButtonTextureRenderer.setColor([1, 1, 1, 1]);
+    }else{
+        this.eButtonTextureRenderer.setTexture(this.eButtonTexture);
+    }
+    // init
 };
 
-UIButton.prototype.addListener = function(func, target, value){
+
+UIButton.prototype.setHeight = function(height) {
+    this.eButton.getXform().setHeight(Math.abs(height));
+    if(this.eButtonTextureRenderer){
+        this.eButtonTextureRenderer.getXform().setHeight(Math.abs(height));
+    }
+};
+
+UIButton.prototype._addListener = function(func, target, value){
     //var listener = func.bind(target);
-    this.onClick = func.bind(target);
-    this.eVal = value;
+    this.onClick.AddListener(func.bind(target), value);
+    //this.eVal = value;
 };
 
 
 UIButton.prototype._click = function(){
     this.isClicked = true;
-    this.eButton.setColor([1,0,1,1]);
-    this.eText = "Clicked!";
-    this._invoke();
+    // invoke event
+    this.onClick.Invoke();
 };
 
-UIButton.prototype._invoke = function(){
-    this.onClick();
-};
-
-UIButton.prototype.setText = function(text){
-    this.eText = text;
-};
-
-UIButton.prototype.getType = function() {
-    return "button";
+UIButton.prototype._setText = function(text){
+    this.eTextDefault = text;
 };
