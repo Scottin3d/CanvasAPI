@@ -74,7 +74,7 @@ ShapeGame.prototype.initialize = function () {
     this.mShadow.getXform().setPosition(xPos, yPos);
     this.mShadow.getXform().setRotationInDegree(Math.random() * 360);
     this.mShadow.SetSize(10 + Math.random() * 90);
-    var randSprite = 1 + Math.random() * 3;
+    var randSprite = 1 + Math.random() * 4;
     randSprite -= randSprite % 1;
     this.mShadow.setSprite(randSprite);
     this.mHero = new Hero(this.kMinionSprite);
@@ -120,8 +120,8 @@ ShapeGame.prototype.initialize = function () {
     this.dropdownOne.AddListener(this.mHero.setSprite, this.mHero, [1, 2, 3, 4]);
     
     
-    this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [-50, 10], "Toggle");
-
+    this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [90, -70], "Double Speed");
+    this.toggleOne.AddListener(this.mHero._doubleSpeed, this.mHero, null);
     
 //    for (var i = 0; i < 5; i++) {
 //        var b = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [1,(-50 + (25 * i))], [1,1,1,1], ("Button" + i));
@@ -173,7 +173,7 @@ ShapeGame.prototype.initialize = function () {
 //    this.buttons[4].SetText("Move Down");
 //    this.buttons[4].AddListener(this.mHero.increaseSize, this.mHero, 2);
     
-    //this.toggleOne.AddListener(this.buttons[0].Highlight, this.buttons[0], null);
+    
     
     
 //    var opts = ["option 1", "option 2", "option 3", "option 4"];
@@ -230,7 +230,7 @@ ShapeGame.prototype.update = function () {
         this.mShadow.getXform().setPosition(xPos, yPos);
         this.mShadow.getXform().setRotationInDegree(Math.random() * 360);
         this.mShadow.SetSize(10 + Math.random() * 90);
-        var randSprite = 1 + Math.random() * 3;
+        var randSprite = 1 + Math.random() * 4;
         randSprite -= randSprite % 1;
         this.mShadow.setSprite(randSprite);
     }

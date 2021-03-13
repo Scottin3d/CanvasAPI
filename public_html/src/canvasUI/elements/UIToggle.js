@@ -29,7 +29,7 @@ function UIToggle(type, size, pos, text) {
     this.eTextRenderable = new FontRenderable(text.toString());
     this.eTextRenderable.setColor([0, 0, 0, 1]);
     this.eTextRenderable.getXform().setPosition(pos[0] - size[0] / 2 + 3,  pos[1]);
-    this.eTextRenderable.setTextHeight(5);
+    this.eTextRenderable.setTextHeight(size[1] / 4);
     
     this.eTextDefault = text;
     this.eText = this.eTextDefault;
