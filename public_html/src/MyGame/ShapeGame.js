@@ -88,13 +88,20 @@ ShapeGame.prototype.initialize = function () {
         250,                                                                    // width of camera
         [0, 0, 940, 640]                                                        // viewport (orgX, orgY, width, height)
     );
-    c = hexToRgb("14213d");
+    c = hexToRgb("AAAAAA");
     this.mCamera.setBackgroundColor([c.r, c.g, c.b, c.a]);
     
     
-    this.sliderOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [60, 5], [0, 5], 0, 1);
+    this.sliderOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [100, -60], [0, 5], 0, 1);
     this.sliderOne.SetTexture(this.toggleOnTexture);
     this.sliderOne.SetSliderBarTexture(this.buttonTexture);
+    this.sliderOne.AddListener(this.mHero.SetSpeed, this.mHero, null);
+    
+    this.sliderTwo = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [100,-70], [0, 5], 0, 1);
+    this.sliderTwo.SetTexture(this.toggleOnTexture);
+    this.sliderTwo.SetSliderBarTexture(this.buttonTexture);
+    this.sliderTwo.AddListener(this.mHero.SetSpeed, this.mHero, null);
+    
     
     var opts = ["option 1", "option 2", "option 3", "option 4"];
     this.dropdownOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [0,0], [1,1,1,1], "Button", opts);
@@ -102,7 +109,6 @@ ShapeGame.prototype.initialize = function () {
     
     this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [-50, 10], "Toggle");
 
-    this.sliderOne.AddListener(this.mHero.SetSpeed, this.mHero, null);
     
     for (var i = 0; i < 4; i++) {
         var b = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-100,(-50 + (25 * i))], [1,1,1,1], ("Button" + i));
@@ -134,18 +140,18 @@ ShapeGame.prototype.initialize = function () {
 //    this.UI.UIElements[2].AddListener(this.mHero.increaseSize, this.mHero, vals);
 
     // Large background image
-    var bgR = new SpriteRenderable(this.space);
-    bgR.setElementPixelPositions(0, 1024, 0, 1024);
-    bgR.getXform().setSize(250, 250);
-    bgR.getXform().setPosition(0, 0);
-    this.mBg = new GameObject(bgR);
+    //var bgR = new SpriteRenderable(this.space);
+    //bgR.setElementPixelPositions(0, 1024, 0, 1024);
+    //bgR.getXform().setSize(250, 250);
+    //bgR.getXform().setPosition(0, 0);
+    //this.mBg = new GameObject(bgR);
     
 };
 
 
 ShapeGame.prototype.drawCamera = function (camera) {
     camera.setupViewProjection();
-    this.mBg.draw(camera);
+    //this.mBg.draw(camera);
     this.mHero.draw(camera);
     this.mBrain.draw(camera);
     
