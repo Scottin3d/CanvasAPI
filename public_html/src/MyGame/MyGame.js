@@ -122,7 +122,7 @@ MyGame.prototype.initialize = function () {
     this.buttons[3].SetText("Increase Size");
     this.buttons[3].AddListener(this.mHero.increaseSize, this.mHero, 2);
 
-    this.toggleOne.AddListener(this.buttonOne._highlight, this.buttonOne, null);
+    this.toggleOne.AddListener(this.buttons[0].Highlight, this.buttons[0], null);
     
     
     //var opts = ["option 1", "option 2", "option 3", "option 4"];
