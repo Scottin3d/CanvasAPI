@@ -97,6 +97,8 @@ MyGame.prototype.initialize = function () {
     this.sliderOne.SetSliderBarTexture(this.buttonTexture);
     
     this.dropdownOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [0,0], [1,1,1,1], "Button");
+    
+    this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [-50, 10], "Toggle");
 
     this.sliderOne.AddListener(this.mHero.SetSpeed, this.mHero, null);
     
@@ -116,8 +118,11 @@ MyGame.prototype.initialize = function () {
     this.buttons[2].SetText("Set Size: 3x");
     this.buttons[2].AddListener(this.mHero.SetSize, this.mHero, 3);
     
+
     this.buttons[3].SetText("Increase Size");
     this.buttons[3].AddListener(this.mHero.increaseSize, this.mHero, 2);
+
+    this.toggleOne.AddListener(this.buttonOne._highlight, this.buttonOne, null);
     
     
     //var opts = ["option 1", "option 2", "option 3", "option 4"];

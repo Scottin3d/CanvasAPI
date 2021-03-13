@@ -65,13 +65,13 @@ A sample implement looks like the following:
 A UI element toggle is a checkbox that allows the user to switch an option on or off.  
 
 #### Properties
-* TODO  
+* onValueChanged - Callback executed when the value of the toggle is changed.  
 
 #### Implementation  
-Argument list: TODO
+Argument list: type, size, position, text
 
 A sample implement looks like the following:  
-`TODO`
+`this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20,20], [-50, 10], "Toggle");`
 
 [Back to top.](#application)
 ### Dropdown  
