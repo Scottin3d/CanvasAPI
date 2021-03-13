@@ -52,7 +52,7 @@ UIcanvas.prototype.update = function () {
                     }
                     break;
                 case this.UIELEM_TYPES.Dropdown:
-                    break;
+                    //break;
                 case this.UIELEM_TYPES.Button:
                     if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
                         element[1].Click();

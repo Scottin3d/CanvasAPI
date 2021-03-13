@@ -43,7 +43,7 @@ Hero.prototype.update = function () {
 };
 
 Hero.prototype.increaseSize = function(value) {
-    this.mDye.getXform().setSize(this.mDye.getXform().getSize()[0] * value, this.mDye.getXform().getSize()[1] * value);
+    this.mDye.getXform().setSize(this.mDye.getXform().getSize()[0] + value, this.mDye.getXform().getSize()[1] + value);
 };
 
 Hero.prototype.ResetSize = function() {

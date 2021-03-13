@@ -96,7 +96,9 @@ MyGame.prototype.initialize = function () {
     this.sliderOne.SetTexture(this.toggleOnTexture);
     this.sliderOne.SetSliderBarTexture(this.buttonTexture);
     
-    this.dropdownOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [0,0], [1,1,1,1], "Button");
+    var opts = ["option 1", "option 2", "option 3", "option 4"];
+    this.dropdownOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [0,0], [1,1,1,1], "Button", opts);
+    this.dropdownOne.AddListener(this.mHero.increaseSize, this.mHero, [0.5, 1, -1, -0.5]);
     
     this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [-50, 10], "Toggle");
 
@@ -125,11 +127,11 @@ MyGame.prototype.initialize = function () {
     this.toggleOne.AddListener(this.buttons[0].Highlight, this.buttons[0], null);
     
     
-    //var opts = ["option 1", "option 2", "option 3", "option 4"];
-    //this.UI.CreateDropdown([50,20], [0,0], [1,1,1,1], "Button", opts);
-    //var vals = [0.5, 1, -1, -0.5];
-    
-    //this.UI.UIElements[2].AddListener(this.mHero.increaseSize, this.mHero, vals);
+//    var opts = ["option 1", "option 2", "option 3", "option 4"];
+//    this.UI.CreateDropdown([50,20], [0,0], [1,1,1,1], "Button", opts);
+//    var vals = [0.5, 1, -1, -0.5];
+//    
+//    this.UI.UIElements[2].AddListener(this.mHero.increaseSize, this.mHero, vals);
 
     // Large background image
     var bgR = new SpriteRenderable(this.space);

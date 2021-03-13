@@ -41,7 +41,7 @@ UIcanvas.prototype.CreateElement = function(){
             if(arguments.length !== 4){ alert("Invalid arguments"); }       // a toggle has ### arguments
             return this._createToggle(arguments);
         case this.UIELEM_TYPES.Dropdown:
-            if(arguments.length !== 5){ alert("Invalid arguments"); }           // a slider has six (6) arguments
+            if(arguments.length !== 6){ alert("Invalid arguments"); }           // a slider has six (6) arguments
             return this._createDropdown(arguments);
             //return;
         default:
@@ -60,6 +60,7 @@ UIcanvas.prototype.CreateElement = function(){
 UIcanvas.prototype._createButton = function(args){
     // function UIButton(size, pos, color, text)
     // check args
+    console.log(args[1]);
     var type = args[0];
     var size = args[1];                                                         
     if(size.length !== 2){ return; }
@@ -119,6 +120,7 @@ UIcanvas.prototype._createToggle = function(args){
 UIcanvas.prototype._createDropdown = function(args){
     //[50,20], [0,0], [1,1,1,1], "Button", opts)
     // check args
+    console.log(args[1]);
     var type = args[0];
     var size = args[1];                                                         
     if(size.length !== 2){ return; }
@@ -130,17 +132,19 @@ UIcanvas.prototype._createDropdown = function(args){
     var options = args[5];
     
     var newDropdown = new UIDropdown(type, size, pos, color, text);
-    
-    /*
+    this._AddElement(newDropdown);
     for(var i = 0; i < options.length; i++) {
-        var newOpt = new UIButton([size[0], size[1] / 2], [pos[0], pos[1] - ((size[1] / 2) * (i + 1) + (size[1] / 4))], [color[0],color[1],color[2] - 0.1 * i,color[3]], options[i]);
+        console.log(i);
+        console.log(size[0]);
+        console.log(size[1]);
+        var newOpt = new UIButton(1, [size[0], size[1] / 2], [pos[0], pos[1] - ((size[1] / 2) * (i + 1) + (size[1] / 4))], [color[0],color[1],color[2] - 0.1 * i,color[3]], options[i]);
+        console.log(newOpt.isEnabled());
         newDropdown.addOption(newOpt);
         // the dropdown object should track the options not the canvas
         // this adds it the the list of canvas elements
         this._AddElement(newOpt);
     }
-    */
-    this._AddElement(newDropdown);
+    
     return newDropdown;
 };
 
