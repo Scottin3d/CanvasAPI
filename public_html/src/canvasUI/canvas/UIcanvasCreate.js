@@ -37,15 +37,9 @@ UIcanvas.prototype.CreateElement = function(){
             return this._createSlider(arguments);
             //return;
         case this.UIELEM_TYPES.Toggle:
-<<<<<<< Updated upstream
-            //if(arguments.length !== ###){ alert("Invalid arguments"); }       // a toggle has ### arguments
-            return this._createToggle(arguments);
-            //return;
-=======
             if(arguments.length !== 4){ alert("Invalid arguments"); }       // a toggle has ### arguments
             this._createToggle(arguments);
             return;
->>>>>>> Stashed changes
         case this.UIELEM_TYPES.Dropdown:
             if(arguments.length !== 5){ alert("Invalid arguments"); }           // a slider has six (6) arguments
             return this._createDropdown(arguments);
@@ -110,19 +104,12 @@ UIcanvas.prototype._createSlider = function(args){
  */
 UIcanvas.prototype._createToggle = function(args){
     // TODO -- Impelement
-<<<<<<< Updated upstream
-    
-    var newToggle = new UIToggle();
-    this._AddElement(newToggle);
-    return newToggle;
-=======
     var type = args[0];
     var size = args[1];
     var pos = args[2];
     var text = args[3];
     var newToggle = new UIToggle(type, size, pos, text);
     this._AddElement(newToggle);
->>>>>>> Stashed changes
 };
 
 /*<summary>Creates a dropdown UI elements.  A user defined event controller.</summary>   
