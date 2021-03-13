@@ -53,3 +53,8 @@ Hero.prototype.ResetSize = function() {
 Hero.prototype.SetSize = function(value) {
     this.mDye.getXform().setSize(9 * value, 12 * value);
 };
+
+Hero.prototype.SetSpeed = function(value) {
+    this.setSpeed(Math.abs(value));
+};
+

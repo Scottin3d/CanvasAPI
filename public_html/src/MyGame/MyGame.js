@@ -67,6 +67,7 @@ MyGame.prototype.initialize = function () {
     // objects
     this.mBrain = new Brain(this.kMinionSprite);
     this.mHero = new Hero(this.kMinionSprite);
+    this.mHero.setSpeed(1);   
     this.mPortal = new TextureObject(this.kMinionPortal, 50, 30, 10, 10);
     
     this.mLMinion = new Minion(this.kMinionSprite, 30, 30);
@@ -90,21 +91,14 @@ MyGame.prototype.initialize = function () {
     c = hexToRgb("14213d");
     this.mCamera.setBackgroundColor([c.r, c.g, c.b, c.a]);
     
-   
     
-    this.buttonOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [20,60], [1,1,1,1], "Button");
-    this.buttonOne.SetTexture(this.buttonTexture);
-    this.buttonOne.SetHighlightColor([1,0,1,0.5]);
-    
-    this.sliderOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [60, 5], [-100, 100], 0, 1);
+    this.sliderOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [60, 5], [0, 5], 0, 1);
     this.sliderOne.SetTexture(this.toggleOnTexture);
     this.sliderOne.SetSliderBarTexture(this.buttonTexture);
+    
     this.dropdownOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [0,0], [1,1,1,1], "Button");
 
-    
-    this.buttonOne.AddListener(this.mHero.increaseSize, this.mHero, 0.5);
-    this.buttonOne.AddListener(this.sliderOne.SetValue, this.sliderOne, 50);
-    this.sliderOne.AddListener(this.buttonOne.setHeight,this.buttonOne, null);
+    this.sliderOne.AddListener(this.mHero.SetSpeed, this.mHero, null);
     
     for (var i = 0; i < 4; i++) {
         var b = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-100,(-50 + (25 * i))], [1,1,1,1], ("Button" + i));
@@ -175,7 +169,7 @@ MyGame.prototype.update = function () {
     if (heroMag > 6) {
         this.mHero.rotateObjPointTo(vec2.fromValues(this.mCamera.mouseWCX(), 
                                                     this.mCamera.mouseWCY()), 0.1);
-        this.mHero.setSpeed(0.3);                     
+                          
         GameObject.prototype.update.call(this.mHero);
         
     }
