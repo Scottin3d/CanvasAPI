@@ -23,7 +23,8 @@ UIcanvas.prototype._AddElement = function (element){
 
 /*<summary>Creates a UI element.</summary>   
  *<param = arguments> Any number of arguments can be passed into this function.</param>   
- *<remarks>Arg[0] is the element type, Arg[1+] are the arguments for the element constructor.</remarks>
+ *<remarks>Arg[0] is the element type, Arg[1+] are the arguments for the element constructor.
+ *A stretch goal is to include texturs in the constructor.</remarks>
  */
 UIcanvas.prototype.CreateElement = function(){
     var type = arguments[0];                                                    // gets the type from UIELEM_TYPES.  No need to validate.  Invalid types doto default which is error.

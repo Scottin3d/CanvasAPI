@@ -8,17 +8,25 @@
 /* global gEngine, GameObject, UIelement */
 
 "use strict";
-
+/*<summary>A UI element button is a standard button that can be clicked in order to trigger an event.</summary>   
+ *<param = type>An object, the type of UI button.</param>
+ *<param = size[2]>A number[2], the size of the UI button xform.</param>
+ *<param = pos[2]>A number[2], the position of the UI button xform within the UI space.</param>  
+ *<param = color[4]>A number[4], the color of the UI button.</param>  
+ *<param = text>A string, the text of the button</param>  
+ *<return = this>An object, returns the button constructed.</return>
+ */
 function UIButton(type, size, pos, color, text) {
+    this._initElement(this);
+    this.eType = type;
+    
     this.eButton = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eButton.setColor([color[0],color[1],color[2],color[3]]);
     this.eButton.getXform().setPosition(pos[0], pos[1]);
     this.eButton.getXform().setSize(size[0], size[1]);
     
-    // set super "UIElement this.element"... there must be an easier way to set this
-
-    this._initElement(this);
-    this.eType = type;
+    
+    
     this.eTextRenderable = new FontRenderable(text.toString());
     this.eTextRenderable.setColor([0, 0, 0, 1]);
     
@@ -33,13 +41,9 @@ function UIButton(type, size, pos, color, text) {
     this.eButtonTexture = null;
     this.eButtonTextureRenderer = null;
     
-    
-   
-    
     // button has a single event
     this.onClick = new UIEvent('onClick');
     this.eVal = null;
-    
     
     GameObject.call(this, this.eButton);
     
@@ -48,25 +52,31 @@ function UIButton(type, size, pos, color, text) {
 
 gEngine.Core.inheritPrototype(UIButton, UIelement);
 
+//==PUBLIC======================================================================
+
+/*<summary>Sets the height of the UI button.</summary> 
+ * <param = height>A number, the new height of the UI button.</return>
+ */
+UIButton.prototype.SetHeight = function(height) {
+    this.eButton.getXform().setHeight(Math.abs(height));
+    if(this.eButtonTextureRenderer){
+        this.eButtonTextureRenderer.getXform().setHeight(Math.abs(height));
+    }
+};
+
+//==============================================================================
+//
+//==PRIVATE=====================================================================
+
+/*<summary>Update is the most commonly used function to implement any kind of game script. 
+ *Update is called every frame.</summary>   
+ */
 UIButton.prototype._update = function (camera) {
     // not highlighted not clicked
     if(!this.isClicked && !this.isHighlighted){
         this._highlight(false);
         this.eText = this.eTextDefault;
     }
-    
-    /*
-    // highlighted not clicked
-    if(this.isHighlighted && !this.isClicked){
-        this.eText = this.eTextHighlighted;
-    }
-    
-    // clicked
-    if(this.isClicked){
-        this.eText = this.eTextClicked;
-    }
-    */
-   
     this.eTextRenderable.setText(this.eText); 
     var textLength = this.eTextDefault.length;
     var pos = this.element.getXform().getPosition();
@@ -76,6 +86,8 @@ UIButton.prototype._update = function (camera) {
     this.isHighlighted = false;
 };
 
+/*<summary>Calls the camera setup and draws object to a specified camera</summary>   
+ */
 UIButton.prototype._draw = function (camera) {
     // if texture, only draw texture
     if(this.eButtonTextureRenderer){
@@ -87,6 +99,9 @@ UIButton.prototype._draw = function (camera) {
     this.eTextRenderable.draw(camera);
 };
 
+/*<summary>Highlights the UI button if isHighlight is on.</summary> 
+ * <param = isOn>A bool, whether or not the button is highlighted.</return>
+ */
 UIButton.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
     var c = this.highlightColor;
@@ -123,30 +138,30 @@ UIButton.prototype._setTexture = function (texture){
     }else{
         this.eButtonTextureRenderer.setTexture(this.eButtonTexture);
     }
-    // init
 };
 
-
-UIButton.prototype.setHeight = function(height) {
-    this.eButton.getXform().setHeight(Math.abs(height));
-    if(this.eButtonTextureRenderer){
-        this.eButtonTextureRenderer.getXform().setHeight(Math.abs(height));
-    }
-};
-
+/*<summary>Addes a listener to a UI Button.</summary>   
+ *<param = func>A function, the hnadle function to be added as a listener.</param>
+ *<param = target>An object, the target that the function will bind to.</param>
+ *<param = value>A object, a value that can be associated with the listener when invoked.</param>
+ */
 UIButton.prototype._addListener = function(func, target, value){
-    //var listener = func.bind(target);
     this.onClick.AddListener(func.bind(target), value);
-    //this.eVal = value;
 };
 
-
+/*<summary>Called when the button is clicked.</summary>
+ */
 UIButton.prototype._click = function(){
     this.isClicked = true;
     // invoke event
     this.onClick.Invoke();
 };
 
+/*<summary>Set the UI button text.</summary> 
+ * <param = text>A string, the text for UI element.</return>
+ */
 UIButton.prototype._setText = function(text){
     this.eTextDefault = text;
 };
+
+//==============================================================================

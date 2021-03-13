@@ -1,8 +1,10 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* Developed by 3 Lines of Code
+ * Scott Shirley - @scottin3d
+ * Kevin Blair - 
+ * Nicholas Chambers - 
+ * license - MIT
  */
+
 /* global gEngine, GameObject, UIelement */
 
 "use strict";

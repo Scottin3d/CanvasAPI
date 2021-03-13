@@ -14,6 +14,9 @@
  * UI canvas.  It contains common shared function as well as handles the events 
  * for each of the elements.
  * </summary>
+ * <param = element>An object, the element attached to class.</param> 
+ * <param = eType>An object, the type of UI element.</param> 
+ * <param = ></param> 
  */
 function UIelement() {
     this.element = null;
@@ -23,8 +26,6 @@ function UIelement() {
     this.highlightColor = null;
     this.isPressed = false;
     
-    // event
-    this.onClick = null;
     
     // text
     this.eTextDefault = null;
@@ -75,7 +76,7 @@ UIelement.prototype.Click = function(){
     this.element._click();
 };
 
-/*<summary>Addes a listener to a UI element.</summary>   
+/*<summary>Adds a listener to a UI element.</summary>   
  *<param = func>A function, the hnadle function to be added as a listener.</param>
  *<param = target>An object, the target that the function will bind to.</param>
  *<param = value>A object, a value that can be associated with the listener when invoked.</param>
@@ -92,7 +93,7 @@ UIelement.prototype.IsHeld = function() {
     return this.isPressed;
 };
 
-/*<summary>Enables or disables the UI element</summary> 
+/*<summary>Enables or disables the UI element.</summary> 
  *<param = isEnabled>A bool, whether or not the UI element is to be enabled or not.</param>  
  */
 UIelement.prototype.SetEnabled = function(isEnabled) {
@@ -106,28 +107,28 @@ UIelement.prototype.IsEnabled = function() {
     return this.enabled;
 };
 
-/*<summary>Gets the Ui element type.</summary> 
+/*<summary>Gets the UI element type.</summary> 
  * <return = this.eType>An object, the type of UI element.</return>
  */
 UIelement.prototype.GetType = function() {
     return this.eType;
 };
 
-/*<summary>Set the UI element texture.</summary> 
+/*<summary>Sets the UI element texture.</summary> 
  * <param = texture>An object, the texture for UI element.</return>
  */
 UIelement.prototype.SetTexture = function (texture){
     this.element._setTexture(texture);
 };
 
-/*<summary>Set the UI element highlight color.</summary> 
+/*<summary>Sets the UI element highlight color.</summary> 
  * <param = color>An number[4], the color of the element when highlighted.</return>
  */
 UIelement.prototype.SetHighlightColor = function (color){
     this.highlightColor = color;
 };
 
-/*<summary>Set the UI element default text.</summary> 
+/*<summary>Sets the UI element default text.</summary> 
  * <param = color>An number[4], the color of the element when highlighted.</return>
  */
 UIelement.prototype.SetText = function (text){
@@ -145,6 +146,7 @@ UIelement.prototype.SetText = function (text){
 UIelement.prototype._initElement = function(obj){
     this.element = obj;
     this.highlightColor = [1,1,0,0.4];
+    
     if(this.eTexture){
         this.eTextureRenderer = new TextureRenderable(this.eTexture);
         var pos = this.element.getXform().getPosition();

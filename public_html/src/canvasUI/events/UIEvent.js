@@ -6,7 +6,9 @@
  */
 
 /* global gEngine, GameObject */
+
 "use strict";
+
 /*<summary>UIEvents are a special kind of multicast delegate that can only be invoked 
  * from within the class where they are declared (the publisher class). 
  * If other classes subscribe to the event, their event handler methods 
