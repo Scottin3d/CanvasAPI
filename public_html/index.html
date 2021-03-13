@@ -49,6 +49,8 @@
         <script src="src/Engine/Cameras/CameraState.js"></script>
         <script src="src/Engine/Cameras/CameraShake.js"></script>
         <!-- Client game code -->
+        <script src="src/MyGame/SceneManager.js"></script>
+        <script src="src/MyGame/HomeScreen.js"></script>
         <script src="src/MyGame/MyGame.js"></script>
         <script src="src/MyGame/ShapeGame.js"></script>
         <!-- Objects -->
@@ -78,7 +80,7 @@
     </head>
 
     <body onload="
-        var myGame = new ShapeGame();
+        var myGame = new HomeScreen();
         gEngine.Core.initializeEngineCore('GLCanvas', myGame);as">
         <canvas id="GLCanvas" width="940" height="640">
             Your browser does not support the HTML5 canvas.

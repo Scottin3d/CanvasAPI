@@ -2,6 +2,8 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function MyGame() {
+    this.sceneManager = new SceneManager();
+    
     this.buttonTexture = "assets/sprites/button.png";
     this.toggleOnTexture = "assets/sprites/togglePressed.png";
     this.toggleOffTexture = "assets/sprites/toggle.png";
@@ -181,4 +183,15 @@ MyGame.prototype.update = function () {
         
     }
     this.mHero.update();
+    
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Zero)){
+        this.sceneManager.LoadScene(0);
+    }
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.One)){
+        this.sceneManager.LoadScene(1);
+    }
+    
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Two)){
+        this.sceneManager.LoadScene(2);
+    }
 };
