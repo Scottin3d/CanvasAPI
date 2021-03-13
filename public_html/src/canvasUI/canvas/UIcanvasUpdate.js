@@ -69,15 +69,15 @@ UIcanvas.prototype.update = function () {
                     }
                     break;
             }
-        } else {
-            for(var i = 0; i < this.UIElements.length; i++){
-                if(!gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
-                    if(this.UIElements[i].GetType() === this.UIELEM_TYPES.Slider) {
-                        this.UIElements[i].isPressed = false;
-                    }
+        }
+        for(var i = 0; i < this.UIElements.length; i++){
+            if(!gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
+                if(this.UIElements[i].GetType() === this.UIELEM_TYPES.Slider) {
+                    this.UIElements[i].isPressed = false;
                 }
             }
         }
+        
         // update UI elements
         for(var i = 0; i < this.UIElements.length; i++){
             this.UIElements[i].Update(this.UIcamera); 
