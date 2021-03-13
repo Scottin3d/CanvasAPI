@@ -125,12 +125,6 @@ ShapeGame.prototype.initialize = function () {
     this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [-50, 10], "Toggle");
 
     
-//    for (var i = 0; i < 5; i++) {
-//        var b = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [1,(-50 + (25 * i))], [1,1,1,1], ("Button" + i));
-//        b.SetTexture(this.buttonTexture);
-//        b.SetHighlightColor([1,0,1,0.5]);
-//        this.buttons.push(b);
-//    }
     this.buttonOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-100, -75], [1,1,1,1], ("Button"));
     this.buttonOne.SetText("Reset");
     this.buttonOne.SetTexture(this.buttonTexture);
@@ -161,35 +155,6 @@ ShapeGame.prototype.initialize = function () {
     this.buttonFive.SetTexture(this.buttonTexture);
     this.buttonFive.SetHighlightColor([1,0,1,0.5]);
     this.buttonFive.AddListener(this.mHero.incPosition, this.mHero, [0,2]);
-    
-//    this.buttons[1].SetText("Move Left");
-//    this.buttons[1].AddListener(this.mHero.SetSize, this.mHero, 2);
-//    
-//    this.buttons[2].SetText("Move Right");
-//    this.buttons[2].AddListener(this.mHero.SetSize, this.mHero, 3);
-//    
-//
-//    this.buttons[3].SetText("Move Up");
-//    this.buttons[3].AddListener(this.mHero.increaseSize, this.mHero, 2);
-//    
-//    this.buttons[4].SetText("Move Down");
-//    this.buttons[4].AddListener(this.mHero.increaseSize, this.mHero, 2);
-    
-    //this.toggleOne.AddListener(this.buttons[0].Highlight, this.buttons[0], null);
-    
-    
-//    var opts = ["option 1", "option 2", "option 3", "option 4"];
-//    this.UI.CreateDropdown([50,20], [0,0], [1,1,1,1], "Button", opts);
-//    var vals = [0.5, 1, -1, -0.5];
-//    
-//    this.UI.UIElements[2].AddListener(this.mHero.increaseSize, this.mHero, vals);
-
-    // Large background image
-    //var bgR = new SpriteRenderable(this.space);
-    //bgR.setElementPixelPositions(0, 1024, 0, 1024);
-    //bgR.getXform().setSize(250, 250);
-    //bgR.getXform().setPosition(0, 0);
-    //this.mBg = new GameObject(bgR);
     
 };
 

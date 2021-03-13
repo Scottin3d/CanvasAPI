@@ -45,7 +45,8 @@ Hero.prototype.update = function () {
 };
 Hero.prototype.setColor = function(color) {
     this.mDye.setColor(color);
-}
+};
+
 Hero.prototype.rotate = function(value) {
     this.getXform().setRotationInDegree(value);
 };

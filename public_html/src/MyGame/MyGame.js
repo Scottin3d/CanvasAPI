@@ -20,9 +20,7 @@ function MyGame() {
     // UI Canvas
     this.UI = null;
     this.buttonOne = null;
-    this.toggleOne = null;
     this.sliderOne = null;
-    this.dropdownOne = null;
     
     // example scene
     this.buttons = [];
@@ -67,14 +65,8 @@ MyGame.prototype.initialize = function () {
     // I wrote the hexToRgb utility to help with better colors -- Scott
     var c; 
     // objects
-    this.mBrain = new Brain(this.kMinionSprite);
     this.mHero = new Hero(this.kMinionSprite);
-    this.mHero.setSpeed(1);   
-    this.mPortal = new TextureObject(this.kMinionPortal, 50, 30, 10, 10);
-    
-    this.mLMinion = new Minion(this.kMinionSprite, 30, 30);
-    this.mRMinion = new Minion(this.kMinionSprite, 70, 30);
-    this.mFocusObj = this.mHero;
+    this.mHero.setSpeed(1); 
     
     this.vBackground = new Renderable(gEngine.DefaultResources.getConstColorShader());
     c = hexToRgb("14213d");
@@ -97,12 +89,7 @@ MyGame.prototype.initialize = function () {
     this.sliderOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [60, 5], [0, 5], 0, 1);
     this.sliderOne.SetTexture(this.toggleOnTexture);
     this.sliderOne.SetSliderBarTexture(this.buttonTexture);
-    
-    var opts = ["option 1", "option 2", "option 3", "option 4"];
-    this.dropdownOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [0,0], [1,1,1,1], "Button", opts);
-    this.dropdownOne.AddListener(this.mHero.increaseSize, this.mHero, [0.5, 1, -1, -0.5]);
-    
-    this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [-50, 10], "Toggle");
+
 
     this.sliderOne.AddListener(this.mHero.SetSpeed, this.mHero, null);
     
@@ -114,7 +101,7 @@ MyGame.prototype.initialize = function () {
     }
     
     this.buttons[0].SetText("Reset");
-    this.buttons[0].AddListener(this.mHero.ResetSize, this.mHero);
+    this.buttons[0].AddListener(this.mHero.Reset, this.mHero);
     
     this.buttons[1].SetText("Set Size: 2x");
     this.buttons[1].AddListener(this.mHero.SetSize, this.mHero, 2);
@@ -126,15 +113,8 @@ MyGame.prototype.initialize = function () {
     this.buttons[3].SetText("Increase Size");
     this.buttons[3].AddListener(this.mHero.increaseSize, this.mHero, 2);
 
-    this.toggleOne.AddListener(this.buttons[0].Highlight, this.buttons[0], null);
     
     
-//    var opts = ["option 1", "option 2", "option 3", "option 4"];
-//    this.UI.CreateDropdown([50,20], [0,0], [1,1,1,1], "Button", opts);
-//    var vals = [0.5, 1, -1, -0.5];
-//    
-//    this.UI.UIElements[2].AddListener(this.mHero.increaseSize, this.mHero, vals);
-
     // Large background image
     var bgR = new SpriteRenderable(this.space);
     bgR.setElementPixelPositions(0, 1024, 0, 1024);
@@ -149,7 +129,6 @@ MyGame.prototype.drawCamera = function (camera) {
     camera.setupViewProjection();
     this.mBg.draw(camera);
     this.mHero.draw(camera);
-    this.mBrain.draw(camera);
     
 };
 // This is the draw function, make sure to setup proper drawing environment, and more
