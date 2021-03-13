@@ -12,14 +12,16 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function Hero(spriteTexture) {
+    this.texture = spriteTexture;
     this.kDelta = 0.3;
 
     this.mDye = new SpriteRenderable(spriteTexture);
     this.mDye.setColor([1, 1, 1, 0]);
     this.mDye.getXform().setPosition(35, 50);
-    this.mDye.getXform().setSize(9, 12);
+    this.mDye.getXform().setSize(20, 30);
     this.mDye.setElementPixelPositions(0, 120, 0, 180);
     this.increment  = 5;
+    this.mySprite = 1;
     GameObject.call(this, this.mDye);
 }
 gEngine.Core.inheritPrototype(Hero, GameObject);
@@ -41,20 +43,47 @@ Hero.prototype.update = function () {
         xform.incXPosBy(this.kDelta);
     }
 };
+Hero.prototype.setColor = function(color) {
+    this.mDye.setColor(color);
+}
+Hero.prototype.rotate = function(value) {
+    this.getXform().setRotationInDegree(value);
+};
 
 Hero.prototype.increaseSize = function(value) {
     this.mDye.getXform().setSize(this.mDye.getXform().getSize()[0] + value, this.mDye.getXform().getSize()[1] + value);
 };
 
-Hero.prototype.ResetSize = function() {
-    this.mDye.getXform().setSize(9, 12);
+Hero.prototype.Reset =  function() {
+    this.mDye.getXform().setSize(20, 30);
+    this.getXform().setRotationInDegree(0);
 };
 
 Hero.prototype.SetSize = function(value) {
-    this.mDye.getXform().setSize(9 * value, 12 * value);
+    this.mDye.getXform().setSize(0.4 * value, 0.6 * value);
 };
 
 Hero.prototype.SetSpeed = function(value) {
     this.setSpeed(Math.abs(value));
 };
 
+Hero.prototype.incPosition = function(value) {
+    this.mDye.getXform().setPosition(this.mDye.getXform().getXPos() + value[0], this.mDye.getXform().getYPos() + value[1]);
+};
+
+Hero.prototype.setSprite = function(sprite) {
+    if(sprite === 1) {
+        this.mDye.setElementPixelPositions(0, 120, 0, 180);
+    } else if(sprite === 2) {
+        this.mDye.setElementPixelPositions(0, 204, 346, 512);
+    } else if(sprite === 3) {
+        this.mDye.setElementPixelPositions(600, 700, 0, 180);
+    } else {
+        this.mDye.setElementPixelPositions(510, 595, 23, 153);
+    }
+    this.mySprite = sprite;
+};
+
+Hero.prototype.getSprite = function() {
+    return this.mySprite;
+};

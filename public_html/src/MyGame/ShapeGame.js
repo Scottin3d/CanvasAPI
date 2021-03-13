@@ -65,9 +65,21 @@ ShapeGame.prototype.initialize = function () {
     // I wrote the hexToRgb utility to help with better colors -- Scott
     var c; 
     // objects
-    this.mBrain = new Brain(this.kMinionSprite);
+    this.mShadow = new Hero(this.kMinionSprite);
+    this.mShadow.setColor([0,0,0,1]);
+    var xPos = -90 + Math.random() * 120;
+    var yPos = -20 + Math.random() * 80;
+    xPos -= xPos % 2;
+    yPos -= yPos %2;
+    this.mShadow.getXform().setPosition(xPos, yPos);
+    this.mShadow.getXform().setRotationInDegree(Math.random() * 360);
+    this.mShadow.SetSize(10 + Math.random() * 90);
+    var randSprite = 1 + Math.random() * 3;
+    randSprite -= randSprite % 1;
+    this.mShadow.setSprite(randSprite);
     this.mHero = new Hero(this.kMinionSprite);
     this.mHero.setSpeed(1);   
+    this.mHero.getXform().setPosition(0,0);
     this.mPortal = new TextureObject(this.kMinionPortal, 50, 30, 10, 10);
     
     this.mLMinion = new Minion(this.kMinionSprite, 30, 30);
@@ -92,45 +104,76 @@ ShapeGame.prototype.initialize = function () {
     this.mCamera.setBackgroundColor([c.r, c.g, c.b, c.a]);
     
     
-    this.sliderOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [100, -60], [0, 5], 0, 1);
+    this.sliderOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [-80, -40], [0, 360], 0, 1);
     this.sliderOne.SetTexture(this.toggleOnTexture);
     this.sliderOne.SetSliderBarTexture(this.buttonTexture);
-    this.sliderOne.AddListener(this.mHero.SetSpeed, this.mHero, null);
+    this.sliderOne.AddListener(this.mHero.rotate, this.mHero, null);
     
-    this.sliderTwo = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [100,-70], [0, 5], 0, 1);
+    this.sliderTwo = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [-80,-55], [10, 100], 50, 1);
     this.sliderTwo.SetTexture(this.toggleOnTexture);
     this.sliderTwo.SetSliderBarTexture(this.buttonTexture);
-    this.sliderTwo.AddListener(this.mHero.SetSpeed, this.mHero, null);
+    this.sliderTwo.AddListener(this.mHero.SetSize, this.mHero, null);
     
     
-    var opts = ["option 1", "option 2", "option 3", "option 4"];
-    this.dropdownOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [0,0], [1,1,1,1], "Button", opts);
-    this.dropdownOne.AddListener(this.mHero.increaseSize, this.mHero, [0.5, 1, -1, -0.5]);
+    var opts = ["Hero", "Minion", "Brain", "DyePack"];
+    this.dropdownOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [100,75], [1,1,1,1], "Sprite", opts);
+    this.dropdownOne.AddListener(this.mHero.setSprite, this.mHero, [1, 2, 3, 4]);
+    
     
     this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [-50, 10], "Toggle");
 
     
-    for (var i = 0; i < 4; i++) {
-        var b = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-100,(-50 + (25 * i))], [1,1,1,1], ("Button" + i));
-        b.SetTexture(this.buttonTexture);
-        b.SetHighlightColor([1,0,1,0.5]);
-        this.buttons.push(b);
-    }
+//    for (var i = 0; i < 5; i++) {
+//        var b = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [1,(-50 + (25 * i))], [1,1,1,1], ("Button" + i));
+//        b.SetTexture(this.buttonTexture);
+//        b.SetHighlightColor([1,0,1,0.5]);
+//        this.buttons.push(b);
+//    }
+    this.buttonOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-100, -75], [1,1,1,1], ("Button"));
+    this.buttonOne.SetText("Reset");
+    this.buttonOne.SetTexture(this.buttonTexture);
+    this.buttonOne.SetHighlightColor([1,0,1,0.5]);
+    this.buttonOne.AddListener(this.sliderOne.SetValue, this.sliderOne, 0);
+    this.buttonOne.AddListener(this.sliderTwo.SetValue, this.sliderTwo, 50);
     
-    this.buttons[0].SetText("Reset");
-    this.buttons[0].AddListener(this.mHero.ResetSize, this.mHero);
+    this.buttonTwo = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-50, -75], [1,1,1,1], ("Button"));
+    this.buttonTwo.SetText("Move Left");
+    this.buttonTwo.SetTexture(this.buttonTexture);
+    this.buttonTwo.SetHighlightColor([1,0,1,0.5]);
+    this.buttonTwo.AddListener(this.mHero.incPosition, this.mHero, [-2,0]);
     
-    this.buttons[1].SetText("Set Size: 2x");
-    this.buttons[1].AddListener(this.mHero.SetSize, this.mHero, 2);
+    this.buttonThree = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [0, -75], [1,1,1,1], ("Button"));
+    this.buttonThree.SetText("Move Down");
+    this.buttonThree.SetTexture(this.buttonTexture);
+    this.buttonThree.SetHighlightColor([1,0,1,0.5]);
+    this.buttonThree.AddListener(this.mHero.incPosition, this.mHero, [0,-2]);
     
-    this.buttons[2].SetText("Set Size: 3x");
-    this.buttons[2].AddListener(this.mHero.SetSize, this.mHero, 3);
+    this.buttonFour = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [50, -75], [1,1,1,1], ("Button"));
+    this.buttonFour.SetText("Move Right");
+    this.buttonFour.SetTexture(this.buttonTexture);
+    this.buttonFour.SetHighlightColor([1,0,1,0.5]);
+    this.buttonFour.AddListener(this.mHero.incPosition, this.mHero, [2,0]);
     
-
-    this.buttons[3].SetText("Increase Size");
-    this.buttons[3].AddListener(this.mHero.increaseSize, this.mHero, 2);
-
-    this.toggleOne.AddListener(this.buttons[0].Highlight, this.buttons[0], null);
+    this.buttonFive = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [0, -55], [1,1,1,1], ("Button"));
+    this.buttonFive.SetText("Move Up");
+    this.buttonFive.SetTexture(this.buttonTexture);
+    this.buttonFive.SetHighlightColor([1,0,1,0.5]);
+    this.buttonFive.AddListener(this.mHero.incPosition, this.mHero, [0,2]);
+    
+//    this.buttons[1].SetText("Move Left");
+//    this.buttons[1].AddListener(this.mHero.SetSize, this.mHero, 2);
+//    
+//    this.buttons[2].SetText("Move Right");
+//    this.buttons[2].AddListener(this.mHero.SetSize, this.mHero, 3);
+//    
+//
+//    this.buttons[3].SetText("Move Up");
+//    this.buttons[3].AddListener(this.mHero.increaseSize, this.mHero, 2);
+//    
+//    this.buttons[4].SetText("Move Down");
+//    this.buttons[4].AddListener(this.mHero.increaseSize, this.mHero, 2);
+    
+    //this.toggleOne.AddListener(this.buttons[0].Highlight, this.buttons[0], null);
     
     
 //    var opts = ["option 1", "option 2", "option 3", "option 4"];
@@ -152,8 +195,9 @@ ShapeGame.prototype.initialize = function () {
 ShapeGame.prototype.drawCamera = function (camera) {
     camera.setupViewProjection();
     //this.mBg.draw(camera);
+    this.mShadow.draw(camera);
     this.mHero.draw(camera);
-    this.mBrain.draw(camera);
+    
     
 };
 // This is the draw function, make sure to setup proper drawing environment, and more
@@ -171,21 +215,40 @@ ShapeGame.prototype.draw = function () {
 // The Update function, updates the application state. Make sure to _NOT_ draw
 // anything from this function!
 ShapeGame.prototype.update = function () {
+    
+    var xDiff = Math.abs(this.mShadow.getXform().getXPos() - this.mHero.getXform().getXPos());
+    var yDiff = Math.abs(this.mShadow.getXform().getYPos() - this.mHero.getXform().getYPos());
+    var rotDiff = Math.abs(this.mShadow.getXform().getRotationInDegree() - this.mHero.getXform().getRotationInDegree());
+    var sizeDiff = Math.abs(this.mShadow.getXform().getHeight() - this.mHero.getXform().getHeight());
+    var totalDiff = rotDiff + sizeDiff;
+    
+    if(totalDiff < 5 && this.mShadow.getSprite() === this.mHero.getSprite() && xDiff === 0 && yDiff === 0) {
+        var xPos = -90 + Math.random() * 120;
+        var yPos = -20 + Math.random() * 80;
+        xPos -= xPos % 2;
+        yPos -= yPos %2;
+        this.mShadow.getXform().setPosition(xPos, yPos);
+        this.mShadow.getXform().setRotationInDegree(Math.random() * 360);
+        this.mShadow.SetSize(10 + Math.random() * 90);
+        var randSprite = 1 + Math.random() * 3;
+        randSprite -= randSprite % 1;
+        this.mShadow.setSprite(randSprite);
+    }
     // update UI
     this.UI.update();
     
    
-    var heroPos = this.mHero.getXform().getPosition();
-    var a = heroPos[0] - this.mCamera.mouseWCX();
-    var b = heroPos[1] - this.mCamera.mouseWCY();
-    var heroMag = Math.sqrt(a*a + b*b);
-    if (heroMag > 6) {
-        this.mHero.rotateObjPointTo(vec2.fromValues(this.mCamera.mouseWCX(), 
-                                                    this.mCamera.mouseWCY()), 0.1);
-                          
-        GameObject.prototype.update.call(this.mHero);
-        
-    }
+//    var heroPos = this.mHero.getXform().getPosition();
+//    var a = heroPos[0] - this.mCamera.mouseWCX();
+//    var b = heroPos[1] - this.mCamera.mouseWCY();
+//    var heroMag = Math.sqrt(a*a + b*b);
+//    if (heroMag > 6) {
+//        this.mHero.rotateObjPointTo(vec2.fromValues(this.mCamera.mouseWCX(), 
+//                                                    this.mCamera.mouseWCY()), 0.1);
+//                          
+//        GameObject.prototype.update.call(this.mHero);
+//        
+//    }
     this.mHero.update();
 };
 
