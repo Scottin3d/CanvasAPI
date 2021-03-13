@@ -32,10 +32,8 @@ function UIButton(type, size, pos, color, text) {
     // textures
     this.eButtonTexture = null;
     this.eButtonTextureRenderer = null;
-    
-    
    
-    
+    this.enabled = true;
     // button has a single event
     this.onClick = new UIEvent('onClick');
     this.eVal = null;
@@ -149,4 +147,12 @@ UIButton.prototype._click = function(){
 
 UIButton.prototype._setText = function(text){
     this.eTextDefault = text;
+};
+
+UIButton.prototype.setEnabled = function(_enabled) {
+    this.enabled = _enabled;
+};
+
+UIButton.prototype.isEnabled = function() {
+    return this.enabled;
 };

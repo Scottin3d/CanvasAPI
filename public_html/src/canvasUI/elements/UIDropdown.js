@@ -38,6 +38,7 @@ function UIDropdown(type, size, pos, color, text) {
 gEngine.Core.inheritPrototype(UIDropdown, UIelement);
 
 UIDropdown.prototype.addOption = function(option) {
+    console.log(option.isEnabled());
     option.setEnabled(false);
     this.eOptions.push(option);
 };
@@ -77,7 +78,7 @@ UIDropdown.prototype.AddListener = function(func, target, options){
     console.log("getting a listener");
     for(var i = 0; i < this.eOptions.length; i++) {
         console.log(options[i]);
-        this.eOptions[i].addListener(this._invoke, this, options[i]);
+        this.eOptions[i].AddListener(this._invoke, this, options[i]);
     }
     this.onClick = func.bind(target);
 };
