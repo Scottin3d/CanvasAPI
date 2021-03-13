@@ -1,12 +1,21 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/* Developed by 3 Lines of Code
+ * Scott Shirley - @scottin3d
+ * Kevin Blair - 
+ * Nicholas Chambers - 
+ * license - MIT
  */
 
 /* global gEngine, GameObject, UIelement */
+
 "use strict";
 
+/*<summary>A UI element toggle is a checkbox that allows the user to switch an option on or off.  </summary>   
+ *<param = type>An object, the type of UI toggle.</param>
+ *<param = size[2]>A number[2], the size of the UI toggle xform.</param>
+ *<param = pos[2]>A number[2], the position of the UI toggle xform within the UI space.</param>
+ *<param = text>A string, the text of the toggle</param>  
+ *<return = this>An object, return the constructed toggle.</return>
+ */
 function UIToggle(type, size, pos, text) {
     this.eToggle = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eToggle.setColor([1, 0, 0, 1]);
@@ -35,9 +44,34 @@ function UIToggle(type, size, pos, text) {
     
     
     GameObject.call(this, this.eToggle);
+    
+    return this;
 };
 gEngine.Core.inheritPrototype(UIToggle, UIelement);
 
+//==PUBLIC======================================================================
+
+/*<summary>Sets the state of the UI toggle.</summary> 
+ * <param = isOn>A bool, the state of the UI toggle.</return>
+ */
+UIToggle.prototype.SetState = function(isOn) {
+    this.eState = true;
+};
+
+/*<summary>Gets the state of the UI toggle.</summary> 
+ * <return = this.eState>A bool, the state of the UI toggle.</return>
+ */
+UIToggle.prototype.GetState = function() {
+    return this.eState;
+};
+
+//==============================================================================
+//
+//==PRIVATE=====================================================================
+
+/*<summary>Update is the most commonly used function to implement any kind of game script. 
+ *Update is called every frame.</summary>   
+ */
 UIToggle.prototype._update = function() {
     if (!this.eState) {
         this.eToggle.setColor([1, 0, 0, 1]);
@@ -49,27 +83,39 @@ UIToggle.prototype._update = function() {
     }
 };
 
-UIToggle.prototype._addListener = function(func, target, value) {
-    this.onValueChange.AddListener(func.bind(target), value);
-};
-
-UIToggle.prototype.SetState = function(value) {
-    this.eState = true;
-};
-
+/*<summary>Calls the camera setup and draws object to a specified camera</summary>   
+ */
 UIToggle.prototype._draw = function (camera) {
      this.eToggle.draw(camera);
      this.eTextRenderable.draw(camera);
 };
-UIToggle.prototype._highlight = function(value) {
-    if (value) {
+
+/*<summary>Addes a listener to a UI toggle.</summary>   
+ *<param = func>A function, the hnadle function to be added as a listener.</param>
+ *<param = target>An object, the target that the function will bind to.</param>
+ *<param = value>A object, a value that can be associated with the listener when invoked.</param>
+ */
+UIToggle.prototype._addListener = function(func, target, value) {
+    this.onValueChange.AddListener(func.bind(target), value);
+};
+
+
+/*<summary>Highlights the UI button if isHighlight is on.</summary> 
+ * <param = isOn>A bool, whether or not the button is highlighted.</return>
+ */
+UIToggle.prototype._highlight = function(isOn) {
+    if (isOn) {
         this.eTextRenderable.setColor([0, 0, 1, 1]);
     }else {
         this.eTextRenderable.setColor([0, 0, 0, 1]);
     }
 };
 
+/*<summary>Called when the button is clicked.</summary>
+ */
 UIToggle.prototype._click = function() {
     this.eState = !this.eState;
     this.eValChange = true;
 };
+
+//==============================================================================

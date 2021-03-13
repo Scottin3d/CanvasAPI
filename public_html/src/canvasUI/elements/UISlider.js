@@ -11,19 +11,23 @@
 /*<summary>A UI element slider can be moved between a minimum and maximum value. 
  * When a change to the slider value occurs, a callback is sent to any registered 
  * listeners of Slider.onValueChanged.</summary>   
- *<param = type>An object, the type of UI element.</param>
- *<param = size[2]>A number[2], the size of the UI element xform.</param>
- *<param = pos[2]>A number[2], the position of the UI element xform within the UI space.</param>
+ *<param = type>An object, the type of UI slider.</param>
+ *<param = size[2]>A number[2], the size of the UI slider xform.</param>
+ *<param = pos[2]>A number[2], the position of the UI slider xform within the UI space.</param>
  *<param = range[2]>A number[2], the minimum and maximum values of the slider.</param>
  *<param = dValue>A number, the default value of the slider.  When reset, the slider
  *will reset to this number.</param>
  *<param = vStep>A number, the increment that the slider changes.</param>  
+ *<return = this>An object, return the constructed slider.</return>
  *<remarks>Size specifically refers to the slider **BAR**.  The slider nob by default
  *is a square, based on the size[1] value.  The main texture of the slider is assigned
  *to the slider bar.  There is a separate texture, this.eSliderNobTextureRenderer, for the
  *slider nob.</remarks> 
  **/
 function UISlider (type, size, pos, range, dValue, vStep){
+    this._initElement(this);
+    this.eType = type;
+    
     // values
     this.minValue = range[0];
     this.minPos = null;
@@ -65,8 +69,7 @@ function UISlider (type, size, pos, range, dValue, vStep){
     this.eSliderNob.getXform().setPosition(nobXPos, pos[1]);
     this.eSliderNob.getXform().setSize(size[1] * 2, size[1] * 2);
  
-    this._initElement(this);
-    this.eType = type;
+    
     this.isPressed = false;
     
     GameObject.call(this, this.eSliderNob);
@@ -77,8 +80,8 @@ gEngine.Core.inheritPrototype(UISlider, UIelement);
 
 //==PUBLIC======================================================================
 
-/*<summary></summary>   
- *<param = ></param>  
+/*<summary>Sets the value of the UI slider.</summary>   
+ *<param = value>A number, the value of the UI slider is to be set.</param>  
  */
 UISlider.prototype.SetValue = function (value){
     this.eSliderValue = value;
@@ -87,7 +90,7 @@ UISlider.prototype.SetValue = function (value){
     this.onValueChange.Invoke(this.eSliderValue.toFixed(this.decimalPlaces));
 };
 
-/*<summary>Sets the size of the UI slider nob</summary>   
+/*<summary>Sets the size of the UI slider nob.</summary>   
  *<param = size[2]>A number[2], the size to set the UI slider nob.</param>  
  */
 UISlider.prototype.SetSliderNobSize = function(size){
@@ -100,7 +103,7 @@ UISlider.prototype.SetSliderNobSize = function(size){
     this.eSliderNob.getXform().setSize(size[0], size[1]);
 };
 
-/*<summary>Set the UI slider nob texture.</summary> 
+/*<summary>Sets the UI slider bar texture.</summary> 
  * <param = texture>An object, the texture for UI slider nob.</return>
  */
 UISlider.prototype.SetSliderBarTexture = function (texture){
@@ -119,6 +122,38 @@ UISlider.prototype.SetSliderBarTexture = function (texture){
     }
 };
 
+/*<summary>Sets the max value of the UI slider.</summary>   
+ *<param = value>A number, the value of the new maximum value to be set.</param>  
+ */
+UISlider.prototype.SetMaxValue = function (value){
+    if(value < this.minValue){
+        alert("Cannot set max value to less than min value!");
+        return;
+    }
+    this.maxValue = value;
+};
+
+/*<summary>Sets the min value of the UI slider.</summary>   
+ *<param = value>A number, the value of the new minimum value to be set.</param>  
+ */
+UISlider.prototype.SetMinValue = function (value){
+    if(value > this.maxValue){
+        alert("Cannot set min value to greater than max value!");
+        return;
+    }
+    this.minValue = value;
+};
+
+/*<summary>Sets the UI slider step value.</summary>   
+ *<param = value>A number, the value of the step value./param>  
+ */
+UISlider.prototype.SetStepValue = function (value){
+    if(value <= 0){
+        alert("Step value must be greater than zero (0)!");
+        return;
+    }
+    this.steps = value;
+};
 //==============================================================================
 
 //==PRIVATE=====================================================================
