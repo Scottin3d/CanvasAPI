@@ -5,7 +5,7 @@
  * license - MIT
  */
 
-/* global gEngine, GameObject */
+/* global gEngine, GameObject, UIelement */
 
 "use strict";
 
@@ -21,8 +21,13 @@ function UIButton(type, size, pos, color, text) {
     this.eType = type;
     this.eTextRenderable = new FontRenderable(text.toString());
     this.eTextRenderable.setColor([0, 0, 0, 1]);
-    this.eTextRenderable.getXform().setPosition(0,  pos[1]);
+    this.eTextRenderable.getXform().setPosition(10,  pos[1]);
     this.eTextRenderable.setTextHeight(5);
+    
+    // textures
+    this.eButtonTexture = null;
+    this.eButtonTextureRenderer = null;
+    
     
     this.eTextDefault = text;
     this.eText = this.eTextDefault;
@@ -33,6 +38,8 @@ function UIButton(type, size, pos, color, text) {
     
     
     GameObject.call(this, this.eButton);
+    
+    return this;
 };
 
 gEngine.Core.inheritPrototype(UIButton, UIelement);
@@ -60,23 +67,61 @@ UIButton.prototype._update = function (camera) {
 };
 
 UIButton.prototype._draw = function (camera) {
-    this.eButton.draw(camera);
+    // if texture, only draw texture
+    if(this.eButtonTextureRenderer){
+        this.eButtonTextureRenderer.draw(camera);
+    }else{
+        this.eButton.draw(camera);
+    }
+    
     this.eTextRenderable.draw(camera);
 };
 
-
-
 UIButton.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
+    var c = this.highlightColor;
     if(this.isHighlighted){
-         this.eButton.setColor([1,1,0,1]);
+        if(this.eButtonTextureRenderer){
+            this.eButtonTextureRenderer.setColor([c[0],c[1],c[2],c[3]]);
+        }else{
+            this.eButton.setColor([c[0],c[1],c[2],c[3]]);
+        }
     }else{
-        this.eButton.setColor([1,1,1,1]);
+        if(this.eButtonTextureRenderer){
+            this.eButtonTextureRenderer.setColor([1,1,1,0]);
+        }else{
+            this.eButton.setColor([1,1,1,1]);
+        }
+        
     }
 };
 
+/*<summary>Set the UI button texture.</summary> 
+ * <param = texture>An object, the texture for UI element.</return>
+ */
+UIButton.prototype._setTexture = function (texture){
+    this.eButtonTexture = texture;
+    
+    // init if not made yet
+    if(!this.eButtonTextureRenderer){
+        this.eButtonTextureRenderer = new TextureRenderable(this.eButtonTexture);
+        var pos = this.eButton.getXform().getPosition();
+        var size = this.eButton.getXform().getSize();
+        this.eButtonTextureRenderer.getXform().setPosition(pos[0], pos[1]);
+        this.eButtonTextureRenderer.getXform().setSize(size[0], size[1]);
+        this.eButtonTextureRenderer.setColor([1, 1, 1, 1]);
+    }else{
+        this.eButtonTextureRenderer.setTexture(this.eButtonTexture);
+    }
+    // init
+};
+
+
 UIButton.prototype.setHeight = function(height) {
     this.eButton.getXform().setHeight(Math.abs(height));
+    if(this.eButtonTextureRenderer){
+        this.eButtonTextureRenderer.getXform().setHeight(Math.abs(height));
+    }
 };
 
 UIButton.prototype._addListener = function(func, target, value){
@@ -97,8 +142,4 @@ UIButton.prototype._click = function(){
 
 UIButton.prototype.setText = function(text){
     this.eText = text;
-};
-
-UIButton.prototype.getType = function() {
-    return "button";
 };

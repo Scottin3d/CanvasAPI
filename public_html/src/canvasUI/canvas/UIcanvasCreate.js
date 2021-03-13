@@ -30,22 +30,23 @@ UIcanvas.prototype.CreateElement = function(){
     switch(type){
         case this.UIELEM_TYPES.Button:
             if(arguments.length !== 5){ alert("Invalid arguments"); }           // a button has five (5) arguments
-            this._createButton(arguments);
-            return;
+            return this._createButton(arguments);
+            //return;
         case this.UIELEM_TYPES.Slider:
             if(arguments.length !== 6){ alert("Invalid arguments"); }           // a slider has six (6) arguments
-            this._createSlider(arguments);
-            return;
+            return this._createSlider(arguments);
+            //return;
         case this.UIELEM_TYPES.Toggle:
             //if(arguments.length !== ###){ alert("Invalid arguments"); }       // a toggle has ### arguments
-            this._createToggle(arguments);
-            return;
+            return this._createToggle(arguments);
+            //return;
         case this.UIELEM_TYPES.Dropdown:
             if(arguments.length !== 5){ alert("Invalid arguments"); }           // a slider has six (6) arguments
-            this._createDropdown(arguments);
-            return;
+            return this._createDropdown(arguments);
+            //return;
         default:
             alert("Invalid UI element type");
+            return null;
     }
 };
 
@@ -71,6 +72,8 @@ UIcanvas.prototype._createButton = function(args){
     var newButton = new UIButton(type, size, pos, color, text);
     
     this._AddElement(newButton);
+    
+    return newButton;
 };
 
 /*<summary>Creates a slider UI elements.  A user defined event controller.</summary>   
@@ -92,6 +95,8 @@ UIcanvas.prototype._createSlider = function(args){
     if(typeof vStep !== 'number'){ return; }
     var newSlider = new UISlider(type, size, pos, range, dValue, vStep);
     this._AddElement(newSlider);
+    
+    return newSlider;
 };
 
 /*<summary>Creates a toggle UI elements.  A user defined event controller.</summary>   
@@ -99,6 +104,10 @@ UIcanvas.prototype._createSlider = function(args){
  */
 UIcanvas.prototype._createToggle = function(args){
     // TODO -- Impelement
+    
+    var newToggle = new UIToggle();
+    this._AddElement(newToggle);
+    return newToggle;
 };
 
 /*<summary>Creates a dropdown UI elements.  A user defined event controller.</summary>   
@@ -129,6 +138,7 @@ UIcanvas.prototype._createDropdown = function(args){
     }
     */
     this._AddElement(newDropdown);
+    return newDropdown;
 };
 
 //==============================================================================

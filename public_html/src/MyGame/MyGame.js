@@ -2,6 +2,10 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function MyGame() {
+    this.buttonTexture = "assets/sprites/button.png";
+    this.toggleOnTexture = "assets/sprites/togglePressed.png";
+    this.toggleOffTexture = "assets/sprites/toggle.png";
+   
     this.kMinionSprite = "assets/minion_sprite.png";
     this.kMinionPortal = "assets/minion_portal.png";
     this.kBg = "assets/bg.png";
@@ -10,13 +14,13 @@ function MyGame() {
     // The camera to view the scene
     this.mCamera = null;
     this.mBg = null;
-
-    this.mMsg = null;
-    this.vCanvas = null;
-    this.cButton = null;
-    this.vMsgBg = null;
     
+    // UI Canvas
     this.UI = null;
+    this.buttonOne = null;
+    this.toggleOne = null;
+    this.sliderOne = null;
+    this.dropdownOne = null;
 
     // the hero and the support objects
     this.mHero = null;
@@ -35,6 +39,10 @@ MyGame.prototype.loadScene = function () {
     gEngine.Textures.loadTexture(this.kMinionPortal);
     gEngine.Textures.loadTexture(this.kBg);
     gEngine.Textures.loadTexture(this.space);
+    
+    gEngine.Textures.loadTexture(this.buttonTexture);
+    gEngine.Textures.loadTexture(this.toggleOnTexture);
+    gEngine.Textures.loadTexture(this.toggleOffTexture);
 };
 
 MyGame.prototype.unloadScene = function () {
@@ -42,6 +50,10 @@ MyGame.prototype.unloadScene = function () {
     gEngine.Textures.unloadTexture(this.kMinionPortal);
     gEngine.Textures.unloadTexture(this.kBg);
     gEngine.Textures.unloadTexture(this.space);
+    
+    gEngine.Textures.unloadTexture(this.buttonTexture);
+    gEngine.Textures.unloadTexture(this.toggleOnTexture);
+    gEngine.Textures.unloadTexture(this.toggleOffTexture);
 };
 
 MyGame.prototype.initialize = function () { 
@@ -75,30 +87,27 @@ MyGame.prototype.initialize = function () {
     c = hexToRgb("14213d");
     this.mCamera.setBackgroundColor([c.r, c.g, c.b, c.a]);
     
-    this.vCanvas = new Camera(
-        vec2.fromValues(0, 0),                                                  // position of the camera
-        250,                                                                    // width of camera
-        [0, 0, 940, 640]                                                        // viewport (orgX, orgY, width, height)
-    );
-    c = hexToRgb("14213d");
-    this.vCanvas.setBackgroundColor([c.r, c.g, c.b, 0]);
    
-   
-    this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [20,60], [1,1,1,1], "Button");
-    this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [60, 5], [-100, 100], 0, 1);
-     
-    this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [0,0], [1,1,1,1], "Button");
     
-    //this.UI.UIElements[0].AddOption();
+    this.buttonOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [20,60], [1,1,1,1], "Button");
+    this.buttonOne.SetTexture(this.buttonTexture);
+    this.buttonOne.SetHighlightColor([1,0,1,0.5]);
+    
+    this.sliderOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [60, 5], [-100, 100], 0, 1);
+    this.sliderOne.SetTexture(this.toggleOnTexture);
+    this.sliderOne.SetSliderBarTexture(this.buttonTexture);
+    this.dropdownOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], [0,0], [1,1,1,1], "Button");
+
+    
+    this.buttonOne.AddListener(this.mHero.increaseSize, this.mHero, 0.5);
+    this.buttonOne.AddListener(this.sliderOne.SetValue, this.sliderOne, 50);
+    this.sliderOne.AddListener(this.buttonOne.setHeight,this.buttonOne, null);
+    
     
     //var opts = ["option 1", "option 2", "option 3", "option 4"];
     //this.UI.CreateDropdown([50,20], [0,0], [1,1,1,1], "Button", opts);
     //var vals = [0.5, 1, -1, -0.5];
-    this.UI.UIElements[0].AddListener(this.mHero.increaseSize, this.mHero, 0.5);
-    this.UI.UIElements[0].AddListener(this.UI.UIElements[1].SetValue, this.UI.UIElements[1], 50);
-    this.UI.UIElements[1].AddListener(this.UI.UIElements[0].setHeight, this.UI.UIElements[0], null);
     
-
     //this.UI.UIElements[2].AddListener(this.mHero.increaseSize, this.mHero, vals);
 
     // Large background image

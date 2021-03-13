@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/* global gEngine, GameObject, UIelement */
+
 "use strict";
 
 function UIDropdown(type, size, pos, color, text) {
@@ -29,6 +31,8 @@ function UIDropdown(type, size, pos, color, text) {
     this.isClicked = false;
     
     GameObject.call(this, this.eButton);
+    
+    return this;
 };
 
 gEngine.Core.inheritPrototype(UIDropdown, UIelement);

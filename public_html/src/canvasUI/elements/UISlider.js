@@ -19,7 +19,9 @@
  *will reset to this number.</param>
  *<param = vStep>A number, the increment that the slider changes.</param>  
  *<remarks>Size specifically refers to the slider **BAR**.  The slider nob by default
- *is a square, based on the size[1] value.</remarks> 
+ *is a square, based on the size[1] value.  The main texture of the slider is assigned
+ *to the slider bar.  There is a separate texture, this.eSliderNobTextureRenderer, for the
+ *slider nob.</remarks> 
  **/
 function UISlider (type, size, pos, range, dValue, vStep){
     // values
@@ -46,6 +48,13 @@ function UISlider (type, size, pos, range, dValue, vStep){
     this.eTextRenderable.getXform().setPosition(pos[0], pos[1] + 10);
     this.eTextRenderable.setTextHeight(5);
     
+    // slider nob texture
+    this.eSliderBarTexture = null;
+    this.eSliderBarTextureRenderer = null;
+    this.eSliderNobTexture = null;
+    this.eSliderNobTextureRenderer = null;
+    
+    
     // pos = (x - (size / 2)) + size * (dvalue / range[1])
     this.minPos = (pos[0]- (size[0] / 2));
     this.maxPos = (pos[0]+ (size[0] / 2));
@@ -60,7 +69,8 @@ function UISlider (type, size, pos, range, dValue, vStep){
     this.eType = type;
     this.isPressed = false;
     
-GameObject.call(this, this.eSliderNob);
+    GameObject.call(this, this.eSliderNob);
+    return this;
 };
 gEngine.Core.inheritPrototype(UISlider, UIelement);
 
@@ -88,6 +98,25 @@ UISlider.prototype.SetSliderNobSize = function(size){
         return;
     }
     this.eSliderNob.getXform().setSize(size[0], size[1]);
+};
+
+/*<summary>Set the UI slider nob texture.</summary> 
+ * <param = texture>An object, the texture for UI slider nob.</return>
+ */
+UISlider.prototype.SetSliderBarTexture = function (texture){
+    this.eSliderBarTexture =  texture;
+    
+    // init if not made yet
+    if(!this.eSliderBarTextureRenderer){
+        this.eSliderBarTextureRenderer = new TextureRenderable(this.eSliderBarTexture);
+        var pos = this.eSlidierBar.getXform().getPosition();
+        var size = this.eSlidierBar.getXform().getSize();
+        this.eSliderBarTextureRenderer.getXform().setPosition(pos[0], pos[1]);
+        this.eSliderBarTextureRenderer.getXform().setSize(size[0], size[1]);
+        //this.eSliderNobTextureRenderer.setColor([1, 1, 1, 1]);
+    }else{
+        this.eSliderBarTextureRenderer.setTexture(this.eSliderBarTexture);
+    }
 };
 
 //==============================================================================
@@ -124,6 +153,9 @@ UISlider.prototype._update = function (camera) {
         // clamp value
         if(mouseX <= this.maxPos && mouseX >= this.minPos){
             this.eSliderNob.getXform().setPosition(mouseX, pos[1]);
+            if(this.eSliderNobTextureRenderer){
+                this.eSliderNobTextureRenderer.getXform().setPosition(mouseX, pos[1]);
+            }
             
             // invoke event
             this.onValueChange.Invoke(this.eSliderValue.toFixed(this.decimalPlaces));
@@ -136,23 +168,67 @@ UISlider.prototype._update = function (camera) {
     this.eTextRenderable.setText(this.eSliderValue.toString());
 };
 
-
 /*<summary>Calls the camera setup and draws object to a specified camera</summary>   
  */
 UISlider.prototype._draw = function (camera) {
-     this.eSlidierBar.draw(camera);
-     this.eSliderNob.draw(camera);
-     this.eTextRenderable.draw(camera);
+    // UI slider bar
+    if(this.eSliderBarTextureRenderer){                                         // if bar texture
+        this.eSliderBarTextureRenderer.draw(camera);                            // draw texture
+    }else{
+        this.eSlidierBar.draw(camera);                                          // if not, draw default bar
+    }
+    
+    // UI slider nob
+    if(this.eSliderNobTextureRenderer){                                         // if nob texture
+        this.eSliderNobTextureRenderer.draw(camera);                            // draw texture
+    }else{
+        this.eSliderNob.draw(camera);                                           // if not, draw default nob
+    }
+    
+    // UI slider text
+    this.eTextRenderable.draw(camera);      
 };
+
+/*<summary>Set the UI slider nob texture.</summary> 
+ * <param = texture>An object, the texture for UI element.</return>
+ */
+UISlider.prototype._setTexture = function (texture){
+    this.eSliderNobTexture = texture;
+    
+    // init if not made yet
+    if(!this.eSliderNobTextureRenderer){
+        this.eSliderNobTextureRenderer = new TextureRenderable(this.eSliderNobTexture);
+        var pos = this.eSliderNob.getXform().getPosition();
+        var size = this.eSliderNob.getXform().getSize();
+        this.eSliderNobTextureRenderer.getXform().setPosition(pos[0], pos[1]);
+        this.eSliderNobTextureRenderer.getXform().setSize(size[0], size[1]);
+        this.eSliderNobTextureRenderer.setColor([1, 1, 1, 0]);
+        
+    }else{
+        this.eSliderNobTextureRenderer.setTexture(this.eSliderNobTexture);
+    }
+};
+
 /*<summary></summary>   
  *<param = ></param>  
  */
 UISlider.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
+    var c = this.highlightColor;
     if(this.isHighlighted){
-         this.eSliderNob.setColor([1,1,0,1]);
+        
+        if(this.eSliderNobTextureRenderer){
+            
+            this.eSliderNobTextureRenderer.setColor([c[0],c[1],c[2],c[3]]);
+        }else{
+            this.eSliderNob.setColor([c[0],c[1],c[2],c[3]]);
+        }
     }else{
-        this.eSliderNob.setColor([0,0,1,1]);;
+        if(this.eSliderNobTextureRenderer){
+            this.eSliderNobTextureRenderer.setColor([1,1,1,0]);
+        }else{
+            this.eSliderNob.setColor([1,1,1,1]);
+        }
     }
 };
 
@@ -182,5 +258,9 @@ UISlider.prototype._setPosition = function (value) {
      * 
      */
     this.eSliderNob.getXform().setPosition(newPos, posY);
+    if(this.eSliderNobTextureRenderer){
+        this.eSliderNobTextureRenderer.getXform().setPosition(newPos, posY);
+    }
+    
 };
 //==============================================================================

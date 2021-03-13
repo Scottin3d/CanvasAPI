@@ -16,13 +16,17 @@
  * </summary>
  */
 function UIelement() {
-    this.eType = null;
-    this.isHighlighted = false;
     this.element = null;
-    this.isPressed = false;
-    this.onClick = null;
-    this.onHighlight = null;
+    this.eType = null;
     
+    this.isHighlighted = false;
+    this.highlightColor = null;
+    this.isPressed = false;
+    
+    // event
+    this.onClick = null;
+    
+    // text
     this.eTextDefault = null;
     this.eTextClickedDefault = null;
     this.eTextHighlightedDefault = null;
@@ -109,6 +113,20 @@ UIelement.prototype.GetType = function() {
     return this.eType;
 };
 
+/*<summary>Set the UI element texture.</summary> 
+ * <param = texture>An object, the texture for UI element.</return>
+ */
+UIelement.prototype.SetTexture = function (texture){
+    this.element._setTexture(texture);
+};
+
+/*<summary>Set the UI element highlight color.</summary> 
+ * <param = color>An number[4], the color of the element when highlighted.</return>
+ */
+UIelement.prototype.SetHighlightColor = function (color){
+    this.highlightColor = color;
+};
+
 //==============================================================================
 
 //==PRIVATE=====================================================================
@@ -118,6 +136,14 @@ UIelement.prototype.GetType = function() {
  */
 UIelement.prototype._initElement = function(obj){
     this.element = obj;
+    this.highlightColor = [1,1,0,0.4];
+    if(this.eTexture){
+        this.eTextureRenderer = new TextureRenderable(this.eTexture);
+        var pos = this.element.getXform().getPosition();
+        var size = this.element.getXform().getSize();
+        this.eTextureRenderer.getXform().setPosition(pos[0], pos[1]);
+        this.eTextureRenderer.getXform().setSize(size[0], size[1]);
+    }
     
     this.eTextDefault = this.element.name;
     this.eTextClickedDefault = "Clicked!";
