@@ -101,6 +101,7 @@ A UI element toggle is a checkbox that allows the user to switch an option on or
 #### Public Functions  
 * SetState - Sets the state of the UI toggle.  
 * GetState - Gets the state of the UI toggle.  
+
 #### Implementation  
 Argument list: type, size, position, text
 
