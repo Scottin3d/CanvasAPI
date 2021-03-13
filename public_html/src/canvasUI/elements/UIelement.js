@@ -127,6 +127,14 @@ UIelement.prototype.SetHighlightColor = function (color){
     this.highlightColor = color;
 };
 
+/*<summary>Set the UI element default text.</summary> 
+ * <param = color>An number[4], the color of the element when highlighted.</return>
+ */
+UIelement.prototype.SetText = function (text){
+    //this.eTextDefault = text;
+    this.element._setText(text);
+};
+
 //==============================================================================
 
 //==PRIVATE=====================================================================

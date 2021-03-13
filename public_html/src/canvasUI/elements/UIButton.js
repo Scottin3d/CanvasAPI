@@ -21,7 +21,12 @@ function UIButton(type, size, pos, color, text) {
     this.eType = type;
     this.eTextRenderable = new FontRenderable(text.toString());
     this.eTextRenderable.setColor([0, 0, 0, 1]);
-    this.eTextRenderable.getXform().setPosition(10,  pos[1]);
+    
+     this.eTextDefault = text;
+    this.eText = this.eTextDefault;
+    
+    var textLength = this.eText.length;
+    this.eTextRenderable.getXform().setPosition(pos[0] - (textLength / 2),  pos[1]);
     this.eTextRenderable.setTextHeight(5);
     
     // textures
@@ -29,8 +34,7 @@ function UIButton(type, size, pos, color, text) {
     this.eButtonTextureRenderer = null;
     
     
-    this.eTextDefault = text;
-    this.eText = this.eTextDefault;
+   
     
     // button has a single event
     this.onClick = new UIEvent('onClick');
@@ -51,6 +55,7 @@ UIButton.prototype._update = function (camera) {
         this.eText = this.eTextDefault;
     }
     
+    /*
     // highlighted not clicked
     if(this.isHighlighted && !this.isClicked){
         this.eText = this.eTextHighlighted;
@@ -60,8 +65,13 @@ UIButton.prototype._update = function (camera) {
     if(this.isClicked){
         this.eText = this.eTextClicked;
     }
-    
+    */
+   
     this.eTextRenderable.setText(this.eText); 
+    var textLength = this.eTextDefault.length;
+    var pos = this.element.getXform().getPosition();
+    this.eTextRenderable.getXform().setPosition(pos[0] - (textLength * 1.25),  pos[1]);
+    
     this.isClicked = false;
     this.isHighlighted = false;
 };
@@ -133,13 +143,10 @@ UIButton.prototype._addListener = function(func, target, value){
 
 UIButton.prototype._click = function(){
     this.isClicked = true;
-    this.eButton.setColor([1,0,1,1]);
-    this.eText = "Clicked!";
-    
     // invoke event
     this.onClick.Invoke();
 };
 
-UIButton.prototype.setText = function(text){
-    this.eText = text;
+UIButton.prototype._setText = function(text){
+    this.eTextDefault = text;
 };

@@ -42,6 +42,14 @@ Hero.prototype.update = function () {
     }
 };
 
-Hero.prototype.increaseSize = function() {
-    this.mDye.getXform().setSize(this.mDye.getXform().getSize()[0] + this.increment, this.mDye.getXform().getSize()[1] + this.increment);
+Hero.prototype.increaseSize = function(value) {
+    this.mDye.getXform().setSize(this.mDye.getXform().getSize()[0] * value, this.mDye.getXform().getSize()[1] * value);
+};
+
+Hero.prototype.ResetSize = function() {
+    this.mDye.getXform().setSize(9, 12);
+};
+
+Hero.prototype.SetSize = function(value) {
+    this.mDye.getXform().setSize(9 * value, 12 * value);
 };

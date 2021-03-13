@@ -21,6 +21,9 @@ function MyGame() {
     this.toggleOne = null;
     this.sliderOne = null;
     this.dropdownOne = null;
+    
+    // example scene
+    this.buttons = [];
 
     // the hero and the support objects
     this.mHero = null;
@@ -102,6 +105,25 @@ MyGame.prototype.initialize = function () {
     this.buttonOne.AddListener(this.mHero.increaseSize, this.mHero, 0.5);
     this.buttonOne.AddListener(this.sliderOne.SetValue, this.sliderOne, 50);
     this.sliderOne.AddListener(this.buttonOne.setHeight,this.buttonOne, null);
+    
+    for (var i = 0; i < 4; i++) {
+        var b = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-100,(-50 + (25 * i))], [1,1,1,1], ("Button" + i));
+        b.SetTexture(this.buttonTexture);
+        b.SetHighlightColor([1,0,1,0.5]);
+        this.buttons.push(b);
+    }
+    
+    this.buttons[0].SetText("Reset");
+    this.buttons[0].AddListener(this.mHero.ResetSize, this.mHero);
+    
+    this.buttons[1].SetText("Set Size: 2x");
+    this.buttons[1].AddListener(this.mHero.SetSize, this.mHero, 2);
+    
+    this.buttons[2].SetText("Set Size: 3x");
+    this.buttons[2].AddListener(this.mHero.SetSize, this.mHero, 3);
+    
+    this.buttons[3].SetText("Increase Size");
+    this.buttons[3].AddListener(this.mHero.increaseSize, this.mHero, 2);
     
     
     //var opts = ["option 1", "option 2", "option 3", "option 4"];
