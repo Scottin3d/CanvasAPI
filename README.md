@@ -13,21 +13,24 @@
 5. [Coding Style Guide](#style-guide)
 
 ### UI Canvas 
-A UIcanvas is an overlay of the main document that has objects that display information and allow the user to interact with objects in the scene with out explicited referencing the object themselves. It requires no arguements.  
+A UI canvas is an overlay of the main document with objects that display information and allow the user to interact with objects in the scene with out explicitly referencing the object themselves. It requires no arguements.  
 
 #### Properties  
+
+#### Public Functions  
+  
 #### Implementation  
 A sample implement looks like the following:  
 `this.UI = new UIcanvas();` 
 
 ### Adding Elements  
-Currently, the UI Canvas APi supports five elements:
+Currently, the UI Canvas API supports four (4) elements:
 1. [Button](#button)  
 2. [Slider](#slider)
 3. [Toggle](#toggle)
 4. [Dropdown](#dropdown) 
 
-To add an element to the Ui canvas, call the `CreateElement()` function.  The `CreateElement()` function can take unlimited arguments, but will throw an error if an invalid combination of arguments is given.  
+To add an element to the UI canvas, call the `CreateElement()` function.  The `CreateElement()` function can take unlimited arguments, but will throw an error if an invalid combination of arguments is given.  
 
 See below for details on valid arguments for each UI element type. When calling `CreateElement()`, the first argument is ***always*** the type as defined by the UI Canvas.  
 
@@ -123,6 +126,7 @@ Argument list: TODO
 A sample implement looks like the following:  
 `TODO`
 
+[Back to top.](#application)
 ### UI Events
 UI Events are a special kind of multicast delegate that can only be invoked from within the class where they are declared (the publisher class). If other classes subscribe to the event, their event handler methods will be called when the publisher class raises the event.  
 
