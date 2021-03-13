@@ -76,7 +76,7 @@ ShapeGame.prototype.initialize = function () {
     this.mShadow.getXform().setPosition(xPos, yPos);
     this.mShadow.getXform().setRotationInDegree(Math.random() * 360);
     this.mShadow.SetSize(10 + Math.random() * 90);
-    var randSprite = 1 + Math.random() * 3;
+    var randSprite = 1 + Math.random() * 4;
     randSprite -= randSprite % 1;
     this.mShadow.setSprite(randSprite);
     this.mHero = new Hero(this.kMinionSprite);
@@ -122,8 +122,8 @@ ShapeGame.prototype.initialize = function () {
     this.dropdownOne.AddListener(this.mHero.setSprite, this.mHero, [1, 2, 3, 4]);
     
     
-    this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [-50, 10], "Toggle");
-
+    this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [90, -70], "Double Speed");
+    this.toggleOne.AddListener(this.mHero._doubleSpeed, this.mHero, null);
     
     this.buttonOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-100, -75], [1,1,1,1], ("Button"));
     this.buttonOne.SetText("Reset");
@@ -156,6 +156,7 @@ ShapeGame.prototype.initialize = function () {
     this.buttonFive.SetHighlightColor([1,0,1,0.5]);
     this.buttonFive.AddListener(this.mHero.incPosition, this.mHero, [0,2]);
     
+
 };
 
 
@@ -197,7 +198,7 @@ ShapeGame.prototype.update = function () {
         this.mShadow.getXform().setPosition(xPos, yPos);
         this.mShadow.getXform().setRotationInDegree(Math.random() * 360);
         this.mShadow.SetSize(10 + Math.random() * 90);
-        var randSprite = 1 + Math.random() * 3;
+        var randSprite = 1 + Math.random() * 4;
         randSprite -= randSprite % 1;
         this.mShadow.setSprite(randSprite);
     }

@@ -14,7 +14,8 @@
 function Hero(spriteTexture) {
     this.texture = spriteTexture;
     this.kDelta = 0.3;
-
+    this.doubleSpeed = false;
+    this.speed = 1;
     this.mDye = new SpriteRenderable(spriteTexture);
     this.mDye.setColor([1, 1, 1, 0]);
     this.mDye.getXform().setPosition(35, 50);
@@ -27,21 +28,25 @@ function Hero(spriteTexture) {
 gEngine.Core.inheritPrototype(Hero, GameObject);
 
 Hero.prototype.update = function () {
-    
-    // control by WASD
-    var xform = this.getXform();
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
-        xform.incYPosBy(this.kDelta);
+    if(this.doubleSpeed) {
+        this.speed = 2;
+    } else {
+        this.speed = 1;
     }
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
-        xform.incYPosBy(-this.kDelta);
-    }
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
-        xform.incXPosBy(-this.kDelta);
-    }
-    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
-        xform.incXPosBy(this.kDelta);
-    }
+//    // control by WASD
+//    var xform = this.getXform();
+//    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.W)) {
+//        xform.incYPosBy(this.kDelta);
+//    }
+//    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.S)) {
+//        xform.incYPosBy(-this.kDelta);
+//    }
+//    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.A)) {
+//        xform.incXPosBy(-this.kDelta);
+//    }
+//    if (gEngine.Input.isKeyPressed(gEngine.Input.keys.D)) {
+//        xform.incXPosBy(this.kDelta);
+//    }
 };
 Hero.prototype.setColor = function(color) {
     this.mDye.setColor(color);
@@ -69,7 +74,7 @@ Hero.prototype.SetSpeed = function(value) {
 };
 
 Hero.prototype.incPosition = function(value) {
-    this.mDye.getXform().setPosition(this.mDye.getXform().getXPos() + value[0], this.mDye.getXform().getYPos() + value[1]);
+    this.mDye.getXform().setPosition(this.mDye.getXform().getXPos() + (value[0] * this.speed), this.mDye.getXform().getYPos() + (value[1]* this.speed));
 };
 
 Hero.prototype.setSprite = function(sprite) {
@@ -87,4 +92,8 @@ Hero.prototype.setSprite = function(sprite) {
 
 Hero.prototype.getSprite = function() {
     return this.mySprite;
+};
+
+Hero.prototype._doubleSpeed = function(isDoubled) {
+    this.doubleSpeed = isDoubled;
 };
