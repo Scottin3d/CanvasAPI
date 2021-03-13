@@ -47,6 +47,11 @@ UIcanvas.prototype.update = function () {
             switch(element[1].GetType()) {
                 case this.UIELEM_TYPES.Slider:
                     if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
+                        for(var i = 0; i < this.UIElements.length; i++){
+                            if(this.UIElements[i].GetType() === this.UIELEM_TYPES.Slider) {
+                                this.UIElements[i].isPressed = false;
+                            }
+                        }
                         element[1].Click();
                         element[1].isPressed = true;
                     }
@@ -63,16 +68,18 @@ UIcanvas.prototype.update = function () {
                         element[1].Click();
                     }
                     break;
-
+            }
+        } else {
+            for(var i = 0; i < this.UIElements.length; i++){
+                if(!gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
+                    if(this.UIElements[i].GetType() === this.UIELEM_TYPES.Slider) {
+                        this.UIElements[i].isPressed = false;
+                    }
+                }
             }
         }
         // update UI elements
         for(var i = 0; i < this.UIElements.length; i++){
-            if(!gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
-                if(this.UIElements[i].GetType() === this.UIELEM_TYPES.Slider) {
-                    this.UIElements[i].isPressed = false;
-                }
-            }
             this.UIElements[i].Update(this.UIcamera); 
         }
     }
