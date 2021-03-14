@@ -57,7 +57,7 @@ HomeScreen.prototype.initialize = function () {
     bgR.getXform().setPosition(0, 0);
     this.mBg = new GameObject(bgR);
     
-    for (var i = 1; i < 3; i++) {
+    for (var i = 1; i <= 3; i++) {
         var b = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [0,(50 - (25 * i))], [1,1,1,1], ("Level " + i));
         b.SetTexture(this.buttonTexture);
         b.SetHighlightColor([1,0,1,0.5]);
@@ -66,6 +66,7 @@ HomeScreen.prototype.initialize = function () {
     
     this.buttons[0].AddListener( this.sceneManager.LoadScene, this.sceneManager, 1);
     this.buttons[1].AddListener( this.sceneManager.LoadScene, this.sceneManager, 2);
+    this.buttons[2].AddListener( this.sceneManager.LoadScene, this.sceneManager, 3);
 };
 
 

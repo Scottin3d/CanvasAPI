@@ -25,5 +25,9 @@ SceneManager.prototype.LoadScene = function(sceneIndex){
             var nextLevel = new ShapeGame();
             gEngine.Core.startScene(nextLevel);
             return;
+        case 3:
+            var nextLevel = new Calculator();
+            gEngine.Core.startScene(nextLevel);
+            return;
     }
 };

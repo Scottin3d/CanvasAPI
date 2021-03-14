@@ -173,4 +173,7 @@ MyGame.prototype.update = function () {
     if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Two)){
         this.sceneManager.LoadScene(2);
     }
+    if(gEngine.Input.isKeyClicked(gEngine.Input.keys.Three)){
+        this.sceneManager.LoadScene(3);
+    }
 };
