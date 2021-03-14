@@ -241,7 +241,7 @@ The leading letter should be relavent to the class.
  */
 ```
 
-summary>A brief description of what the function does.</summary>   
+<summary>A brief description of what the function does.</summary>   
 <param = (name)> A (type), a brief description of the argument</param>  
 <return = (name)> A (type), what is returned.</return>  
 <remarks>Any additional notes you think is need to clarify your code.</remarks>  
