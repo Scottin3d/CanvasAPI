@@ -122,8 +122,9 @@ gEngine.Input = (function () {
     };
 
     var _onMouseUp = function (event) {
-        _onMouseMove(event);
-        mIsButtonPressed[event.button] = false;
+        if(_onMouseMove(event)){
+            mIsButtonPressed[event.button] = false;
+        }
     };
     //</editor-fold>
     //</editor-fold>

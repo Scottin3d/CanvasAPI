@@ -46,12 +46,12 @@ UIcanvas.prototype.update = function () {
         if(element[0]) {
             switch(element[1].GetType()) {
                 case this.UIELEM_TYPES.Slider:
-                    if (gEngine.Input.isButtonPressed(gEngine.Input.mouseButton.Left)) {
-                        for(var i = 0; i < this.UIElements.length; i++){
+                    if (gEngine.Input.isButtonClicked(gEngine.Input.mouseButton.Left)) {
+                        /*for(var i = 0; i < this.UIElements.length; i++){
                             if(this.UIElements[i].GetType() === this.UIELEM_TYPES.Slider) {
                                 this.UIElements[i].isPressed = false;
                             }
-                        }
+                        }*/
                         element[1].Click();
                         element[1].isPressed = true;
                     }
