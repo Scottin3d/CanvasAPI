@@ -1,7 +1,7 @@
 /* Developed by 3 Lines of Code
  * Scott Shirley - @scottin3d
- * Kevin Blair - 
- * Nicholas Chambers - 
+ * Kevin Blair - @MadArkadian
+ * Nicholas Chambers - @SeleniumEclipse
  * license - MIT
  */
 
@@ -21,7 +21,6 @@
  * <param = UIHeight> A number, the height of the UI canvas.  This is pulled from the html document.</param>
  * <param = UIcamera> An object, a camera to render the UI to the scene.</param>
  * <param = UIElements> An [object], a list of UI elements attached to the UI canvas.</param>
- * <param = > </param>
  */
 function UIcanvas(){
     // new elements need to added here

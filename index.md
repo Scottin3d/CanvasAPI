@@ -195,7 +195,7 @@ A collection of global helper functions used throughout the API.
 ## Style Guide  
 ### Variables  
 * const - Uppercase  
-` this.UIELEM_TYPES = {Button : 1, Slider : 2};`  
+`this.UIELEM_TYPES = {Button : 1, Slider : 2};`  
 * public - Camal Case  
 `this.editMode;`  
 * private - Leading Camal Case  
@@ -213,16 +213,15 @@ The leading letter should be relavent to the class.
 ### Documentation 
 #### TODO
 * assets/UIcanvas.xml
-* canvas/UIcanvas.js
-* canvas/UIcanvasCreate.js
+* ~~canvas/UIcanvas.js~~
+* ~~canvas/UIcanvasCreate.js~~
 * canvas/UIcanvasEditMode.js
-* canvas/UIcanvasUpdate.js
+* ~~canvas/UIcanvasUpdate.js~~
 * ~~elements/UIelement.js~~
 * ~~elements/UIButton.js~~
 * ~~elements/UISlider.js~~
-* elements/UIDropdown.js
-* elements/UICheckbox.js
-* elements/UIToggle.js
+* ~~elements/UIDropdown.js~~
+* ~~elements/UIToggle.js~~
 * ~~events/UIEvent.js~~
 * ~~events/UIEventHandler.js~~
 * ~~utilities.js~~

@@ -1,7 +1,7 @@
 /* Developed by 3 Lines of Code
  * Scott Shirley - @scottin3d
- * Kevin Blair - 
- * Nicholas Chambers - 
+ * Kevin Blair - @MadArkadian
+ * Nicholas Chambers - @SeleniumEclipse
  * license - MIT
  */
 
@@ -9,7 +9,7 @@
 
 "use strict";
 
-//==PUBLIC++====================================================================
+//==PUBLIC======================================================================
 
 /*<summary>Adds a UI element to the UIelements array.</summary>   
  *<param = element> An object, a UI element to be added to the canvas.</param>   
