@@ -119,7 +119,7 @@ ShapeGame.prototype.initialize = function () {
     this.sliderOne.SetSliderBarTexture(this.buttonTexture);
     this.sliderOne.AddListener(this.mHero.rotate, this.mHero, null);
     
-    this.sliderTwo = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [-80,-55], [10, 100], 50, 1);
+    this.sliderTwo = this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider, [50,5], [-80,-55], [.1, 2], 1, 1);
     this.sliderTwo.SetTexture(this.toggleOnTexture);
     this.sliderTwo.SetSliderBarTexture(this.buttonTexture);
     this.sliderTwo.AddListener(this.mHero.SetSize, this.mHero, null);
@@ -140,7 +140,7 @@ ShapeGame.prototype.initialize = function () {
     this.buttonOne.SetTexture(this.buttonTexture);
     this.buttonOne.SetHighlightColor([1,0,1,0.5]);
     this.buttonOne.AddListener(this.sliderOne.SetValue, this.sliderOne, 0);
-    this.buttonOne.AddListener(this.sliderTwo.SetValue, this.sliderTwo, 50);
+    this.buttonOne.AddListener(this.sliderTwo.SetValue, this.sliderTwo, 1);
     
     this.buttonTwo = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-50, -75], [1,1,1,1], ("Button"));
     this.buttonTwo.SetText("Move Left");

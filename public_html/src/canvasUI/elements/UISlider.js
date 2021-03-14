@@ -6,6 +6,7 @@
  */
 
 /* global gEngine, GameObject, UIelement */
+
 "use strict";
 
 /*<summary>A UI element slider can be moved between a minimum and maximum value. 
@@ -14,18 +15,18 @@
  *<param = type>An object, the type of UI slider.</param>
  *<param = size[2]>A number[2], the size of the UI slider xform.</param>
  *<param = pos[2]>A number[2], the position of the UI slider xform within the UI space.</param>
- *<param = range[2]>A number[2], the minimum and maximum values of the slider.</param>
- *<param = dValue>A number, the default value of the slider.  When reset, the slider
+ *<param = range[2]>A number[2], the minimum and maximum values of the UI slider.</param>
+ *<param = dValue>A number, the default value of the slider.  When reset, the UI slider
  *will reset to this number.</param>
- *<param = vStep>A number, the increment that the slider changes.</param>  
- *<return = this>An object, return the constructed slider.</return>
- *<remarks>Size specifically refers to the slider **BAR**.  The slider nob by default
- *is a square, based on the size[1] value.  The main texture of the slider is assigned
- *to the slider bar.  There is a separate texture, this.eSliderNobTextureRenderer, for the
- *slider nob.</remarks> 
+ *<param = vStep>A number, the increment that the UI slider changes.</param>  
+ *<return = this>An object, return the constructed UI slider.</return>
+ *<remarks>Size specifically refers to the slider **BAR**.  The UI slider nob by default
+ *is a square, based on the size[1] value.  The main texture of the UI slider is assigned
+ *to the UI slider bar.  There is a separate texture, this.eSliderNobTextureRenderer, for the
+ * UI slider nob.</remarks> 
  */
 function UISlider (type, size, pos, range, dValue, vStep){
-    // int super
+    // init super
     this._initElement(this);
     this.eType = type;
     
@@ -155,6 +156,7 @@ UISlider.prototype.SetStepValue = function (value){
     }
     this.steps = value;
 };
+
 //==============================================================================
 
 //==PRIVATE=====================================================================
@@ -165,8 +167,6 @@ UISlider.prototype.SetStepValue = function (value){
  */
 UISlider.prototype._update = function (camera) {
     if(this.isPressed){
-        //this.isPressed = true;
-        // TODO let mouse move off nob and still slide as long as mouse down
         var mouseX = camera.mouseWCX();
         var pos = this.eSliderNob.getXform().getPosition();
         var size = this.eSliderNob.getXform().getSize();
@@ -174,15 +174,10 @@ UISlider.prototype._update = function (camera) {
             if (mouseX >= this.maxPos) mouseX = this.maxPos;
             else if (mouseX <= this.minPos) mouseX = this.minPos;
         }
-        
-        //var nobXPos = (pos[0]- (size[0] / 2)) + size[0] * (this.eSliderValue / this.maxValue);
-        //var nobXPos = pos[0] + size[0] * (this.eSliderValue / this.maxValue);
-        //console.log(this.minPos);
+
         var tempValue = (pos[0] - this.minPos);// / (this.maxPos - this.minPos))) * this.maxValue;
         var changeValue = (this.maxPos - this.minPos) / ((this.maxValue - this.minValue) / this.steps);
-        //console.log(changeValue, ((tempValue / changeValue) / ((this.maxValue - this.minValue) / this.steps)) * (this.maxValue - this.minValue) + this.minValue);
         tempValue = ((tempValue / changeValue) / ((this.maxValue - this.minValue) / this.steps)) * (this.maxValue - this.minValue) + this.minValue;
-        //tempValue = ((tempValue / changeValue) / (this.maxValue / this.steps)) * this.maxValue;
         this.eSliderValue = tempValue - (tempValue % this.steps);
         // calc mouse directon
         // apply to nob
@@ -198,7 +193,6 @@ UISlider.prototype._update = function (camera) {
         }
         
     }else{
-        //this.isPressed = false;
         this._setPosition(this.eSliderValue);
     }
     this.eTextRenderable.setText(this.eSliderValue.toString());
@@ -226,7 +220,7 @@ UISlider.prototype._draw = function (camera) {
 };
 
 /*<summary>Set the UI slider nob texture.</summary> 
- * <param = texture>An object, the texture for UI element.</return>
+ * <param = texture>An object, the texture for UI slider.</return>
  */
 UISlider.prototype._setTexture = function (texture){
     this.eSliderNobTexture = texture;
@@ -245,8 +239,8 @@ UISlider.prototype._setTexture = function (texture){
     }
 };
 
-/*<summary>Highlights the UI button if isHighlight is on.</summary> 
- * <param = isOn>A bool, whether or not the button is highlighted.</return>
+/*<summary>Highlights the UI slider if isHighlight is on.</summary> 
+ * <param = isOn>A bool, whether or not the slider is highlighted.</return>
  */
 UISlider.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
@@ -268,35 +262,31 @@ UISlider.prototype._highlight = function(isOn){
     }
 };
 
-/*<summary>Called when the button is clicked.</summary>
+/*<summary>Called when the UI slider is clicked.</summary>
  */
 UISlider.prototype._click = function(){
     this.eSliderNob.setColor([1,0,1,1]);
 };
 
-/*<summary></summary>   
- *<param = ></param> 
+/*<summary>Addes a listener to a UI slider.</summary>   
+ *<param = func>A function, the hnadle function to be added as a listener.</param>
+ *<param = target>An object, the target that the function will bind to.</param>
+ *<param = value>A object, a value that can be associated with the listener when invoked.</param>
  */
 UISlider.prototype._addListener = function(func, target, value){
     this.onValueChange.AddListener(func.bind(target), value);
 };
 
-/*<summary></summary>   
- *<param = ></param> 
+/*<summary>Sets the position of the Ui sldier nob.</summary>   
+ *<param = value>A number, the value of the UI slider.</param> 
  */
 UISlider.prototype._setPosition = function (value) {
     var newPos = ((value - this.minValue) / (this.maxValue - this.minValue)) * (this.maxPos - this.minPos) + this.minPos;
-    //console.log(((value - this.minValue) / (this.maxValue - this.minValue)), newPos);
     var posY = this.eSliderNob.getXform().getPosition()[1];
-    /*
-    var width = this.eSliderNob.getXform().getSize()[0];
-    var nobXPos = (this.minPos - (width / 2)) + width * (value / this.maxValue);
-     * 
-     */
     this.eSliderNob.getXform().setPosition(newPos, posY);
     if(this.eSliderNobTextureRenderer){
         this.eSliderNobTextureRenderer.getXform().setPosition(newPos, posY);
     }
-    
 };
+
 //==============================================================================

@@ -160,17 +160,9 @@ UIButton.prototype._click = function(){
 };
 
 /*<summary>Set the UI button text.</summary> 
- * <param = text>A string, the text for UI element.</return>
+ * <param = text>A string, the text for UI button.</param>
  */
 UIButton.prototype._setText = function(text){
     this.eTextDefault = text;
-};
-
-UIButton.prototype.setEnabled = function(_enabled) {
-    this.enabled = _enabled;
-};
-
-UIButton.prototype.isEnabled = function() {
-    return this.enabled;
 };
 

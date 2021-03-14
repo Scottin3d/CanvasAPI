@@ -132,7 +132,7 @@ UIelement.prototype.SetHighlightColor = function (color){
 };
 
 /*<summary>Sets the UI element default text.</summary> 
- * <param = color>An number[4], the color of the element when highlighted.</return>
+ * <param = text>An string, the new text of the UI element.</return>
  */
 UIelement.prototype.SetText = function (text){
     // forwards to subclass

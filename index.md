@@ -1,4 +1,7 @@
-# CSS452 Final - UI Canvas API
+# CSS452 Final - UI Canvas API  
+This document covers the proposed API used for our final project, as well as documentation of the exposed functionality our game engine will provide to users with detailed implementation instructions.  
+
+The UI Canvas API provides centralized support for the game designer to access UI controls such as buttons, sliders, toggles, ect.  Currently in gEngine, 'UI' objects need to be created using renderables and would need new individual behaviors for each different type of object. Our UI Canvas API allows for a modular and easy way to combine all UI into one simple package.
 
 ## Application 
 **Table of Contents**
@@ -130,9 +133,11 @@ A UI element dropdown presents a list of options when clicked, of which one can 
 * onValueChanged - Callback executed when the value of the dropdown is changed. 
 
 #### Public Functions  
+* AddOption - Adds an option to the UI dropdown.  
+* SetHeight - Sets the height of the UI dropdown.  
 
 #### Implementation  
-Argument list: TODO
+Argument list: type, size, position, color, text.  
 
 A sample implement looks like the following:  
 ```javascript
