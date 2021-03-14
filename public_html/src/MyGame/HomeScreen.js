@@ -12,7 +12,7 @@ function HomeScreen(){
     this.buttonTexture = "assets/sprites/button.png";
     this.space = "assets/space.png";
     
-    this.sceneManager = new SceneManager();
+    this.sceneManager = new SceneManager(this);
     
     this.mBg = null;
     this.mCamera = null;

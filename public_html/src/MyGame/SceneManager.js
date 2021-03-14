@@ -8,7 +8,8 @@
 
 "use strict";
 
-function SceneManager(){
+function SceneManager(currentScene){
+    this.scene = currentScene;
 };
 
 SceneManager.prototype.LoadScene = function( sceneIndex){
@@ -30,4 +31,5 @@ SceneManager.prototype.LoadScene = function( sceneIndex){
             gEngine.Core.startScene(nextLevel);
             return;
     }
+    this.scene.unloadScene();
 };

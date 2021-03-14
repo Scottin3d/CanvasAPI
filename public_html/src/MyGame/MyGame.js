@@ -2,7 +2,7 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function MyGame() {
-    this.sceneManager = new SceneManager();
+    this.sceneManager = new SceneManager(this);
     
     this.buttonTexture = "assets/sprites/button.png";
     this.toggleOnTexture = "assets/sprites/togglePressed.png";
@@ -112,6 +112,10 @@ MyGame.prototype.initialize = function () {
 
     this.buttons[3].SetText("Increase Size");
     this.buttons[3].AddListener(this.mHero.increaseSize, this.mHero, 2);
+    this.mainMenuButton = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-100, 65], [1,1,1,1], ("Main Menu"));
+    this.mainMenuButton.SetTexture(this.buttonTexture);
+    this.mainMenuButton.SetHighlightColor([1,0,1,0.5]);
+    this.mainMenuButton.AddListener(this.sceneManager.LoadScene, this.sceneManager, 0);
 
     
     
