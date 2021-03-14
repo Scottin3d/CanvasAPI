@@ -5,23 +5,66 @@ The UI Canvas API provides centralized support for the game designer to access U
 
 ## Application 
 **Table of Contents**
-1. [UI Canvas Overview](#ui-canvas )
-2. [UI Canvas Elements](#adding-elements)
+
+1. [Release](#release)
+    * [Download](#download)
+2. [Installation](#installation)
+3. [UI Canvas Overview](#ui-canvas )
+4. [UI Canvas Elements](#adding-elements)
 	* [Button](#button)  
 	* [Slider](#slider)
 	* [Toggle](#toggle)
 	* [Dropdown](#dropdown) 
-3. [UI Events](#ui-events)
-4. [Utilities](#utilities)
-5. [Coding Style Guide](#style-guide)
+5. [UI Events](#ui-events)
+6. [Utilities](#utilities)
+7. [Coding Style Guide](#style-guide)
+
+## Release  
+`TODO` Release info and version history.
+
+### Download  
+`TODO`  
+[download](link)  
+
+## Installation  
+### Script
+`TODO` script install 
+
+### Manual  
+Or, to install the API manuall:  
+
+1. Download UICanvasAPI.zip
+2. Unzip and place canvasUI in srs folder of project. 
+3. Add the following lines in your `index.html` for your project:
+
+```javascript
+<!-- API Scripts -->
+<script src="src/canvasUI/utilities.js"></script>
+<script src="src/canvasUI/canvas/UIcanvas.js"></script>
+<script src="src/canvasUI/canvas/UIcanvasUpdate.js"></script>
+<script src="src/canvasUI/canvas/UIcanvasCreate.js"></script>
+<script src="src/canvasUI/canvas/UIcanvasEditMode.js"></script>
+
+<script src="src/canvasUI/events/UIEvent.js"></script>
+<script src="src/canvasUI/events/UIEventHandler.js"></script>
+
+<script src="src/canvasUI/elements/UIelement.js"></script>
+<script src="src/canvasUI/elements/UIButton.js"></script>
+<script src="src/canvasUI/elements/UISlider.js"></script>
+<script src="src/canvasUI/elements/UIDropdown.js"></script>
+<script src="src/canvasUI/elements/UIToggle.js"></script>
+```
 
 ### UI Canvas 
 A UI canvas is an overlay of the main document with objects that display information and allow the user to interact with objects in the scene with out explicitly referencing the object themselves. It requires no arguements.  
 
 #### Properties  
+* UIElements - The list of UIElements attached to the UI Canvas.  
 
 #### Public Functions  
-  
+* IsMouseOverElement - Returns true if mouse is over a UI element.  
+* CreateElement - Creates a UI element.  
+
 #### Implementation  
 A sample implement looks like the following:  
 `this.UI = new UIcanvas();` 
@@ -191,80 +234,4 @@ A collection of global helper functions used throughout the API.
 #### Public Functions 
 * hexToRgb - Converts a hexadecimal color to RGBA 1.  
 
-[Back to top.](#application)
-## Style Guide  
-### Variables  
-* const - Uppercase  
-`this.UIELEM_TYPES = {Button : 1, Slider : 2};`  
-* public - Camal Case  
-`this.editMode;`  
-* private - Leading Camal Case  
-`this.mClickHold;` 
-The leading letter should be relavent to the class.  
-
-### Functions  
-* public - Proper CamalCase  
-`UIcanvas.prototype.IsMouseOverElement = function (mousePosition){}`  
-* private - underscore camalCase  
-`UIcanvas.prototype._initCanvas = function (){}`  
-***NOTE*** 
-* a function with a '_' should ***NOT*** be called from outside of the class it is declared in.  
-
-### Documentation 
-#### TODO
-* assets/UIcanvas.xml
-* ~~canvas/UIcanvas.js~~
-* ~~canvas/UIcanvasCreate.js~~
-* canvas/UIcanvasEditMode.js
-* ~~canvas/UIcanvasUpdate.js~~
-* ~~elements/UIelement.js~~
-* ~~elements/UIButton.js~~
-* ~~elements/UISlider.js~~
-* ~~elements/UIDropdown.js~~
-* ~~elements/UIToggle.js~~
-* ~~events/UIEvent.js~~
-* ~~events/UIEventHandler.js~~
-* ~~utilities.js~~
-
-### Draw()
-  
-```javascript
-/*<summary>Calls the camera setup and draws object to a specified camera</summary>   
- */
-```
-
-### Update() 
-
-```javascript 
-/*<summary>Update is the most commonly used function to implement any kind of game script. 
- *Update is called every frame.</summary>   
- */
-```
-
-```javascript
-<summary>A brief description of what the function does.</summary>   
-<param = (name)> A (type), a brief description of the argument</param>  
-<return = (name)> A (type), what is returned.</return>  
-<remarks>Any additional notes you think is need to clarify your code.</remarks>  
-```
-
-#### Templates  
-**Function Descriptions**  
-
-```javascript
-/*<summary></summary>   
- *<param = ></param>  
- *<return = ></return>  
- *<remarks></remarks>  
- */
-```
-
-**Function Separaters**
-
-```javascript
-//==PUBLIC======================================================================
-//==============================================================================
-//==PRIVATE=====================================================================
-//==============================================================================
-```
 [Back to top.](#application)

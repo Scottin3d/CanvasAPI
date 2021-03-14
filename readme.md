@@ -5,23 +5,66 @@ The UI Canvas API provides centralized support for the game designer to access U
 
 ## Application 
 **Table of Contents**
-1. [UI Canvas Overview](#ui-canvas )
-2. [UI Canvas Elements](#adding-elements)
+
+1. [Release](#release)
+    * [Download](#download)
+2. [Installation](#installation)
+3. [UI Canvas Overview](#ui-canvas )
+4. [UI Canvas Elements](#adding-elements)
 	* [Button](#button)  
 	* [Slider](#slider)
 	* [Toggle](#toggle)
 	* [Dropdown](#dropdown) 
-3. [UI Events](#ui-events)
-4. [Utilities](#utilities)
-5. [Coding Style Guide](#style-guide)
+5. [UI Events](#ui-events)
+6. [Utilities](#utilities)
+7. [Coding Style Guide](#style-guide)
+
+## Release  
+`TODO` Release info and version history.
+
+### Download  
+`TODO`  
+[download](link)  
+
+## Installation  
+### Script
+`TODO` script install 
+
+### Manual  
+Or, to install the API manuall:  
+
+1. Download UICanvasAPI.zip
+2. Unzip and place canvasUI in srs folder of project. 
+3. Add the following lines in your `index.html` for your project:
+
+```javascript
+<!-- API Scripts -->
+<script src="src/canvasUI/utilities.js"></script>
+<script src="src/canvasUI/canvas/UIcanvas.js"></script>
+<script src="src/canvasUI/canvas/UIcanvasUpdate.js"></script>
+<script src="src/canvasUI/canvas/UIcanvasCreate.js"></script>
+<script src="src/canvasUI/canvas/UIcanvasEditMode.js"></script>
+
+<script src="src/canvasUI/events/UIEvent.js"></script>
+<script src="src/canvasUI/events/UIEventHandler.js"></script>
+
+<script src="src/canvasUI/elements/UIelement.js"></script>
+<script src="src/canvasUI/elements/UIButton.js"></script>
+<script src="src/canvasUI/elements/UISlider.js"></script>
+<script src="src/canvasUI/elements/UIDropdown.js"></script>
+<script src="src/canvasUI/elements/UIToggle.js"></script>
+```
 
 ### UI Canvas 
 A UI canvas is an overlay of the main document with objects that display information and allow the user to interact with objects in the scene with out explicitly referencing the object themselves. It requires no arguements.  
 
 #### Properties  
+* UIElements - The list of UIElements attached to the UI Canvas.  
 
 #### Public Functions  
-  
+* IsMouseOverElement - Returns true if mouse is over a UI element.  
+* CreateElement - Creates a UI element.  
+
 #### Implementation  
 A sample implement looks like the following:  
 `this.UI = new UIcanvas();` 
