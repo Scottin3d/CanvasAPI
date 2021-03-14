@@ -1,7 +1,7 @@
 /* Developed by 3 Lines of Code
  * Scott Shirley - @scottin3d
- * Kevin Blair - 
- * Nicholas Chambers - 
+ * Kevin Blair - @MadArkadian
+ * Nicholas Chambers - @SeleniumEclipse
  * license - MIT
  */
 
@@ -23,8 +23,9 @@
  *is a square, based on the size[1] value.  The main texture of the slider is assigned
  *to the slider bar.  There is a separate texture, this.eSliderNobTextureRenderer, for the
  *slider nob.</remarks> 
- **/
+ */
 function UISlider (type, size, pos, range, dValue, vStep){
+    // int super
     this._initElement(this);
     this.eType = type;
     

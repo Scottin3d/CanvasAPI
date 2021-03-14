@@ -1,14 +1,13 @@
 /* Developed by 3 Lines of Code
  * Scott Shirley - @scottin3d
- * Kevin Blair - 
- * Nicholas Chambers - 
+ * Kevin Blair - @MadArkadian
+ * Nicholas Chambers - @SeleniumEclipse
  * license - MIT
  */
 
 /* global gEngine, GameObject */
 
 "use strict";
-//https://stackoverflow.com/questions/20835768/addeventlistener-on-custom-object
 
 /* <summary> UIelement is the base class for all UI element objects used by the
  * UI canvas.  It contains common shared function as well as handles the events 
@@ -16,16 +15,18 @@
  * </summary>
  * <param = element>An object, the element attached to class.</param> 
  * <param = eType>An object, the type of UI element.</param> 
- * <param = ></param> 
+ * <remarks>A list of resources used:
+ * https://stackoverflow.com/questions/20835768/addeventlistener-on-custom-object
+ * </remarks>
  */
 function UIelement() {
+    // element
     this.element = null;
     this.eType = null;
     
     this.isHighlighted = false;
     this.highlightColor = null;
     this.isPressed = false;
-    
     
     // text
     this.eTextDefault = null;
@@ -66,6 +67,7 @@ UIelement.prototype.Update = function (camera) {
  *<remarks>This is the base class and public Hightlight call.  It is forwarded to the UI element.</remarks> 
  */
 UIelement.prototype.Highlight = function(b){
+    // forwards to subclass
     this.element._highlight(b);
 };
 
@@ -73,6 +75,7 @@ UIelement.prototype.Highlight = function(b){
  *<remarks>This is the base class and public Click call.  It is forwarded to the UI element.</remarks>  
  */
 UIelement.prototype.Click = function(){
+    // forwards to subclass
     this.element._click();
 };
 
@@ -132,7 +135,7 @@ UIelement.prototype.SetHighlightColor = function (color){
  * <param = color>An number[4], the color of the element when highlighted.</return>
  */
 UIelement.prototype.SetText = function (text){
-    //this.eTextDefault = text;
+    // forwards to subclass
     this.element._setText(text);
 };
 

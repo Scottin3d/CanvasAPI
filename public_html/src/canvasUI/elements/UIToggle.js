@@ -1,7 +1,7 @@
 /* Developed by 3 Lines of Code
  * Scott Shirley - @scottin3d
- * Kevin Blair - 
- * Nicholas Chambers - 
+ * Kevin Blair - @MadArkadian
+ * Nicholas Chambers - @SeleniumEclipse
  * license - MIT
  */
 
@@ -17,22 +17,30 @@
  *<return = this>An object, return the constructed toggle.</return>
  */
 function UIToggle(type, size, pos, text) {
+    // init super
+    this._initElement(this);
+    this.eType = type;
+
+    // main renderable
     this.eToggle = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eToggle.setColor([1, 0, 0, 1]);
     this.eToggle.getXform().setPosition(pos[0], pos[1]);
     this.eToggle.getXform().setSize(size[0], size[1]);
     
-    // set super "UIElement this.element"... there must be an easier way to set this
-
-    this._initElement(this);
-    this.eType = type;
+    // main text
     this.eTextRenderable = new FontRenderable(text.toString());
     this.eTextRenderable.setColor([0, 0, 0, 1]);
     this.eTextRenderable.getXform().setPosition(pos[0] - size[0] / 2 + 3,  pos[1]);
     this.eTextRenderable.setTextHeight(size[1] / 4);
     
+    // text
     this.eTextDefault = text;
     this.eText = this.eTextDefault;
+
+    // textures
+    this.eToggleTextureOFF = null;
+    this.eToggleTextureON = null;
+    this.eToggleTextureRenderer = null;
     
     // toggle has a single event
     this.onValueChange = new UIEvent('onValueChange');
@@ -44,7 +52,6 @@ function UIToggle(type, size, pos, text) {
     
     
     GameObject.call(this, this.eToggle);
-    
     return this;
 };
 gEngine.Core.inheritPrototype(UIToggle, UIelement);
@@ -65,8 +72,27 @@ UIToggle.prototype.GetState = function() {
     return this.eState;
 };
 
+/*<summary>Set the UI toggle ON texture.</summary> 
+ * <param = texture>An object, the texture for UI toggle.</return>
+ */
+UIToggle.prototype.SetONTexture = function (texture){
+    this.eToggleTextureON = texture;
+    
+    // init if not made yet
+    if(!this.eToggleTextureRenderer){
+        this.eToggleTextureRenderer = new TextureRenderable(this.eToggleTextureON);
+        var pos = this.eToggle.getXform().getPosition();
+        var size = this.eToggle.getXform().getSize();
+        this.eToggleTextureRenderer.getXform().setPosition(pos[0], pos[1]);
+        this.eToggleTextureRenderer.getXform().setSize(size[0], size[1]);
+        this.eToggleTextureRenderer.setColor([1, 1, 1, 1]);
+    }else{
+        this.eToggleTextureRenderer.setTexture(this.eToggleTextureON);
+    }
+};
+
 //==============================================================================
-//
+
 //==PRIVATE=====================================================================
 
 /*<summary>Update is the most commonly used function to implement any kind of game script. 
@@ -74,9 +100,17 @@ UIToggle.prototype.GetState = function() {
  */
 UIToggle.prototype._update = function() {
     if (!this.eState) {
-        this.eToggle.setColor([1, 0, 0, 1]);
+        if(this.eToggleTextureOFF){
+            this.eToggleTextureRenderer.setTexture(this.eToggleTextureOFF);
+        }else{
+            this.eToggle.setColor([1, 0, 0, 1]);
+        }
     }else {
-        this.eToggle.setColor([0, 1, 0, 1]);
+        if(this.eToggleTextureON){
+            this.eToggleTextureRenderer.setTexture(this.eToggleTextureON);
+        }else{
+            this.eToggle.setColor([0, 1, 0, 1]);
+        }
     }
     if (this.eValChange) {
         this.onValueChange.Invoke(this.eState);
@@ -116,6 +150,25 @@ UIToggle.prototype._highlight = function(isOn) {
 UIToggle.prototype._click = function() {
     this.eState = !this.eState;
     this.eValChange = true;
+};
+
+/*<summary>Set the UI toggle texture.</summary> 
+ * <param = texture>An object, the texture for UI toggle.</return>
+ */
+UIToggle.prototype._setTexture = function (texture){
+    this.eToggleTextureOFF = texture;
+    
+    // init if not made yet
+    if(!this.eToggleTextureRenderer){
+        this.eToggleTextureRenderer = new TextureRenderable(this.eToggleTextureOFF);
+        var pos = this.eToggle.getXform().getPosition();
+        var size = this.eToggle.getXform().getSize();
+        this.eToggleTextureRenderer.getXform().setPosition(pos[0], pos[1]);
+        this.eToggleTextureRenderer.getXform().setSize(size[0], size[1]);
+        this.eToggleTextureRenderer.setColor([1, 1, 1, 1]);
+    }else{
+        this.eToggleTextureRenderer.setTexture(this.eToggleTextureOFF);
+    }
 };
 
 //==============================================================================

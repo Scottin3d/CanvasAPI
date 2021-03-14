@@ -1,4 +1,12 @@
+/* Developed by 3 Lines of Code
+ * Scott Shirley - @scottin3d
+ * Kevin Blair - @MadArkadian
+ * Nicholas Chambers - @SeleniumEclipse
+ * license - MIT
+ */
+
 /* global gEngine, GameObject, Scene, vec2 */
+
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function ShapeGame() {
@@ -124,7 +132,9 @@ ShapeGame.prototype.initialize = function () {
     
     this.toggleOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20, 20], [90, -70], "Double Speed");
     this.toggleOne.AddListener(this.mHero._doubleSpeed, this.mHero, null);
-    
+    this.toggleOne.SetTexture(this.toggleOffTexture);
+    this.toggleOne.SetONTexture(this.toggleOnTexture);
+
     this.buttonOne = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-100, -75], [1,1,1,1], ("Button"));
     this.buttonOne.SetText("Reset");
     this.buttonOne.SetTexture(this.buttonTexture);

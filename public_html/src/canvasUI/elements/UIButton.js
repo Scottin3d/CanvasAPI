@@ -1,7 +1,7 @@
 /* Developed by 3 Lines of Code
  * Scott Shirley - @scottin3d
- * Kevin Blair - 
- * Nicholas Chambers - 
+ * Kevin Blair - @MadArkadian
+ * Nicholas Chambers - @SeleniumEclipse
  * license - MIT
  */
 
@@ -17,22 +17,23 @@
  *<return = this>An object, returns the button constructed.</return>
  */
 function UIButton(type, size, pos, color, text) {
+    // init super
     this._initElement(this);
     this.eType = type;
     
+    // main renderable
     this.eButton = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eButton.setColor([color[0],color[1],color[2],color[3]]);
     this.eButton.getXform().setPosition(pos[0], pos[1]);
     this.eButton.getXform().setSize(size[0], size[1]);
     
-    
-    
+    // main text
     this.eTextRenderable = new FontRenderable(text.toString());
     this.eTextRenderable.setColor([0, 0, 0, 1]);
     
-     this.eTextDefault = text;
+    // text
+    this.eTextDefault = text;
     this.eText = this.eTextDefault;
-    
     var textLength = this.eText.length;
     this.eTextRenderable.getXform().setPosition(pos[0] - (textLength / 2),  pos[1]);
     this.eTextRenderable.setTextHeight(5);
@@ -40,6 +41,7 @@ function UIButton(type, size, pos, color, text) {
     // textures
     this.eButtonTexture = null;
     this.eButtonTextureRenderer = null;
+
     this.enabled = true;
 
     // button has a single event
@@ -47,7 +49,6 @@ function UIButton(type, size, pos, color, text) {
     this.eVal = null;
     
     GameObject.call(this, this.eButton);
-    
     return this;
 };
 
