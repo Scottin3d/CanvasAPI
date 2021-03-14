@@ -1,7 +1,7 @@
 /* Developed by 3 Lines of Code
  * Scott Shirley - @scottin3d
- * Kevin Blair - 
- * Nicholas Chambers - 
+ * Kevin Blair - @MadArkadian
+ * Nicholas Chambers - @SeleniumEclipse
  * license - MIT
  */
 

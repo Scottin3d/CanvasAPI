@@ -12,7 +12,7 @@ function SceneManager(currentScene){
     this.scene = currentScene;
 };
 
-SceneManager.prototype.LoadScene = function(sceneIndex){
+SceneManager.prototype.LoadScene = function( sceneIndex){
     switch(sceneIndex){
         case 0:
             var nextLevel = new HomeScreen();

@@ -72,7 +72,7 @@ UIToggle.prototype.GetState = function() {
     return this.eState;
 };
 
-/*<summary>Set the UI toggle ON texture.</summary> 
+/*<summary>Sets the UI toggle ON texture.</summary> 
  * <param = texture>An object, the texture for UI toggle.</return>
  */
 UIToggle.prototype.SetONTexture = function (texture){

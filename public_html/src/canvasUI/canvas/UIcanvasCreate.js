@@ -1,7 +1,7 @@
 /* Developed by 3 Lines of Code
  * Scott Shirley - @scottin3d
- * Kevin Blair - 
- * Nicholas Chambers - 
+ * Kevin Blair - @MadArkadian
+ * Nicholas Chambers - @SeleniumEclipse
  * license - MIT
  */
 
@@ -9,7 +9,7 @@
 
 "use strict";
 
-//==PUBLIC++====================================================================
+//==PUBLIC======================================================================
 
 /*<summary>Adds a UI element to the UIelements array.</summary>   
  *<param = element> An object, a UI element to be added to the canvas.</param>   
@@ -138,8 +138,8 @@ UIcanvas.prototype._createDropdown = function(args){
         console.log(size[0]);
         console.log(size[1]);
         var newOpt = new UIButton(1, [size[0], size[1] / 2], [pos[0], pos[1] - ((size[1] / 2) * (i + 1) + (size[1] / 4))], [color[0],color[1],color[2] - 0.1 * i,color[3]], options[i]);
-        console.log(newOpt.isEnabled());
-        newDropdown.addOption(newOpt);
+        console.log(newOpt.IsEnabled());
+        newDropdown.AddOption(newOpt);
         // the dropdown object should track the options not the canvas
         // this adds it the the list of canvas elements
         this._AddElement(newOpt);
