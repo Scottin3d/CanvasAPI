@@ -66,7 +66,11 @@ A UI element button is a standard button that can be clicked in order to trigger
 Argument list: type, size, position, color, text.  
 
 A sample implement looks like the following:  
-`this.UI.CreateElement(this.UI.UIELEM_TYPES.Button,[50,20], [20,60], [1,1,1,1], "Button");`  
+
+```javascript
+this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], 
+                      [20,60], [1,1,1,1], "Button");
+```
 
 [Back to top.](#application)
 ### Slider  
@@ -91,7 +95,10 @@ A UI element slider can be moved between a minimum and maximum value. When a cha
 Argument list: type, size, position, range, default value, step increment.  
 
 A sample implement looks like the following:   
-`this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider,[50,5], [60, 5], [-100, 100], 0, 1);`  
+```javascript
+this.UI.CreateElement(this.UI.UIELEM_TYPES.Slider ,[50,5], 
+                      [60, 5], [-100, 100], 0, 1);
+``` 
 
 [Back to top.](#application)
 ### Toggle  
@@ -104,12 +111,16 @@ A UI element toggle is a checkbox that allows the user to switch an option on or
 #### Public Functions  
 * SetState - Sets the state of the UI toggle.  
 * GetState - Gets the state of the UI toggle.  
+* SetOnTexture - Sets the UI toggle ON texture.  
 
 #### Implementation  
 Argument list: type, size, position, text
 
 A sample implement looks like the following:  
-`this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20,20], [-50, 10], "Toggle");`
+```javascript
+this.UI.CreateElement(this.UI.UIELEM_TYPES.Toggle, [20,20], 
+                      [-50, 10], "Toggle");
+```  
 
 [Back to top.](#application)
 ### Dropdown  
@@ -124,7 +135,10 @@ A UI element dropdown presents a list of options when clicked, of which one can 
 Argument list: TODO
 
 A sample implement looks like the following:  
-`TODO`
+```javascript
+this.UI.CreateElement(this.UI.UIELEM_TYPES.Dropdown, [50,20], 
+                      [100,75], [1,1,1,1], "Sprite", opts);
+```
 
 [Back to top.](#application)
 ### UI Events

@@ -9,6 +9,11 @@
 
 "use strict";
 
+/*<summary></summary>   
+ *<param = ></param>  
+ *<return = ></return>  
+ *<remarks></remarks>  
+ */
 function UIDropdown(type, size, pos, color, text) {
     this.eButton = new Renderable(gEngine.DefaultResources.getConstColorShader());
     this.eButton.setColor([color[0],color[1],color[2],color[3]]);
@@ -39,12 +44,27 @@ function UIDropdown(type, size, pos, color, text) {
 
 gEngine.Core.inheritPrototype(UIDropdown, UIelement);
 
-UIDropdown.prototype.addOption = function(option) {
+/*<summary>Adds an option to the UI dropdown element.</summary>   
+ *<param = option>An object, the UI element to be added to the UI dropdown element.</param>
+ */
+UIDropdown.prototype.AddOption = function(option) {
     console.log(option.isEnabled());
     option.setEnabled(false);
     this.eOptions.push(option);
 };
 
+/*<summary></summary>   
+ *<param = ></param>  
+ *<return = ></return>  
+ *<remarks></remarks>  
+ */
+UIDropdown.prototype.SetHeight = function(height) {
+    this.eButton.getXform().setHeight(height);
+};
+
+/*<summary>Update is the most commonly used function to implement any kind of game script. 
+ *Update is called every frame.</summary>   
+ */
 UIDropdown.prototype._update = function (camera) {
     for(var i = 0; i < this.eOptions.length; i++) {
         this.eOptions[i].setEnabled(false);
@@ -68,14 +88,24 @@ UIDropdown.prototype._update = function (camera) {
         }
     }
     
-    this.eTextRenderable.setText(this.eText); 
-    //this.isClicked = false;
+    this.eTextRenderable.setText(this.eText);
     this.isHighlighted = false;
-//    for(var i = 0; i < this.eOptions.length; i++) {
-//        this.eOptions[i].update(camera);
-//    }
 };
-UIDropdown.prototype.AddListener = function(func, target, options){
+
+/*<summary>Calls the camera setup and draws object to a specified camera</summary>   
+ */
+UIDropdown.prototype._draw = function (camera) {
+    this.eButton.draw(camera);
+    this.eTextRenderable.draw(camera);
+};
+
+/*<summary>Addes a listener to a UI toggle.</summary>   
+ *<param = func>A function, the hnadle function to be added as a listener.</param>
+ *<param = target>An object, the target that the function will bind to.</param>
+ *<param = value>A object, a value that can be associated with the listener when invoked.</param>
+ *<remarks></remarks> 
+ */
+UIDropdown.prototype._addListener = function(func, target, options){
     //var listener = func.bind(target);
     console.log("getting a listener");
     for(var i = 0; i < this.eOptions.length; i++) {
@@ -84,28 +114,10 @@ UIDropdown.prototype.AddListener = function(func, target, options){
     }
     this.onClick = func.bind(target);
 };
-UIDropdown.prototype._draw = function (camera) {
-    this.eButton.draw(camera);
-    this.eTextRenderable.draw(camera);
-};
 
-//UIDropdown.prototype.getXform = function() {
-//    if(this.isClicked) {
-//        console.log("i am highlighted");
-//        var tempHeight = this.eButton.getXform().getHeight();
-//        tempHeight += tempHeight * (this.eOptions.length / 2);
-//        var tempYPos = this.eButton.getXform().getYPos();
-//        tempYPos += this.eButton.getXform().getHeight() / 2;
-//        tempYPos -= tempHeight / 2;
-//        var tempXform = new Transform();
-//        tempXform.setSize(this.eButton.getXform().getWidth(), tempHeight);
-//        tempXform.setPosition(this.eButton.getXform().getXPos(), tempYPos);
-//        return tempXform;
-//    } else {
-//        return this.eButton.getXform();
-//    }
-//};
-
+/*<summary>Highlights the UI button if isHighlight is on.</summary> 
+ * <param = isOn>A bool, whether or not the button is highlighted.</return>
+ */
 UIDropdown.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
     if(this.isHighlighted){
@@ -114,25 +126,20 @@ UIDropdown.prototype._highlight = function(isOn){
         this.eButton.setColor([1,1,1,1]);
     }
 };
-UIDropdown.prototype.getType = function() {
-    return "dropdown";
-};
-UIDropdown.prototype.setHeight = function(height) {
-    this.eButton.getXform().setHeight(height);
-};
 
+
+
+/*<summary>Called when the button is clicked.</summary>
+ */
 UIDropdown.prototype._click = function(){
     this.isClicked = !this.isClicked;
     this.eButton.setColor([1,0,1,1]);
-    
-    //this.eText = "Clicked!";
-    //this._invoke(0.5);
 };
 
 UIDropdown.prototype._invoke = function(value){
     this.onClick(value);
 };
 
-UIDropdown.prototype.setText = function(text){
+UIDropdown.prototype._setText = function(text){
     this.eText = text;
 };

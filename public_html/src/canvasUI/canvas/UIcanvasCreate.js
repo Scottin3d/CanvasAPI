@@ -139,7 +139,7 @@ UIcanvas.prototype._createDropdown = function(args){
         console.log(size[1]);
         var newOpt = new UIButton(1, [size[0], size[1] / 2], [pos[0], pos[1] - ((size[1] / 2) * (i + 1) + (size[1] / 4))], [color[0],color[1],color[2] - 0.1 * i,color[3]], options[i]);
         console.log(newOpt.isEnabled());
-        newDropdown.addOption(newOpt);
+        newDropdown.AddOption(newOpt);
         // the dropdown object should track the options not the canvas
         // this adds it the the list of canvas elements
         this._AddElement(newOpt);

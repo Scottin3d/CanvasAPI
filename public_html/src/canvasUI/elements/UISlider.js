@@ -245,8 +245,8 @@ UISlider.prototype._setTexture = function (texture){
     }
 };
 
-/*<summary></summary>   
- *<param = ></param>  
+/*<summary>Highlights the UI button if isHighlight is on.</summary> 
+ * <param = isOn>A bool, whether or not the button is highlighted.</return>
  */
 UISlider.prototype._highlight = function(isOn){
     this.isHighlighted = isOn;
@@ -268,7 +268,7 @@ UISlider.prototype._highlight = function(isOn){
     }
 };
 
-/*<summary></summary> 
+/*<summary>Called when the button is clicked.</summary>
  */
 UISlider.prototype._click = function(){
     this.eSliderNob.setColor([1,0,1,1]);
