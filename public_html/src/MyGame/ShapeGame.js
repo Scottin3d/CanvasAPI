@@ -10,7 +10,7 @@
 "use strict";  // Operate in Strict mode such that variables must be declared before used!
 
 function ShapeGame() {
-    this.sceneManager = new SceneManager();
+    this.sceneManager = new SceneManager(this);
     
     this.buttonTexture = "assets/sprites/button.png";
     this.toggleOnTexture = "assets/sprites/togglePressed.png";
@@ -165,6 +165,11 @@ ShapeGame.prototype.initialize = function () {
     this.buttonFive.SetTexture(this.buttonTexture);
     this.buttonFive.SetHighlightColor([1,0,1,0.5]);
     this.buttonFive.AddListener(this.mHero.incPosition, this.mHero, [0,2]);
+    
+    this.mainMenuButton = this.UI.CreateElement(this.UI.UIELEM_TYPES.Button, [50,20], [-100, 65], [1,1,1,1], ("Main Menu"));
+    this.mainMenuButton.SetTexture(this.buttonTexture);
+    this.mainMenuButton.SetHighlightColor([1,0,1,0.5]);
+    this.mainMenuButton.AddListener(this.sceneManager.LoadScene, this.sceneManager, 0);
     
 
 };
