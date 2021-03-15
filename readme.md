@@ -20,11 +20,10 @@ The UI Canvas API provides centralized support for the game designer to access U
 7. [Coding Style Guide](#style-guide)
 
 ## Release  
-`TODO` Release info and version history.
+1.0 - 20210315
 
-### Download  
-`TODO`  
-[download](link)  
+### Download
+[download](https://github.com/Scottin3d/CanvasAPI/releases/tag/UIcanvas)  
 
 ## Installation  
 ### Script
