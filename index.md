@@ -17,12 +17,14 @@ The UI Canvas API provides centralized support for the game designer to access U
 	* [Dropdown](#dropdown) 
 5. [UI Events](#ui-events)
 6. [Utilities](#utilities)
-7. [Coding Style Guide](#style-guide)
 
 ## Release  
 1.0 - 20210315
 [API Demo](https://scottin3d.github.io/CanvasDemo/)
 
+### Github
+[Github](https://github.com/Scottin3d/CanvasAPI)  
+  
 ### Download
 [download](https://github.com/Scottin3d/CanvasAPI/releases/tag/UIcanvas)  
 
@@ -68,13 +70,13 @@ A UI canvas is an overlay of the main document with objects that display informa
 #### Implementation  
 A sample implement looks like the following:  
 
-**MyGame::Initialize()** 
+**MyGame::Initialize()**   
 `this.UI = new UIcanvas();` 
 
-**MyGame::Draw()** 
+**MyGame::Draw()**   
 `this.UI.Draw();` 
 
-**MyGame::Update()** 
+**MyGame::Update()**   
 `this.UI.update();` 
 
 ### Adding Elements  
