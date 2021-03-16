@@ -66,7 +66,15 @@ A UI canvas is an overlay of the main document with objects that display informa
 
 #### Implementation  
 A sample implement looks like the following:  
+
+**MyGame::Initialize()** 
 `this.UI = new UIcanvas();` 
+
+**MyGame::Draw()** 
+`this.UI.Draw();` 
+
+**MyGame::Update()** 
+`this.UI.update();` 
 
 ### Adding Elements  
 Currently, the UI Canvas API supports four (4) elements:
