@@ -21,6 +21,7 @@ The UI Canvas API provides centralized support for the game designer to access U
 
 ## Release  
 1.0 - 20210315
+[API Demo](https://scottin3d.github.io/CanvasDemo/)
 
 ### Download
 [download](https://github.com/Scottin3d/CanvasAPI/releases/tag/UIcanvas)  
