@@ -54,7 +54,7 @@ Or, to install the API manuall:
 <script src="src/canvasUI/elements/UIDropdown.js"></script>
 <script src="src/canvasUI/elements/UIToggle.js"></script>
 ```
-
+## Implementation and Use 
 ### UI Canvas 
 A UI canvas is an overlay of the main document with objects that display information and allow the user to interact with objects in the scene with out explicitly referencing the object themselves. It requires no arguements.  
 
